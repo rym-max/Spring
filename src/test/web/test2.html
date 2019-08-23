@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>后台管理系统</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/static/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="/static/css/animate.css" rel="stylesheet" />
+    <link href="/static/js/plugins/layui/css/layui.css" rel="stylesheet" />
+    <link href="/static/css/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="/static/css/plugins/iCheck/custom.css" rel="stylesheet" />
+    <link href="/static/css/style.css" rel="stylesheet" />
+
+    <!-- Mainly scripts -->
+    <script src="/static/js/jquery-2.1.1.js"></script>
+    <script src="/static/js/jquery.pjax.js"></script>
+    <script src="/static/js/jquery.form.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <!-- Custom and plugin javascript -->
+    <script src="/static/js/plugins/pace/pace.min.js"></script>
+    <script src="/static/js/plugins/layui/layui.js"></script>
+    <script src="/static/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="/static/js/plugins/vue/vue.min.js"></script>
+    <script src="/static/js/plugins/axios/axios.min.js"></script>
+    <script src="/static/js/utils/http.js"></script>
+    <script src="/static/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="/static/js/app.js"></script>
+
+</head>
+
+<body class="" style="background:#FFF;">
+
+<div id="wrapper">
+    <div id="page-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form action="/User/edit" method="post" class="form-horizontal">
+                            <input data-val="true" data-val-number="字段 Id 必须是一个数字。" data-val-required="Id 字段是必需的。" id="Id" name="Id" type="hidden" value="2">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="LoginName">登录名</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" data-val="true" data-val-length="字段 登录名 必须是最大长度为 50 的字符串。" data-val-length-max="50" id="LoginName" name="LoginName" type="text" value="tongji">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="LoginPassword">登录密码</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" data-val="true" data-val-length="字段 登录密码 必须是最大长度为 50 的字符串。" data-val-length-max="50" id="LoginPassword" name="LoginPassword" type="password" value="123456">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="Name">姓名</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" data-val="true" data-val-length="字段 姓名 必须是最大长度为 50 的字符串。" data-val-length-max="50" id="Name" name="Name" type="text" value="同济大学">
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="Sex">性别</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" data-val="true" data-val-length="字段 性别 必须是最大长度为 10 的字符串。" data-val-length-max="10" id="Sex" name="Sex">
+                                        <option value="男" selected="">男</option>
+                                        <option value="女">女</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="Birthday">生日</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control laydate" data-val="true" data-val-length="字段 生日 必须是最大长度为 10 的字符串。" data-val-length-max="10" format="yyyy-MM-dd" id="Birthday" name="Birthday" type="text" value="1907-10-17" lay-key="1">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="Email">邮箱</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" data-val="true" data-val-length="字段 邮箱 必须是最大长度为 50 的字符串。" data-val-length-max="50" id="Email" name="Email" type="text" value="tongji@163.com">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="MobilePhoneNumber">手机号码</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" data-val="true" data-val-length="字段 手机号码 必须是最大长度为 50 的字符串。" data-val-length-max="50" id="MobilePhoneNumber" name="MobilePhoneNumber" type="text" value="18696531832">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="PhoneNumber">电话</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" data-val="true" data-val-length="字段 电话 必须是最大长度为 50 的字符串。" data-val-length-max="50" id="PhoneNumber" name="PhoneNumber" type="text" value="18696531832">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="Summary">简介</label>
+                                <div class="col-sm-10">
+                                <textarea class="form-control" cols="20" id="Summary" name="Summary" rows="2">                                    同济大学
+                                </textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,4 @@
+META-INF\spring-configuration-metadata.json
+com\tongji\bwm\filters\CustomExceptionHandler.class
+com\tongji\bwm\GEConfig.class
+com\tongji\bwm\filters\CustomException.class
