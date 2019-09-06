@@ -29,7 +29,7 @@ public class CommonEnum {
     public enum AvailableEnum{
         Disable("禁用",0),Enable("启用",1);
         private String NameCN;
-        private int code = 1;
+        private Integer code;
 
         AvailableEnum(String name, int code) {
             NameCN = name;
@@ -40,7 +40,7 @@ public class CommonEnum {
             return NameCN;
         }
 
-        public int getCode() {
+        public Integer getCode() {
             return code;
         }
     }

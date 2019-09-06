@@ -2,7 +2,7 @@ package com.tongji.bwm.service.ERMS;
 
 import com.tongji.bwm.pojo.Pagination;
 import com.tongji.bwm.entity.ERMS.Item;
-import com.tongji.bwm.solr.Client.Models.ClusterResult;
+import com.tongji.bwm.solr.Models.ClusterResult;
 import javafx.util.Pair;
 import org.dom4j.DocumentException;
 import org.springframework.data.domain.Example;

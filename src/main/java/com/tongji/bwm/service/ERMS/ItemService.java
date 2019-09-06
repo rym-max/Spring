@@ -9,8 +9,8 @@ import com.tongji.bwm.entity.ERMS.RelationMetadataField;
 import com.tongji.bwm.filters.CustomException;
 import com.tongji.bwm.pojo.FilterCondition.FilterCondition;
 import com.tongji.bwm.repository.ERMS.ItemRepository;
-import com.tongji.bwm.solr.Client.Models.ClusterResult;
-import com.tongji.bwm.solr.Client.Models.SearchResult;
+import com.tongji.bwm.solr.Models.ClusterResult;
+import com.tongji.bwm.solr.Models.SearchResult;
 import com.tongji.bwm.solr.Client.SolrConnection;
 import com.tongji.bwm.utils.DateFormatterUtils;
 import com.tongji.bwm.utils.FilterEntityUtils;
@@ -149,7 +149,7 @@ public class ItemService implements IItemService<String> {
 //        SearchResult<String> searchResult = JSON.parseObject(future.get(), SearchResult.class);
 //
 //        List<Item> items = new ArrayList<>();
-//        for(com.tongji.bwm.solr.Client.Models.Document<String> doc:searchResult.getDocs()){
+//        for(Document<String> doc:searchResult.getDocs()){
 //            Item item = GetById(doc.getId());
 //            if(item!=null){
 //                items.add(item);
@@ -202,7 +202,7 @@ public class ItemService implements IItemService<String> {
         SearchResult<String> searchResult = GetSearchResult(parseStr);
 
         List<Item> items = new ArrayList<>();
-        for(com.tongji.bwm.solr.Client.Models.Document<String> doc:searchResult.getDocs()){
+        for(com.tongji.bwm.solr.Models.Document<String> doc:searchResult.getDocs()){
             Item item = GetById(doc.getId());
             if(item!=null){
                 items.add(item);

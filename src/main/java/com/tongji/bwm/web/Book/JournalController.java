@@ -8,7 +8,7 @@ import com.tongji.bwm.filters.validation.CustomValidationException;
 import com.tongji.bwm.pojo.FilterCondition.FilterCondition;
 import com.tongji.bwm.service.Book.JournalService;
 import com.tongji.bwm.service.ERMS.ItemService;
-import com.tongji.bwm.solr.Client.Models.ClusterResult;
+import com.tongji.bwm.solr.Models.ClusterResult;
 import com.tongji.bwm.solr.Client.SolrConfig;
 import com.tongji.bwm.web.Basic.BaseController;
 import javafx.util.Pair;

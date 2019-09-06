@@ -5,7 +5,8 @@ import com.tongji.bwm.Application;
 import com.tongji.bwm.entity.ERMS.Item;
 import com.tongji.bwm.pojo.Pagination;
 import com.tongji.bwm.service.ERMS.ItemService;
-import com.tongji.bwm.solr.Client.Models.SearchResult;
+import com.tongji.bwm.solr.Models.Document;
+import com.tongji.bwm.solr.Models.SearchResult;
 import com.tongji.bwm.solr.Client.SolrConfig;
 import com.tongji.bwm.solr.Client.SolrConnection;
 import com.tongji.bwm.solr.Client.SolrIndex;
@@ -87,7 +88,7 @@ public class TestSolr extends AbstractTestNGSpringContextTests {
             JSONObject jsonObject = JSONObject.parseObject(parseStr);
             SearchResult<String> searchResult = itemService.GetSearchResult(parseStr);
             List<Item> items = new ArrayList<>();
-            for(com.tongji.bwm.solr.Client.Models.Document<String> doc:searchResult.getDocs()){
+            for(Document<String> doc:searchResult.getDocs()){
                 log.info("Item------id------"+doc.getId());
             }
         }catch (Exception e){

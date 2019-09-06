@@ -1,7 +1,5 @@
 package com.tongji.bwm.repository.Log;
 
-import com.tongji.bwm.pojo.CountByDay;
-import com.tongji.bwm.pojo.IpCount;
 import com.tongji.bwm.entity.Log.Access_Log;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

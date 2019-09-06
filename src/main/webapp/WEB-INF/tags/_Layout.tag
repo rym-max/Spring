@@ -61,13 +61,9 @@
                                     <span class="block m-t-xs">
                                         <strong class="font-bold">
                                             <sec:authentication property="name"/>
-                                            <%--${princial.username}--%>
-                                            <%--username--%>
                                         </strong>
                                     </span> <span class="text-muted text-xs block">
-                                    <%--${princial.loginName}--%>
                                     <sec:authentication property="principal.loginName"/>
-                                    <%--loginName--%>
                                     <b class="caret"></b></span>
                                 </span>
                         </a>
@@ -101,6 +97,11 @@
                 </li>
                 </sec:authorize>
                 <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_ARTICLE')">
+                <li>
+                    <a data-pjax href="/ERMS/Region/index.html">
+                        <i class="fa fa-location-arrow"></i> 地区管理 <%--<span class="label label-primary pull-right">100</span>--%>
+                    </a>
+                </li>
                 <li>
                     <a data-pjax href="/ERMS/Channel/index.html">
                     <i class="fa fa-table"></i> 栏目管理
@@ -138,8 +139,23 @@
                     <i class="fa fa-file-pdf-o"></i> 文献管理 <%--<span class="label label-primary pull-right">100</span>--%>
                     </a>
                 </li>
+                <li>
+                    <a data-pjax href="/ERMS/All/index.html">
+                        <i class="fa fa-file-pdf-o"></i> 文献管理2 <%--<span class="label label-primary pull-right">100</span>--%>
+                    </a>
+                </li>
                 <%--</sec:authorize>--%>
                 <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_ARTICLE')">
+                <li>
+                    <a data-pjax href="/Spider/Config/index.html">
+                        <i class="fa fa-bug"></i> 爬虫配置 <%--<span class="label label-primary pull-right">100</span>--%>
+                    </a>
+                </li>
+                <li>
+                    <a data-pjax href="/Spider/Item/index.html">
+                        <i class="fa fa-bug"></i> 爬虫管理 <%--<span class="label label-primary pull-right">100</span>--%>
+                    </a>
+                </li>
                 <li>
                     <a data-pjax href="/Solr/index.html">
                     <i class="fa fa-th-list"></i> 创建索引
@@ -153,6 +169,11 @@
                 <li>
                     <a data-pjax href="/Log/AccessLog/index.html">
                     <i class="fa fa-area-chart"></i> 访问统计
+                    </a>
+                </li>
+                <li>
+                    <a data-pjax href="/Log/SpiderLog/index.html">
+                        <i class="fa fa-area-chart"></i> 爬虫日志 <%--<span class="label label-primary pull-right">100</span>--%>
                     </a>
                 </li>
                 </sec:authorize>

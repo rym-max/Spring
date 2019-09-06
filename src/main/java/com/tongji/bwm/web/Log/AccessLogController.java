@@ -1,7 +1,7 @@
 package com.tongji.bwm.web.Log;
 
-import com.tongji.bwm.pojo.CountByDay;
-import com.tongji.bwm.pojo.IpCount;
+import com.tongji.bwm.pojo.AccessLog.CountByDay;
+import com.tongji.bwm.pojo.AccessLog.IpCount;
 import com.tongji.bwm.filters.CustomException;
 import com.tongji.bwm.service.Log.AccessLogService;
 import com.tongji.bwm.web.Basic.BaseController;

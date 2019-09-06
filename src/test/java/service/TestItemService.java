@@ -1,15 +1,13 @@
 package service;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.tongji.bwm.Application;
 import com.tongji.bwm.entity.ERMS.Item;
 import com.tongji.bwm.pojo.Pagination;
 import com.tongji.bwm.service.ERMS.ItemService;
-import com.tongji.bwm.solr.Client.Models.ClusterResult;
-import com.tongji.bwm.solr.Client.Models.Document;
-import com.tongji.bwm.solr.Client.Models.SearchResult;
+import com.tongji.bwm.solr.Models.Document;
+import com.tongji.bwm.solr.Models.SearchResult;
 import com.tongji.bwm.solr.Client.SolrConfig;
 import com.tongji.bwm.solr.Client.SolrConnection;
 import javafx.util.Pair;

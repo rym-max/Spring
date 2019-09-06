@@ -26,7 +26,7 @@
                             <label for="ChannelId" class="col-sm-2 control-label">所属频道</label>
                             <div class="col-sm-10">
                                 <select data-val="true" data-val-number="字段 所属频道 必须是一个数字。" data-val-required="所属频道 字段是必需的。" id="ChannelId" name="channelId" onchange="v.search();" class="form-control">
-                                    <option v-for="(row,index) in channels" :value="row.Id" :selected="row.Id==${category.channelId}?'selected':''">{{row.name}}</option>
+                                    <option v-for="(row,index) in channels" :value="row.id" :selected="row.id==${category.channelId}?'selected':''">{{row.name}}</option>
                                 </select>
                                 <span data-valmsg-for="ChannelId" data-valmsg-replace="true" class="field-validation-valid"></span>
                             </div>
@@ -36,7 +36,7 @@
                             <div class="col-sm-10">
                                 <select id="ParentId" name="ParentId" class="form-control">
                                     <option value="0">顶级分类</option>
-                                    <option v-for="(row,index) in categorys" :value="row.Id" v-if="row.Id!=${category.id}" :selected="row.Id==${category.parentId}?'selected':''">{{row.name}}</option>
+                                    <option v-for="(row,index) in categorys" :value="row.id" v-if="row.Id!=${category.id}" :selected="row.Id==${category.parentId}?'selected':''">{{row.name}}</option>
                                 </select>
                                 <span data-valmsg-for="ParentId" data-valmsg-replace="true" class="field-validation-valid"></span>
                             </div>

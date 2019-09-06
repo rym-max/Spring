@@ -1,7 +1,7 @@
 package com.tongji.bwm.service.Log;
 
-import com.tongji.bwm.pojo.CountByDay;
-import com.tongji.bwm.pojo.IpCount;
+import com.tongji.bwm.pojo.AccessLog.CountByDay;
+import com.tongji.bwm.pojo.AccessLog.IpCount;
 import com.tongji.bwm.entity.Log.Access_Log;
 import com.tongji.bwm.repository.Log.AccessLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;

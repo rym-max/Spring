@@ -2,7 +2,7 @@ package com.tongji.bwm.web.Solr;
 
 import com.tongji.bwm.filters.CustomException;
 import com.tongji.bwm.service.ERMS.ItemService;
-import com.tongji.bwm.solr.Client.Models.TaskInfo;
+import com.tongji.bwm.solr.Models.TaskInfo;
 import com.tongji.bwm.solr.Client.SolrIndex;
 import com.tongji.bwm.web.Basic.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
