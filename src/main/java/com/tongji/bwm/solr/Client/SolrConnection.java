@@ -2,6 +2,7 @@ package com.tongji.bwm.solr.Client;
 
 import javafx.util.Pair;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpRequest;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Future;
 
-
+@Slf4j
 @Component
 public class SolrConnection {
 
@@ -90,6 +91,7 @@ public class SolrConnection {
 
         getMessage = new AsyncResult<>(body);
 
+        log.info("成功GET，[url]:"+solrServerURL+relativeUrl);
         //失败后返回什么信息,失败返回的不就是空了
         return getMessage;
     }
@@ -97,7 +99,7 @@ public class SolrConnection {
     @Async("solrTaskExecutor")
     public Future<String> Post(String solrServerURL,String relativeUrl, String s){
 
-        return PostSolr(solrServerURL,relativeUrl,"text.xml",s,null);
+        return PostSolr(solrServerURL,relativeUrl,"text/xml",s,null);
     }
 
 
@@ -121,6 +123,7 @@ public class SolrConnection {
 
         ResponseEntity<String> responseEntity= restTemplate.postForEntity(uri,httpEntity,String.class);
 
+        log.info("成功POST，[url]:"+solrServerURL+relativeUrl);
         return new AsyncResult<>(responseEntity.getBody());
     }
 

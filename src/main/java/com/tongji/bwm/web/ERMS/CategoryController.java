@@ -7,9 +7,11 @@ import com.tongji.bwm.pojo.FilterCondition.FilterCondition;
 import com.tongji.bwm.service.ERMS.CategoryService;
 import com.tongji.bwm.service.ERMS.ChannelService;
 import com.tongji.bwm.web.Basic.BaseController;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Controller
 @RequestMapping("/ERMS/Category")
 @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_ARTICLE')")
@@ -31,7 +34,10 @@ public class CategoryController extends BaseController {
 
     @RequestMapping(value = {"/","/index.html"})
     public ModelAndView index(){
-        return new ModelAndView("/ERMS/Category/Index");
+        ModelMap modelMap = new ModelMap();
+        modelMap.addAttribute("location","CATEGORY");
+        return new ModelAndView("/ERMS/Category/Index",
+                modelMap);
     }
 
     @RequestMapping("/Search")
@@ -40,7 +46,12 @@ public class CategoryController extends BaseController {
 
         if(filterCondition==null)
             return categoryService.GetAll();
-
+        log.info("看一眼查询条件");
+        filterCondition.filter.forEach(
+                s->{
+                    log.info(s.name+"----------"+s.value);
+                }
+        );
         List<Category> list = categoryService.GetList(filterCondition);
 //        List<Category> list1 = new ArrayList<>();
 //        //循环判断parentId==0
@@ -111,7 +122,10 @@ public class CategoryController extends BaseController {
 
     @RequestMapping(value = {"/Metadata","/metadata.html"})
     public ModelAndView Metadata(){
-        return new ModelAndView("/ERMS/Category/Metadata");
+        ModelMap modelMap = new ModelMap();
+        modelMap.addAttribute("location","CATEGORYMETA");
+        return new ModelAndView("/ERMS/Category/Metadata",
+                modelMap);
     }
 
 }

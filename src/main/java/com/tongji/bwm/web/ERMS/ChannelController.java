@@ -31,7 +31,10 @@ public class ChannelController extends BaseController {
 
     @RequestMapping(value = {"/","/index.html"})
     public ModelAndView index(){
-        return new ModelAndView("/ERMS/Channel/Index");
+        ModelMap modelMap = new ModelMap();
+        modelMap.addAttribute("location","CHANNEL");
+        return new ModelAndView("/ERMS/Channel/Index",
+                modelMap);
     }
 
     @RequestMapping("/Search")
@@ -93,6 +96,9 @@ public class ChannelController extends BaseController {
 
     @RequestMapping(value = {"/Metadata","/metadata.html"})
     public ModelAndView Metadata(){
-        return new ModelAndView("/ERMS/Channel/Metadata");
+        ModelMap modelMap = new ModelMap();
+        modelMap.addAttribute("location","CHANNELMETA");
+        return new ModelAndView("/ERMS/Channel/Metadata",
+                modelMap);
     }
 }

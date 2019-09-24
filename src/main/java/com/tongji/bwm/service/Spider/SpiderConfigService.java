@@ -2,7 +2,7 @@ package com.tongji.bwm.service.Spider;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.tongji.bwm.entity.Spider.Config;
+import com.tongji.bwm.entity.Spider.SpiderConfig;
 import com.tongji.bwm.pojo.FilterCondition.FilterCondition;
 import com.tongji.bwm.pojo.Pagination;
 import com.tongji.bwm.repository.Spider.SpiderConfigRepository;
@@ -22,24 +22,24 @@ public class SpiderConfigService implements ISpiderConfigService<Integer> {
     private SpiderConfigRepository spiderConfigRepository;
 
     @Override
-    public Integer Insert(Config config) {
-        return spiderConfigRepository.save(config).getId();
+    public Integer Insert(SpiderConfig spiderConfig) {
+        return spiderConfigRepository.save(spiderConfig).getId();
     }
 
     @Override
-    public Config GetById(Integer id) {
-        Optional<Config> optional = spiderConfigRepository.findById(id);
+    public SpiderConfig GetById(Integer id) {
+        Optional<SpiderConfig> optional = spiderConfigRepository.findById(id);
         return optional.isPresent()?optional.get():null;
     }
 
     @Override
-    public void Update(Config config) {
-        spiderConfigRepository.save(config);
+    public void Update(SpiderConfig spiderConfig) {
+        spiderConfigRepository.save(spiderConfig);
     }
 
     @Override
-    public void Delete(Config config) {
-        spiderConfigRepository.delete(config);
+    public void Delete(SpiderConfig spiderConfig) {
+        spiderConfigRepository.delete(spiderConfig);
     }
 
     @Override
@@ -48,24 +48,24 @@ public class SpiderConfigService implements ISpiderConfigService<Integer> {
     }
 
     @Override
-    public List<Config> GetAll() {
+    public List<SpiderConfig> GetAll() {
         return spiderConfigRepository.findAll();
     }
 
     @Override
-    public Config GetByName(String name) {
+    public SpiderConfig GetByName(String name) {
         return spiderConfigRepository.findByName(name);
     }
 
     @Override
-    public Page<Config> GetPageList(Example<Config> example, Pageable pageable){
+    public Page<SpiderConfig> GetPageList(Example<SpiderConfig> example, Pageable pageable){
         return spiderConfigRepository.findAll(example,pageable);
     }
 
 
-    public Pagination<Config> GetPageList(FilterCondition filterCondition){
+    public Pagination<SpiderConfig> GetPageList(FilterCondition filterCondition){
         Pageable pageable = FilterEntityUtils.getPageable(filterCondition);
-        Page<Config> page = spiderConfigRepository.findAll(pageable);
+        Page<SpiderConfig> page = spiderConfigRepository.findAll(pageable);
         return FilterEntityUtils.getPagination(page);
     }
 

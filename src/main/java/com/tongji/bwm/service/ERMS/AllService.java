@@ -14,6 +14,7 @@ import com.tongji.bwm.solr.Models.ClusterResult;
 import com.tongji.bwm.solr.Models.SearchResult;
 import com.tongji.bwm.utils.DateFormatterUtils;
 import com.tongji.bwm.utils.FilterEntityUtils;
+import com.tongji.bwm.utils.XmlDocumentUtils;
 import javafx.util.Pair;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -28,6 +29,7 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
+@SuppressWarnings("ALL")
 @Service
 public class AllService implements IAllService<String> {
 
@@ -92,7 +94,11 @@ public class AllService implements IAllService<String> {
         StringBuffer xmlStringB = new StringBuffer();
         for(int i=0;i<items.length;i++){
             All all = items[i];
-            Document document = DocumentHelper.parseText(all.getMetadataValue());
+//            Document document = DocumentHelper.parseText(item.getMetadataValue());
+//            Element root = document.getRootElement();
+
+            String metavalue = XmlDocumentUtils.getXmlStringWithoutRoot(all.getMetadataValue(),"doc");
+//            log.info("metavalue前后");
             xmlStringB.append("<doc>")
                     .append("<field name=\"id\">" + all.getId() + "</field>")
                     .append("<field name=\"channel\">" + all.getOwnerChannel().getId() + "</field>")
@@ -100,9 +106,11 @@ public class AllService implements IAllService<String> {
                     .append("<field name=\"click\">" + all.getClick() + "</field>")
                     .append("<field name=\"sort\">" + all.getSort() + "</field>")
                     .append("<field name=\"status\">" + all.getStatus() + "</field>")
+                    .append("<field name=\"isGermany\">" + all.getIsGermany() + "</field>")
+                    .append("<field name=\"isSolr\">" + all.getIsSolr() + "</field>")
                     .append("<field name=\"ctime\">" + all.getCreateTime().getTime() + "</field>")
                     .append("<field name=\"mtime\">" + all.getModifyTime().getTime() + "</field>")
-                    .append(document.getRootElement().asXML())
+                    .append(metavalue)
                     .append("</doc>");
         }
         String xmlString =  "<add commitWithin=\"1000\" overwrite=\"true\">" +
@@ -214,7 +222,7 @@ public class AllService implements IAllService<String> {
             if(param.getKey().equals("start"))
                 searchResult.setStart(Integer.parseInt(param.getValue()));
             if(param.getKey().equals("rows"))
-                searchResult.setStart(Integer.parseInt(param.getValue()));
+                searchResult.setRows(Integer.parseInt(param.getValue()));
             if(cluster!=null && param.getKey().equals("facet.field")) {
                 Map<String, HashMap<String,Integer>> clusterArray = new HashMap<>();
                 String[] array2 = param.getValue().split(",");
@@ -238,7 +246,7 @@ public class AllService implements IAllService<String> {
             }
         }
 
-        int page = (searchResult.getStart() * searchResult.getRows() + searchResult.getRows())/searchResult.getRows();
+        int page = searchResult.getStart()/searchResult.getRows()+1;
         return new Pagination<All>(items,searchResult.getNumFound(),page,searchResult.getRows());
     }
 

@@ -5,6 +5,8 @@ import com.tongji.bwm.pojo.Enum.CommonEnum;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Data
@@ -13,20 +15,22 @@ import javax.validation.constraints.Size;
 public class MetadataFieldRegistry extends PKINTEntity {
 
     @Column(length = 50)
+    @NotBlank(message = "元数据中文名称不能为空！")
     private String name;
 
 //    private Integer MetadataSchemaId;
 
     @Column(nullable = false,length = 50)
-    @Size(max=50,message = "元数据要素不能为空！")
+    @NotBlank(message = "元数据要素不能为空！")
+    @Size(max=50,message = "元数据要素不能超过50个字符！")
     private String element;
 
     @Column(length = 50)
-    @Size(max=50, message = "修饰不能超过50个字符")
+    @Size(max=50, message = "修饰不能超过50个字符！")
     private String qualifier;
 
     @Column(length = 512)
-    @Size(max=512,message = "范围说明不能超过512个字符")
+    @Size(max=512,message = "范围说明不能超过512个字符！")
     private String scopeNote;
 
     @Enumerated(EnumType.ORDINAL)
@@ -40,11 +44,12 @@ public class MetadataFieldRegistry extends PKINTEntity {
 //    private String DataTypeCN;
 
     @Column(length = 255)
-    @Size(max=255, message = "验证规则不能超过255个字符")
+    @Size(max=255, message = "验证规则不能超过255个字符！")
     private String validationRules;
 
     private Boolean isSearch;
     @Column(length = 50)
+    @Size(max = 50,message = "搜索名称不能超过50个字符！")
     private String searchName;
 
     private Boolean isFullSearch;
@@ -65,6 +70,16 @@ public class MetadataFieldRegistry extends PKINTEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "MetadataSchemaId")
     private MetadataSchemaRegistry ownerMetadataSchemaRegistry;
+
+    @Transient
+    private Integer metadataSchemaId;
+
+    public Integer getMetadataSchemaId() {
+        if(ownerMetadataSchemaRegistry!=null){
+            metadataSchemaId=ownerMetadataSchemaRegistry.getId();
+        }
+        return metadataSchemaId;
+    }
 
     public String GetMetadataFieldString(){
         return ((this.ownerMetadataSchemaRegistry == null) ? "dc" : this.ownerMetadataSchemaRegistry.getCode()) + "." + this.element + ((this.qualifier == null || this.qualifier.length()==0) ? "" : ("." + this.qualifier));

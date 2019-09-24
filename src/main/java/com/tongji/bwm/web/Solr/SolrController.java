@@ -4,10 +4,12 @@ import com.tongji.bwm.filters.CustomException;
 import com.tongji.bwm.service.ERMS.ItemService;
 import com.tongji.bwm.solr.Models.TaskInfo;
 import com.tongji.bwm.solr.Client.SolrIndex;
+import com.tongji.bwm.solr.Models.TaskTypeEnum;
 import com.tongji.bwm.web.Basic.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,7 +31,10 @@ public class SolrController extends BaseController {
 
     @RequestMapping(value = {"/","/index.html"})
     public ModelAndView SolrIndex(){
-        return new ModelAndView("/ERMS/Solr/Index");
+        ModelMap modelMap = new ModelMap();
+        modelMap.addAttribute("location","SOLR");
+        return new ModelAndView("/ERMS/Solr/Index",
+                modelMap);
     }
 
     @RequestMapping("/Progress")
@@ -47,7 +52,7 @@ public class SolrController extends BaseController {
     public Map<String,Object> CreateIndex(){
         TaskInfo taskInfo = solrIndex.getTaskInfo();
         if(taskInfo == null || taskInfo.getStatus()==0){
-            solrIndex.initTaskInfo();
+//            solrIndex.initTaskInfo(TaskTypeEnum.ADD);//此处应只有读操作
             solrIndex.startCreateIndex();
             return Success("操作成功！",taskInfo);
         }

@@ -4,6 +4,7 @@ import com.tongji.bwm.entity.ERMS.Category;
 import com.tongji.bwm.pojo.FilterCondition.FilterCondition;
 import com.tongji.bwm.repository.ERMS.CategoryRepository;
 import com.tongji.bwm.utils.FilterEntityUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class CategoryService implements ICategoryService<Integer> {
 
@@ -69,7 +71,16 @@ public class CategoryService implements ICategoryService<Integer> {
     }
 
     public List<Category> GetList(FilterCondition filterCondition){
+        log.info("看一眼查询条件");
+        filterCondition.filter.forEach(
+                s -> {
+                    log.info(s.name+"-------------"+s.value);
+                }
+        );
+        log.info("开始查询category");
         Category category = FilterEntityUtils.getOneExample(new Category(),filterCondition);
+        log.info("看一眼查询的example");
+        log.info(category.toString());
         //这里做个简单的判断
         if(category.getParentId()!=null && category.getParentId()>0){
             category.setOwnerCategory(GetById(category.getParentId()));
@@ -79,15 +90,23 @@ public class CategoryService implements ICategoryService<Integer> {
         }
 
         ExampleMatcher matcher = ExampleMatcher.matching()
-                .withMatcher("channelId",ExampleMatcher.GenericPropertyMatchers.contains())
-                .withIgnorePaths("id");
+                .withMatcher("channelId",ExampleMatcher.GenericPropertyMatchers.exact())
+                .withIgnoreCase();
 
         Example<Category> example = Example.of(category,matcher);
 
 
         Sort sort = FilterEntityUtils.getSort(filterCondition);
+        List<Category> result = GetList(example,sort);
 
-        return GetList(example,sort);
+        log.info("看眼结果！");
+        result.forEach(
+                s->{
+                    log.info("-----一个------");
+                    log.info(s.toString());
+                }
+        );
+        return result;
     }
 
     public List<Category> findByChannelId(Integer channelId){

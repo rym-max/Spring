@@ -28,7 +28,10 @@ public class AdministratorController extends BaseController{
 
     @RequestMapping(value = {"/index.html","/"})
     public ModelAndView index(){
-        return new ModelAndView("/Administrator/Index");
+        ModelMap modelMap = new ModelMap();
+        modelMap.addAttribute("location","ADMINISTRATOR");
+        return new ModelAndView("/Administrator/Index",
+                modelMap);
     }
 
     @RequestMapping(value = {"/Search","/Search/"})

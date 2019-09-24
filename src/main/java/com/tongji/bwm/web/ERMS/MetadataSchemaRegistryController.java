@@ -8,6 +8,7 @@ import com.tongji.bwm.web.Basic.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,10 @@ public class MetadataSchemaRegistryController extends BaseController {
     
     @RequestMapping(value = {"/index.html","/"})
     public ModelAndView index(){
-        return new ModelAndView("/ERMS/MetadataSchemaRegistry/Index");
+        ModelMap modelMap = new ModelMap();
+        modelMap.addAttribute("location","SCHEMA");
+        return new ModelAndView("/ERMS/MetadataSchemaRegistry/Index",
+                modelMap);
     }
 
     @RequestMapping("/Search")

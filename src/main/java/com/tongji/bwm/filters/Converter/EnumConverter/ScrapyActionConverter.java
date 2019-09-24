@@ -2,7 +2,9 @@ package com.tongji.bwm.filters.Converter.EnumConverter;
 
 import com.tongji.bwm.pojo.Enum.Scrapy.ScrapyEnum;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ScrapyActionConverter implements Converter<String, ScrapyEnum.ActionEnum> {
 
     @Override

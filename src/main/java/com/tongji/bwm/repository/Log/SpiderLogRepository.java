@@ -13,16 +13,16 @@ import java.util.List;
 public interface SpiderLogRepository extends JpaRepository<Spider_Log,Integer> {
 
     @Query(
-            value = "SELECT ActionUser,[ACTION],Count(*) \r\n" +
+            value = "SELECT ActionUser,Count(*) \r\n" +
                     "FROM Log_SpiderLog \r\n" +
-                    "WHERE (Action= :action) AND (Spider =:spider) \r\n" +
-                    "GROUP BY ActionUser,[Action]",
+                    "WHERE ([Action]= :action) AND (Spider =:spider) \r\n" +
+                    "GROUP BY ActionUser",
             nativeQuery = true
     )
     List<Object[]> GetUserCountBySpider(@Param(value = "spider") Integer spiderId,@Param(value = "action") String action);
 
     @Query(
-            value = "SELECT ActionUser,:action,,Count(*) \r\n" +
+            value = "SELECT ActionUser,Count(*) \r\n" +
                     "FROM Log_SpiderLog \r\n" +
                     "WHERE Spider =:spider \r\n" +
                     "GROUP BY ActionUser",
@@ -32,10 +32,10 @@ public interface SpiderLogRepository extends JpaRepository<Spider_Log,Integer> {
 
     @Query(
             value = "SELECT TOP (:times) \r\n" +
-                    "[Action] ,Result,DATEPART(mm,[CreateTime]),DATEPART(dd,[CreateTime]) \r\n" +
+                    "[Action] ,Result,DATEPART(mm,[CreateTime]) as Month,DATEPART(dd,[CreateTime]) as Day \r\n" +
                     "FROM Log_SpiderLog \r\n" +
-                    "ORDER BY CreateTime DESC \r\n" +
-                    "WHERE (Spider= :spider) AND ([Action]='CRAWL_OVER')",
+                    "WHERE (Spider= :spider) AND ([Action]='CRAWL_OVER') \r\n"+
+                    "ORDER BY CreateTime DESC",
             nativeQuery = true
     )
     List<Object[]>  GetBySpider(@Param(value = "spider") Integer Spider ,@Param(value="times")Integer Times);

@@ -1,11 +1,11 @@
 package com.tongji.bwm.repository.Spider;
 
-import com.tongji.bwm.entity.Spider.Config;
+import com.tongji.bwm.entity.Spider.SpiderConfig;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SpiderConfigRepository extends JpaRepository<Config,Integer> {
+public interface SpiderConfigRepository extends JpaRepository<SpiderConfig,Integer> {
 
-    Config findByName(String name);
+    SpiderConfig findByName(String name);
 }

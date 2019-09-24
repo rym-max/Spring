@@ -1,0 +1,76 @@
+{
+  "groups": [
+    {
+      "name": "gesource.datasource",
+      "type": "javax.sql.DataSource",
+      "sourceType": "com.tongji.bwm.DataSourcesConfig",
+      "sourceMethod": "geDataSource()"
+    },
+    {
+      "name": "http-pool",
+      "type": "com.tongji.bwm.http.HttpPoolProperties",
+      "sourceType": "com.tongji.bwm.http.HttpPoolProperties"
+    },
+    {
+      "name": "solrserver.tongjieu",
+      "type": "com.tongji.bwm.solr.Client.SolrConfig",
+      "sourceType": "com.tongji.bwm.solr.Client.SolrConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "http-pool.connect-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "com.tongji.bwm.http.HttpPoolProperties"
+    },
+    {
+      "name": "http-pool.connection-request-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "com.tongji.bwm.http.HttpPoolProperties"
+    },
+    {
+      "name": "http-pool.default-max-per-route",
+      "type": "java.lang.Integer",
+      "sourceType": "com.tongji.bwm.http.HttpPoolProperties"
+    },
+    {
+      "name": "http-pool.max-total",
+      "type": "java.lang.Integer",
+      "sourceType": "com.tongji.bwm.http.HttpPoolProperties"
+    },
+    {
+      "name": "http-pool.socket-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "com.tongji.bwm.http.HttpPoolProperties"
+    },
+    {
+      "name": "http-pool.validate-after-inactivity",
+      "type": "java.lang.Integer",
+      "sourceType": "com.tongji.bwm.http.HttpPoolProperties"
+    },
+    {
+      "name": "solrserver.tongjieu.core-pool-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.tongji.bwm.solr.Client.SolrConfig",
+      "defaultValue": 0
+    },
+    {
+      "name": "solrserver.tongjieu.max-pool-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.tongji.bwm.solr.Client.SolrConfig",
+      "defaultValue": 0
+    },
+    {
+      "name": "solrserver.tongjieu.queue-capacity",
+      "type": "java.lang.Integer",
+      "sourceType": "com.tongji.bwm.solr.Client.SolrConfig",
+      "defaultValue": 0
+    },
+    {
+      "name": "solrserver.tongjieu.url",
+      "type": "java.lang.String",
+      "sourceType": "com.tongji.bwm.solr.Client.SolrConfig"
+    }
+  ],
+  "hints": []
+}

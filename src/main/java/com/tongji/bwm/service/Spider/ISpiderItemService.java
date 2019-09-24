@@ -1,6 +1,7 @@
 package com.tongji.bwm.service.Spider;
 
-import com.tongji.bwm.entity.Spider.Item;
+import com.tongji.bwm.entity.Spider.SpiderItem;
+import com.tongji.bwm.pojo.Enum.CommonEnum;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,25 +10,27 @@ import org.springframework.data.domain.Sort;
 import java.util.List;
 
 public interface ISpiderItemService<T> {
-    T Insert(Item item);
+    T Insert(SpiderItem spiderItem);
 
-    Item GetById(T id);
+    SpiderItem GetById(T id);
 
-    void Update(Item item);
+    SpiderItem GetByName(String name);
 
-    void Delete(Item item);
+    void Update(SpiderItem spiderItem);
+
+    void Delete(SpiderItem spiderItem);
 
     void Delete(T id);
 
-    List<Item> GetAll();
+    List<SpiderItem> GetAll();
 
-    List<Item> findByConfigId(Integer configId);
+    List<SpiderItem> findByConfigId(Integer configId);
 
-    List<Item> findAllIsOpen(Boolean isOpen);
+    List<SpiderItem> GetList(Example<SpiderItem> example);
 
-    List<Item> GetList(Example<Item> example);
+    List<SpiderItem> GetList(Example<SpiderItem> example, Sort sort);
 
-    List<Item> GetList(Example<Item> example, Sort sort);
+    Page<SpiderItem> GetList(Example<SpiderItem> example, Pageable pageable);
 
-    Page<Item> GetList(Example<Item> example, Pageable pageable);
+    List<SpiderItem> findAllIsOpen(CommonEnum.AvailableEnum isOpen);
 }

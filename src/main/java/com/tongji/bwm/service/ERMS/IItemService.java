@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public interface IItemService<T> {
 
@@ -29,6 +30,8 @@ public interface IItemService<T> {
 
     Page<Item> GetPageList(Example<Item> example, Pageable pageable);
 
+    Future<String> DeleteAllToSolr(String serverURL, boolean commit);
+
     Pagination<Item> GetPageList(String serverURL, List<Pair<String,String>> parameters) throws InterruptedException, ExecutionException;
 
     Pagination<Item> GetPageList(String serverURL, List<Pair<String,String>> parameters, Map<String,List<ClusterResult>> cluster) throws InterruptedException, ExecutionException;
@@ -37,9 +40,8 @@ public interface IItemService<T> {
 
     void InsertToSolr(String serverURL, Item[] items, boolean commit) throws DocumentException;
 
-    void DeleteToSolr(String serverURL, T id, boolean commit);
+    Future<String> DeleteToSolr(String serverURL, T id, boolean commit);
 
-    void DeleteToSolr(String serverURL, List<T> ids, boolean commit);
+    Future<String> DeleteToSolr(String serverURL, List<T> ids, boolean commit);
 
-    void DeleteAllToSolr(String serverURL, List<T> ids, boolean commit);
 }

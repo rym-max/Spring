@@ -1,9 +1,11 @@
 package com.tongji.bwm;
 
+import com.tongji.bwm.entity.ERMS.Region;
 import com.tongji.bwm.filters.Converter.EntityConverter.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.nio.charset.Charset;
@@ -24,6 +26,9 @@ public class HttpResponseConverterDTOConfig implements WebMvcConfigurer {
         converters.add(relationMetadataFieldConverter());
         converters.add(administartorConverter());
         converters.add(itemConverter());
+        converters.add(regionConverter());
+        converters.add(spiderItemConverter());
+        converters.add(spiderConfigConverter());
     }
 
     private UserConverter userConverter(){
@@ -84,6 +89,27 @@ public class HttpResponseConverterDTOConfig implements WebMvcConfigurer {
 
     private ItemConverter itemConverter(){
         ItemConverter converter = new ItemConverter();
+        MediaType mediaType = new MediaType(MediaType.APPLICATION_FORM_URLENCODED, Charset.forName("UTF-8"));
+        converter.setSupportedMediaTypes(Arrays.asList(mediaType));
+        return converter;
+    }
+
+    private RegionConverter regionConverter(){
+        RegionConverter converter = new RegionConverter();
+        MediaType mediaType = new MediaType(MediaType.APPLICATION_FORM_URLENCODED, Charset.forName("UTF-8"));
+        converter.setSupportedMediaTypes(Arrays.asList(mediaType));
+        return converter;
+    }
+
+    private SpiderConfigConverter spiderConfigConverter(){
+        SpiderConfigConverter converter = new SpiderConfigConverter();
+        MediaType mediaType = new MediaType(MediaType.APPLICATION_FORM_URLENCODED, Charset.forName("UTF-8"));
+        converter.setSupportedMediaTypes(Arrays.asList(mediaType));
+        return converter;
+    }
+
+    private SpiderItemConverter spiderItemConverter(){
+        SpiderItemConverter converter = new SpiderItemConverter();
         MediaType mediaType = new MediaType(MediaType.APPLICATION_FORM_URLENCODED, Charset.forName("UTF-8"));
         converter.setSupportedMediaTypes(Arrays.asList(mediaType));
         return converter;

@@ -48,7 +48,7 @@ public class TestCount extends AbstractTestNGSpringContextTests {
 
 //        //换种方式了，pageable
 //        Pageable page = FilterEntityUtils.getPageable(new FilterCondition());
-//        Page<Item> p = itemRepository.findAll(page);
+//        Page<SpiderItem> p = itemRepository.findAll(page);
 //        log.info("总页数--------"+p.getTotalElements());
         log.info("测试一下example");
         Item item2 = new Item();

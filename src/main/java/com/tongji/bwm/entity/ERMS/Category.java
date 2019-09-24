@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -16,6 +18,8 @@ import javax.validation.constraints.Size;
 @Data
 @Entity
 @Table(name = "ERMS_Category")
+@DynamicInsert
+@DynamicUpdate
 public class Category extends PKINTEntity {
 
 //    private Integer ChannelId;
@@ -43,34 +47,26 @@ public class Category extends PKINTEntity {
     private String description;//
 
     @ManyToOne(fetch = FetchType.EAGER,optional = true)
-    @JoinColumn(name = "ParentId",foreignKey = @ForeignKey(name = "none",value = ConstraintMode.NO_CONSTRAINT))
+    @JoinColumn(name = "ParentId",foreignKey = @ForeignKey(name = "none",value = ConstraintMode.NO_CONSTRAINT),updatable = false,insertable = false)
     @NotFound(action= NotFoundAction.IGNORE)
     private Category ownerCategory;
-    @Transient
-    @Getter(AccessLevel.NONE)
+
+    @Column(name = "ParentId",nullable = false)
     private Integer parentId;
 
-    public Integer getParentId() {
-        if(ownerCategory!=null) {
-            parentId =  ownerCategory.getId();
-        }
-        return parentId;
-    }
-
-    @JoinColumn(name = "ChannelId",referencedColumnName = "Id")
+    @JoinColumn(name = "ChannelId",referencedColumnName = "Id",updatable = false,insertable = false)
     @ManyToOne(fetch = FetchType.EAGER,optional = true)
     private Channel ownerChannel;
 
-    @Transient
-    @Getter(AccessLevel.NONE)
+    @Column(name="ChannelId",nullable = false)
     private Integer channelId;
 
-    public Integer getChannelId() {
-        if(ownerChannel!=null) {
-            channelId =  ownerChannel.getId();
-        }
-        return channelId;
-    }
+//    public Integer getChannelId() {
+//        if(ownerChannel!=null) {
+//            channelId =  ownerChannel.getId();
+//        }
+//        return channelId;
+//    }
 
     public Category() {
     }

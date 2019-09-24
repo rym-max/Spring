@@ -1,6 +1,7 @@
 package com.tongji.bwm.web.Basic;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,8 +22,10 @@ public class HomeController extends BaseController {
 
     @RequestMapping({"/Home/index.html","/","/Home","/Home/"})
     public ModelAndView home(){
+        ModelMap modelMap = new ModelMap();
 
-        return new ModelAndView("/Home/index");
+        modelMap.addAttribute("location","HOME");
+        return new ModelAndView("/Home/index",modelMap);
     }
 
 

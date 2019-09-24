@@ -25,7 +25,7 @@ public class DateFormatterUtils {
     }
 
     public static String GetDateStr(Date date){
-        SimpleDateFormat completeDate = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        SimpleDateFormat completeDate = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
         return completeDate.format(date);
     }
 }

@@ -10,11 +10,13 @@ import com.tongji.bwm.service.ERMS.*;
 import com.tongji.bwm.solr.Client.SolrConfig;
 import com.tongji.bwm.web.Basic.BaseController;
 import javafx.util.Pair;
+import lombok.extern.slf4j.Slf4j;
 import org.dom4j.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +27,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Controller
 @RequestMapping("/ERMS/Item")
 @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_ARTICLE','ROLE_EDITOR')")
-public class ItemController extends BaseController {
+public class  ItemController extends BaseController {
 
     @Autowired
     private ItemService itemService;
@@ -53,7 +56,10 @@ public class ItemController extends BaseController {
 
     @RequestMapping(value = {"/","/index.html"})
     public ModelAndView index(){
-        return new ModelAndView("/ERMS/Item/Index");
+        ModelMap modelMap = new ModelMap();
+        modelMap.addAttribute("location","ITEM");
+        return new ModelAndView("/ERMS/Item/Index",
+                modelMap);
     }
 
     @ResponseBody
@@ -75,13 +81,13 @@ public class ItemController extends BaseController {
                 pageList = itemService.GetPageList(solrConfig.getUrl(), parameters);
                 break;
             }catch (Exception e){
-
+                log.info(e.toString());
             }
         }
         if(pageList == null)
                 throw new CustomException("操作失败！","Solr查询失败，请重试!");
-//        List<Item> pageList2 = new ArrayList<>();
-//        for (Item item : pageList.getList()){
+//        List<SpiderItem> pageList2 = new ArrayList<>();
+//        for (SpiderItem item : pageList.getList()){
 //            item.setOwnerChannel(channelService.GetById(item.getOwnerChannel().getId()));
 //            if(item.getOwnerCategory().getId()!=null){
 //                item.setOwnerCategory(categoryService.GetById(item.getOwnerCategory().getId()));
@@ -177,16 +183,17 @@ public class ItemController extends BaseController {
                                         @RequestParam(value = "action",defaultValue = "-1") Integer action){
 
         String[] array = ids.split(",");
-        if(array == null || array.length==0)
+        log.info("操作的id列表："+ids);
+        if(array.length==0)
             throw new CustomException("操作失败！","请选择操作项");
-        if(action==0){//删除命令
+        if(action.equals(0)){//删除命令
             String[] array2 = array;
             for(int i=0;i<array2.length;i++){
                 String id = array2[i];
                 itemService.Delete(id);
                 itemService.DeleteToSolr(solrConfig.getUrl(),id,true);
             }
-        }else if(action==1 || action==2){
+        }else if(action.equals(1) || action.equals(2)){
             String[] array3 = array;
             for(int j=0;j<array3.length;j++){
                 String id2 = array3[j];
@@ -203,6 +210,8 @@ public class ItemController extends BaseController {
                     itemService.Update(byId);
                 }
             }
+        }else {
+            throw new CustomException("操作失败！","请输入正确的操作指令！");
         }
         return Success("操作成功！",null);
     }

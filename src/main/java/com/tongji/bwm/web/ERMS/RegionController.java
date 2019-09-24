@@ -5,6 +5,7 @@ import com.tongji.bwm.filters.CustomException;
 import com.tongji.bwm.filters.validation.CustomValidationException;
 import com.tongji.bwm.service.ERMS.RegionService;
 import com.tongji.bwm.web.Basic.BaseController;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Controller
 @RequestMapping("/ERMS/Region")
 @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -28,7 +30,10 @@ public class RegionController extends BaseController {
 
     @RequestMapping(value = {"/","/index.html"})
     public ModelAndView index(){
-        return new ModelAndView("/ERMS/Region/Index");
+        ModelMap modelMap = new ModelMap();
+        modelMap.addAttribute("location","REGION");
+        return new ModelAndView("/ERMS/Region/Index",
+                modelMap);
     }
 
     @RequestMapping("/Search")
@@ -79,13 +84,16 @@ public class RegionController extends BaseController {
                 throw new CustomException("操作失败！","该区域不存在！");
         }
 
-        //所属区域限制
-        Region parent = regionService.GetById(region.getParentId());
-        if(parent == null || parent.getId().equals(0) || parent.getOwnerRegion()!=null){
-            throw new CustomException("操作失败！","该所属区域不可选择！");
-        }
+        //所属区域限制,先判断parentId
+        if(region.getParentId()!=null) {
 
-        reg.setOwnerRegion(parent);
+            Region parent = regionService.GetById(region.getParentId());
+            if (parent == null || parent.getId().equals(0) || parent.getOwnerRegion() != null) {
+                throw new CustomException("操作失败！", "该所属区域不可选择！");
+            }
+
+            reg.setOwnerRegion(parent);
+        }
 
         reg.setName(region.getName());
         reg.setNameEN(region.getNameEN());
@@ -97,6 +105,7 @@ public class RegionController extends BaseController {
         reg.setMap(region.getMap());
 
         if(region.getId()==null){
+            log.info(reg.toString());
             regionService.Insert(reg);
         }else{
             regionService.Update(reg);

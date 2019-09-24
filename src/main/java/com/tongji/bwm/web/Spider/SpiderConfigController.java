@@ -1,6 +1,6 @@
 package com.tongji.bwm.web.Spider;
 
-import com.tongji.bwm.entity.Spider.Config;
+import com.tongji.bwm.entity.Spider.SpiderConfig;
 import com.tongji.bwm.filters.CustomException;
 import com.tongji.bwm.pojo.FilterCondition.FilterCondition;
 import com.tongji.bwm.pojo.Pagination;
@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/Spider/Config")
+@RequestMapping("/Spider/SpiderConfig")
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 public class SpiderConfigController extends BaseController {
 
@@ -33,20 +31,23 @@ public class SpiderConfigController extends BaseController {
 
     @RequestMapping(value = {"/","/index.html"})
     public ModelAndView index(){
-        return new ModelAndView("/Spider/Config/Index");
+        ModelMap modelMap = new ModelMap();
+        modelMap.addAttribute("location","SPIDERCONFIG");
+        return new ModelAndView("/Spider/Config/Index",
+                modelMap);
     }
 
     @RequestMapping("/Search")
     @ResponseBody
-    public List<Config> Search(){
+    public List<SpiderConfig> Search(){
         return spiderConfigService.GetAll();
     }
 
     @RequestMapping("/SearchPage")
     @ResponseBody
-    public Pagination<Config> SearchPage(HttpServletRequest httpServletRequest,
-                                         @RequestParam(value = "page",defaultValue = "1")Integer page,
-                                         @RequestParam(value = "rows",defaultValue = "10") Integer rows){
+    public Pagination<SpiderConfig> SearchPage(HttpServletRequest httpServletRequest,
+                                               @RequestParam(value = "page",defaultValue = "1")Integer page,
+                                               @RequestParam(value = "rows",defaultValue = "10") Integer rows){
         FilterCondition filterCondition = new FilterCondition();
         filterCondition.page=page-1;
         filterCondition.rows=rows;
@@ -58,9 +59,9 @@ public class SpiderConfigController extends BaseController {
     public ModelAndView Edit(@PathVariable(required = false) Integer id){
         ModelMap modelMap = new ModelMap();
         if(id==null){
-            modelMap.addAttribute("config",new Config());
+            modelMap.addAttribute("spiderConfig",new SpiderConfig());
         }else{
-            modelMap.addAttribute("config",spiderConfigService.GetById(id));
+            modelMap.addAttribute("spiderConfig",spiderConfigService.GetById(id));
         }
 
         return new ModelAndView("/Spider/Config/Edit",
@@ -69,28 +70,28 @@ public class SpiderConfigController extends BaseController {
 
     @RequestMapping("/edit")
     @ResponseBody
-    public Map<String,Object> edit(@RequestBody Config config){
+    public Map<String,Object> edit(@RequestBody SpiderConfig spiderConfig){
         //先判断是否可修改
         //再判断是否json字符串
 
-        if(config.getId()==null){
+        if(spiderConfig.getId()==null){
             //新建
-            if(spiderConfigService.GetByName(config.getName())!=null)
+            if(spiderConfigService.GetByName(spiderConfig.getName())!=null)
                 throw new CustomException("操作失败！","该爬虫配置名被占用，请重新输入！");
-            ValidateJsonConfig(config);
-            config.setCreator("ADMIN");
-            spiderConfigService.Insert(config);
+            ValidateJsonConfig(spiderConfig);
+            spiderConfig.setCreator("ADMIN");
+            spiderConfigService.Insert(spiderConfig);
         }else {
             //更新
-            Config con = spiderConfigService.GetById(config.getId());
+            SpiderConfig con = spiderConfigService.GetById(spiderConfig.getId());
             if(con == null)
                 throw new CustomException("操作失败！","该爬虫配置不存在！");
             if(!con.getCreator().equals("ADMIN"))
                 throw new CustomException("操作失败！","该爬虫配置不可修改");
-            ValidateJsonConfig(config);
-            con.setName(config.getName());
-            con.setConfigs(config.getConfigs());
-            con.setRules(config.getRules());
+            ValidateJsonConfig(spiderConfig);
+            con.setName(spiderConfig.getName());
+            con.setConfigs(spiderConfig.getConfigs());
+            con.setRules(spiderConfig.getRules());
             spiderConfigService.Update(con);
         }
 
@@ -109,13 +110,13 @@ public class SpiderConfigController extends BaseController {
     }
 
 
-    private void ValidateJsonConfig(Config config) {
-        if (config.getConfigs() == null || config.getConfigs().isEmpty())
+    private void ValidateJsonConfig(SpiderConfig spiderConfig) {
+        if (spiderConfig.getConfigs() == null || spiderConfig.getConfigs().isEmpty())
             throw new CustomException("操作失败！", "爬虫配置信息不可为空！");
-        if (!spiderConfigService.IsJsonStr(config.getConfigs()))
+        if (!spiderConfigService.IsJsonStr(spiderConfig.getConfigs()))
             throw new CustomException("操作失败！", "爬虫配置信息必须为JSON字符串！");
-        if (config.getRules() != null && !config.getRules().isEmpty()
-                && !spiderConfigService.IsJsonStr(config.getRules()))
+        if (spiderConfig.getRules() != null && !spiderConfig.getRules().isEmpty()
+                && !spiderConfigService.IsJsonStr(spiderConfig.getRules()))
             throw new CustomException("操作失败！", "爬虫规则信息必须为JSON字符串！");
     }
 }

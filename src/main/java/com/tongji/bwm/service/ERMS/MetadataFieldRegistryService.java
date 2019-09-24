@@ -1,9 +1,11 @@
 package com.tongji.bwm.service.ERMS;
 
 import com.tongji.bwm.entity.ERMS.MetadataFieldRegistry;
+import com.tongji.bwm.entity.ERMS.MetadataSchemaRegistry;
 import com.tongji.bwm.pojo.FilterCondition.FilterCondition;
 import com.tongji.bwm.pojo.MetaFieldRegistryNameAndId;
 import com.tongji.bwm.repository.ERMS.MetadataFieldRegistryRepository;
+import com.tongji.bwm.repository.ERMS.MetadataSchemaRegistryRepository;
 import com.tongji.bwm.utils.FilterEntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -19,6 +21,9 @@ public class MetadataFieldRegistryService implements IMetadataFieldRegistryServi
 
     @Autowired
     private MetadataFieldRegistryRepository metadataFieldRegistryRepository;
+
+    @Autowired
+    private MetadataSchemaRegistryService metadataSchemaRegistryService;
 
     @Override
     public Integer Insert(MetadataFieldRegistry metadataFieldRegistry) {
@@ -53,6 +58,11 @@ public class MetadataFieldRegistryService implements IMetadataFieldRegistryServi
     }
 
     @Override
+    public List<MetadataFieldRegistry> GetAll(){
+        return metadataFieldRegistryRepository.findAll();
+    }
+
+    @Override
     public List<MetadataFieldRegistry> GetList(Example<MetadataFieldRegistry> example) {
         return metadataFieldRegistryRepository.findAll(example);
     }
@@ -61,9 +71,16 @@ public class MetadataFieldRegistryService implements IMetadataFieldRegistryServi
     public List<MetadataFieldRegistry> GetList(FilterCondition filterCondition){
         MetadataFieldRegistry metadataFieldRegistry = FilterEntityUtils.getOneExample(new MetadataFieldRegistry(),filterCondition);
 
+        //
+        if(metadataFieldRegistry.getMetadataSchemaId()!=null) {
+            MetadataSchemaRegistry schema = metadataSchemaRegistryService.GetById(metadataFieldRegistry.getMetadataSchemaId());
+            if(schema!=null)
+                metadataFieldRegistry.setOwnerMetadataSchemaRegistry(schema);
+        }
+
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withMatcher("metadataSchemaId",ExampleMatcher.GenericPropertyMatchers.exact())
-                .withIgnorePaths("id");
+                .withIgnoreCase();
 
         Example<MetadataFieldRegistry> example = Example.of(metadataFieldRegistry,matcher);
 

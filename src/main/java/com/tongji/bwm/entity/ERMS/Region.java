@@ -3,6 +3,8 @@ package com.tongji.bwm.entity.ERMS;
 import com.tongji.bwm.entity.Basic.PKINTEntity;
 import com.tongji.bwm.pojo.Enum.CommonEnum;
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -13,6 +15,8 @@ import javax.validation.constraints.Size;
 @Data
 @Entity
 @Table(name = "ERMS_Region")
+@DynamicInsert
+@DynamicUpdate
 public class Region extends PKINTEntity {
 
     @NotBlank(message = "区域代码不能为空！")
@@ -20,7 +24,7 @@ public class Region extends PKINTEntity {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "ParentId",foreignKey = @ForeignKey(name = "none",value = ConstraintMode.NO_CONSTRAINT))
+    @JoinColumn(name = "ParentId",columnDefinition = "int default 0",foreignKey = @ForeignKey(name = "none",value = ConstraintMode.NO_CONSTRAINT))
     @NotFound(action= NotFoundAction.IGNORE)
     private Region ownerRegion;
 
@@ -41,5 +45,13 @@ public class Region extends PKINTEntity {
 
     private String description;
 
-    private Integer map;//是否前台显示
+    @Enumerated(EnumType.ORDINAL)
+    private CommonEnum.AvailableEnum map;//是否前台显示
+
+    public Integer getParentId() {
+        if(ownerRegion!=null){
+            parentId =ownerRegion.getId();
+        }
+        return parentId;
+    }
 }

@@ -15,6 +15,7 @@ import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,10 @@ public class JournalController extends BaseController {
 
     @RequestMapping(value = {"/","/index.html"})
     public ModelAndView index(){
-        return new ModelAndView("/Book/Journal/Index");
+        ModelMap modelMap = new ModelMap();
+        modelMap.addAttribute("location","JOURNAL");
+        return new ModelAndView("/Book/Journal/Index",
+                modelMap);
     }
 
     @RequestMapping("/Search")

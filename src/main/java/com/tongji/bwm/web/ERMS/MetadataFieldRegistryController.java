@@ -1,19 +1,23 @@
 package com.tongji.bwm.web.ERMS;
 
 import com.tongji.bwm.entity.ERMS.MetadataFieldRegistry;
+import com.tongji.bwm.entity.ERMS.MetadataSchemaRegistry;
 import com.tongji.bwm.filters.CustomException;
 import com.tongji.bwm.filters.validation.CustomValidationException;
 import com.tongji.bwm.pojo.FilterCondition.FilterCondition;
 import com.tongji.bwm.service.ERMS.MetadataFieldRegistryService;
+import com.tongji.bwm.service.ERMS.MetadataSchemaRegistryService;
 import com.tongji.bwm.web.Basic.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.beans.Transient;
 import java.util.List;
 import java.util.Map;
 
@@ -25,9 +29,15 @@ public class MetadataFieldRegistryController extends BaseController {
     @Autowired
     private MetadataFieldRegistryService metadataFieldRegistryService;
 
+    @Autowired
+    private MetadataSchemaRegistryService metadataSchemaRegistryService;
+
     @RequestMapping(value = {"/","/index.html"})
     public ModelAndView index(){
-        return new ModelAndView("/ERMS/MetadataFieldRegistry/Index");
+        ModelMap modelMap = new ModelMap();
+        modelMap.addAttribute("location","FIELD");
+        return new ModelAndView("/ERMS/MetadataFieldRegistry/Index",
+                modelMap);
     }
 
     @RequestMapping("/Search")
@@ -58,6 +68,14 @@ public class MetadataFieldRegistryController extends BaseController {
             throw new CustomValidationException("操作失败！",bindingResult.getFieldErrors());
         }
 
+        if(meta.getMetadataSchemaId()==null){
+            throw new CustomException("操作失败！","请确认元数据！");
+        }else {
+            MetadataSchemaRegistry schema = metadataSchemaRegistryService.GetById(meta.getMetadataSchemaId());
+            if(schema==null)
+                throw new CustomException("操作失败！","该元数据不存在！");
+            meta.setOwnerMetadataSchemaRegistry(schema);
+        }
         //先判断修饰
         MetadataFieldRegistry byFields;
         if(meta.getQualifier().isEmpty()){
@@ -66,20 +84,23 @@ public class MetadataFieldRegistryController extends BaseController {
             byFields = metadataFieldRegistryService.GetByMEQ(meta.getOwnerMetadataSchemaRegistry().getId(),meta.getElement(),meta.getQualifier());
         }
 
+
         if(meta.getId()==null){
 
             if(byFields!=null)
                 throw new CustomException("操作失败！", "元数据已经被占用，请重新输入！");
+
             metadataFieldRegistryService.Insert(meta);
         }else {
 
-            if(byFields!=null && byFields.getId() != meta.getId())
+            if(byFields!=null && byFields.getId().equals(meta.getId()))
                 throw new CustomException("操作失败！", "元数据已经被占用，请重新输入！");
             if(metadataFieldRegistryService.GetById(meta.getId()) == null)
                 throw new CustomException("操作失败！", "元数据不存在或者已经删除！");
 
             metadataFieldRegistryService.Update(meta);
         }
+
         return Success("操作成功！",null);
     }
 

@@ -1,6 +1,7 @@
 package com.tongji.bwm.service.Spider;
 
-import com.tongji.bwm.entity.Spider.Item;
+import com.tongji.bwm.entity.Spider.SpiderItem;
+import com.tongji.bwm.pojo.Enum.CommonEnum;
 import com.tongji.bwm.pojo.FilterCondition.FilterCondition;
 import com.tongji.bwm.pojo.Pagination;
 import com.tongji.bwm.repository.Spider.SpiderItemRepository;
@@ -9,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Filter;
 
 @Service
 public class SpiderItemService implements ISpiderItemService<Integer> {
@@ -22,24 +23,29 @@ public class SpiderItemService implements ISpiderItemService<Integer> {
     private SpiderConfigService spiderConfigService;
 
     @Override
-    public Integer Insert(Item item) {
-        return spiderItemRepository.save(item).getId();
+    public Integer Insert(SpiderItem spiderItem) {
+        return spiderItemRepository.save(spiderItem).getId();
     }
 
     @Override
-    public Item GetById(Integer id) {
-        Optional<Item> optional = spiderItemRepository.findById(id);
+    public SpiderItem GetById(Integer id) {
+        Optional<SpiderItem> optional = spiderItemRepository.findById(id);
         return optional.isPresent()?optional.get():null;
     }
 
     @Override
-    public void Update(Item item) {
-        spiderItemRepository.save(item);
+    public SpiderItem GetByName(String name){
+        return spiderItemRepository.findByName(name);
     }
 
     @Override
-    public void Delete(Item item) {
-        spiderItemRepository.delete(item);
+    public void Update(SpiderItem spiderItem) {
+        spiderItemRepository.save(spiderItem);
+    }
+
+    @Override
+    public void Delete(SpiderItem spiderItem) {
+        spiderItemRepository.delete(spiderItem);
     }
 
     @Override
@@ -48,43 +54,43 @@ public class SpiderItemService implements ISpiderItemService<Integer> {
     }
 
     @Override
-    public List<Item> GetAll() {
+    public List<SpiderItem> GetAll() {
         return spiderItemRepository.findAll();
     }
 
     @Override
-    public List<Item> findByConfigId(Integer configId) {
+    public List<SpiderItem> findByConfigId(Integer configId) {
         return spiderItemRepository.findByConfigId(configId);
     }
 
     @Override
-    public List<Item> GetList(Example<Item> example) {
+    public List<SpiderItem> GetList(Example<SpiderItem> example) {
         return spiderItemRepository.findAll(example);
     }
 
     @Override
-    public List<Item> GetList(Example<Item> example, Sort sort) {
+    public List<SpiderItem> GetList(Example<SpiderItem> example, Sort sort) {
         return spiderItemRepository.findAll(example,sort);
     }
 
     @Override
-    public Page<Item> GetList(Example<Item> example, Pageable pageable) {
+    public Page<SpiderItem> GetList(Example<SpiderItem> example, Pageable pageable) {
         return spiderItemRepository.findAll(example,pageable);
     }
 
 
-    public List<Item> GetList(FilterCondition filterCondition){
-        Item item = FilterEntityUtils.getOneExample(new Item(),filterCondition);
+    public List<SpiderItem> GetList(FilterCondition filterCondition){
+        SpiderItem spiderItem = FilterEntityUtils.getOneExample(new SpiderItem(),filterCondition);
 
         //这里做个简单判断
-        if(item.getConfigId()!=null && item.getConfigId()>0){
-            item.setOwnerConfig(spiderConfigService.GetById(item.getConfigId()));
+        if(spiderItem.getConfigId()!=null && spiderItem.getConfigId()>0){
+            spiderItem.setOwnerSpiderConfig(spiderConfigService.GetById(spiderItem.getConfigId()));
         }
 
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withIgnoreCase();
 
-        Example<Item> example = Example.of(item,matcher);
+        Example<SpiderItem> example = Example.of(spiderItem,matcher);
 
         Sort sort = FilterEntityUtils.getSort(filterCondition);
 
@@ -93,14 +99,19 @@ public class SpiderItemService implements ISpiderItemService<Integer> {
     }
 
     @Override
-    public List<Item> findAllIsOpen(Boolean isOpen) {
+    public List<SpiderItem> findAllIsOpen(CommonEnum.AvailableEnum isOpen) {
         return spiderItemRepository.findAllByIsOpen(isOpen);
     }
 
-    public Pagination<Item> GetPageList(FilterCondition filterCondition){
+    public Pagination<SpiderItem> GetPageList(FilterCondition filterCondition){
         Pageable pageable = FilterEntityUtils.getPageable(filterCondition);
-        Page<Item> page = spiderItemRepository.findAll(pageable);
+        Page<SpiderItem> page = spiderItemRepository.findAll(pageable);
         return FilterEntityUtils.getPagination(page);
     }
 
+    public List<SpiderItem> findOneTest(){
+        List<SpiderItem> list1 = new ArrayList<>();
+        list1.add(GetById(1));
+        return list1;
+    }
 }

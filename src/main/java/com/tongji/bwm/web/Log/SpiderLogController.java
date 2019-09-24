@@ -1,6 +1,6 @@
 package com.tongji.bwm.web.Log;
 
-import com.tongji.bwm.entity.Spider.Item;
+import com.tongji.bwm.entity.Spider.SpiderItem;
 import com.tongji.bwm.filters.CustomException;
 import com.tongji.bwm.pojo.Enum.Scrapy.ScrapyEnum;
 import com.tongji.bwm.pojo.SpiderLog.SpiderResult;
@@ -46,6 +46,7 @@ public class SpiderLogController extends BaseController {
         model.addAttribute("date",map);
         model.addAttribute("actionEnums",actionEnums);
         log.info("返回爬虫访问日志页面");
+        model.addAttribute("lcoation","SPIDERLOG");
         return new ModelAndView("/Log/SpiderLog/Index",model);
     }
 
@@ -53,13 +54,15 @@ public class SpiderLogController extends BaseController {
     @RequestMapping("/SearchUserCount")
     public Map<String,Object> SearchUserCount(@RequestParam(name = "spider",defaultValue = "0")  Integer spiderId,
                                               @RequestParam(name = "action",defaultValue = "CRAWL_OVER") String action){
+        log.info("spiderId-------"+spiderId+"   action--------"+action);
         Map<String,Object> map = new HashMap<>();
         if(spiderId==null||spiderId==0)
             throw new CustomException("查询失败！","请输入要查询的爬虫日志ID！");
 
-        Item oneSpider = spiderItemService.GetById(spiderId);
+        SpiderItem oneSpider = spiderItemService.GetById(spiderId);
         if(oneSpider==null)
             throw new CustomException("查询失败！","查询的爬虫不存在！");
+
         List<UserCount> list2 = spiderLogService.GetUserCountBySpider(spiderId,action);
         map.put("usercount",list2);
 
@@ -72,11 +75,12 @@ public class SpiderLogController extends BaseController {
     @RequestMapping("/Search")
     public Map<String,Object> Search(@RequestParam(name = "spider",defaultValue = "0")  Integer spiderId,
                                      @RequestParam(name = "times",defaultValue = "30") Integer times){
+        log.info("spiderId------"+spiderId+"    times------"+times);
         Map<String,Object> map = new HashMap<>();
         if(spiderId==null||spiderId==0)
             throw new CustomException("查询失败！","请输入要查询的爬虫日志ID！");
 
-        Item oneSpider = spiderItemService.GetById(spiderId);
+        SpiderItem oneSpider = spiderItemService.GetById(spiderId);
         if(oneSpider==null)
             throw new CustomException("查询失败！","查询的爬虫不存在！");
 

@@ -19,5 +19,7 @@ public interface IMetadataFieldRegistryService<T> {
 
     void Delete(T id);
 
+    List<MetadataFieldRegistry> GetAll();
+
     List<MetadataFieldRegistry> GetList(Example<MetadataFieldRegistry> example);
 }

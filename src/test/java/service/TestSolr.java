@@ -10,6 +10,7 @@ import com.tongji.bwm.solr.Models.SearchResult;
 import com.tongji.bwm.solr.Client.SolrConfig;
 import com.tongji.bwm.solr.Client.SolrConnection;
 import com.tongji.bwm.solr.Client.SolrIndex;
+import com.tongji.bwm.solr.Models.TaskTypeEnum;
 import com.tongji.bwm.utils.FilterEntityUtils;
 import javafx.util.Pair;
 import lombok.extern.slf4j.Slf4j;
@@ -42,14 +43,14 @@ public class TestSolr extends AbstractTestNGSpringContextTests {
     @Test
     public void TestSolrIndex(){
         //1
-        solrIndex.initTaskInfo();
+        solrIndex.initTaskInfo(TaskTypeEnum.ADD);
         //2
         Future<String> result = solrIndex.startCreateIndex();
         //3
         try{
             result.get();
         }catch (Exception e){
-            log.warn("获取结果出错了+\r\n" +
+            log.warn("获取结果出错了+\r" +
                     e.getMessage());
         }
     }
@@ -59,20 +60,21 @@ public class TestSolr extends AbstractTestNGSpringContextTests {
         log.info("先看一眼solr地址===="+solrConfig.getUrl());
         Pagination<Item> pageList = itemService.GetPageList(FilterEntityUtils.getPageRowCondition(0,2));
         for(Item i: pageList.getList()){
-            log.info("Item------");
+            log.info("SpiderItem------");
             log.info(i.getId());
             log.info(i.get_field().get("dc.title")[0]);
         }
         Item[] items = pageList.getList().toArray(new Item[pageList.getList().size()]);
         try {
-            itemService.InsertToSolr(solrConfig.getUrl(),items,true);
-            Thread.sleep(10000);
+            Future<String> future = itemService.InsertSolr(solrConfig.getUrl(),items,true);
+            String result = future.get();
+            log.info("结果来着\r\n"+result);
         }catch (DocumentException e){
             //
             log.warn("解析出错");
-        }catch (InterruptedException e){
-            //
-            log.warn("线程出错");
+        }catch (Exception e){
+            log.warn("访问出错");
+            log.warn(e.getMessage());
         }
 
     }
@@ -89,13 +91,134 @@ public class TestSolr extends AbstractTestNGSpringContextTests {
             SearchResult<String> searchResult = itemService.GetSearchResult(parseStr);
             List<Item> items = new ArrayList<>();
             for(Document<String> doc:searchResult.getDocs()){
-                log.info("Item------id------"+doc.getId());
+                log.info("SpiderItem------id------"+doc.getId());
             }
         }catch (Exception e){
             log.warn("反正就是错了");
         }
+    }
 
+    @Test
+    public void TestPost(){
+        Future<String> result = solrConnection.Post(solrConfig.getUrl(),"/update",
+                "<add commitWithin=\"1000\" overwrite=\"true\">" +
+                        "<doc>"+
+                        "<field name=\"id\">C8CCCA14-EE38-4A28-8993-0001CF4089D0</field>" +
+                        "<field name=\"channel\">1</field>" +
+                        "<field name=\"category\">4</field>" +
+                        "<field name=\"click\">0</field>" +
+                        "<field name=\"sort\">0</field>" +
+                        "<field name=\"status\">1</field>" +
+                        "<field name=\"ctime\">1568184951</field>" +
+                        "<field name=\"mtime\">1568184951</field>" +
+                        "<field name=\"dc.title\">Fragile Balance</field>" +
+                        "<field name=\"dc.date.issued\">2006-11-01</field>"+
+                        "<field name=\"dc.description\">没有哦</field>"+
+                        "<field name=\"dc.source\">THINK TANK</field>" +
+                        "<field name=\"dc.creator\">Xiangming</field>" +
+                        "<field name=\"dc.subject\">China</field>" +
+                        "<field name=\"dc.subject\">Deutschland</field>" +
+                        "<field name=\"dc.subject\">chinesisch</field>" +
+                        "<field name=\"dc.url\">https://zeitschrift-ip.dgap.org/de/ip-die-zeitschrift/archiv/jahrgang-2006/november/fragile-balance</field>" +
+                        "</doc>"+
+                        "<commit></commit>" +
+                    "</add>"
+                );
+        try {
+            String mm = result.get();
+            log.info(mm);
+        }catch (Exception e){
+            log.info("出错了哦\r\n"+e.getMessage());
+        }
+    }
+
+
+    @Test
+    public void DeleteSolr(){
+        List<String> ids = new ArrayList<>();
+
+        ids.add("C8CCCA14-EE38-4A28-8993-0001CF4089D0");
+        ids.add("bd129496-0a13-4e1a-b0b7-00035f404d8b");
+
+        Future<String> future = itemService.DeleteToSolr(solrConfig.getUrl(),ids,true);
+        try{
+            String result = future.get();
+            log.info(result);
+        }catch (Exception e){
+            log.info("访问出错！");
+            log.info(e.getMessage());
+        }
+    }
+
+    @Test
+    public void TestCreateIndex(){
+        solrIndex.initTaskInfo(TaskTypeEnum.ADD);
+        Future<String> future = solrIndex.startCreateIndex();
+        try {
+            String result = future.get();
+        }catch (Exception e){
+            log.warn("出错了");
+            log.warn(e.getMessage());
+        }
+    }
+
+    @Test
+    public void TestSolrPageList(){
+        Integer page = 83;
+        Integer row = 500;
+        Integer pageCount = 0;
+        Integer totalnumber= 0;
+        while (true){
+            Pagination<Item> pagination = itemService.GetPageList(FilterEntityUtils.getPageRowCondition(page,row));
+            List<Item> list = pagination.getList();
+
+            log.info("现在页数：" + page);
+            if(list.size()==0) {
+                break;
+            }
+            if(list.size()!=500){
+                log.info("最后or问题："+list.size());
+            }
+            page++;
+            if(pageCount==0||totalnumber==0){
+                pageCount = pagination.getPageCount();
+                totalnumber = pagination.getTotal();
+                log.info("总页数："+pageCount);
+                log.info("总数量"+totalnumber);
+            }
+        }
+        log.info("总页数"+pageCount);
+        log.info("结束来着");
+    }
+
+
+    @Test
+    public void TestDeleteAll(){
+        Future<String> response = itemService.DeleteAllToSolr(solrConfig.getUrl(),true);
+        log.info("返回响应");
+        String result = "";
+        try {
+            result = response.get();
+        }catch (Exception e){
+            log.warn("出错了");
+        }
+        log.info(result);
 
     }
 
+    @Test
+    public void TestPaginationList(){
+        int a = 0;
+        log.info("每隔25次打印一下");
+        Pagination<Item> pageList = itemService.GetPageList(FilterEntityUtils.getPageRowCondition(0,500));
+        for(Item item: pageList.getList()){
+            if(a%25 ==0){
+                log.info("第"+a+"次哦！");
+                log.info("看一眼id");
+                log.info(item.getId());
+            }
+            a++;
+
+        }
+    }
 }

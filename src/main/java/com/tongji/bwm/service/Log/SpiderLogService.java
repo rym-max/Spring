@@ -2,8 +2,7 @@ package com.tongji.bwm.service.Log;
 
 import com.alibaba.fastjson.JSONObject;
 import com.tongji.bwm.entity.Log.Spider_Log;
-import com.tongji.bwm.entity.Spider.Item;
-import com.tongji.bwm.pojo.Enum.Scrapy.ScrapyEnum;
+import com.tongji.bwm.entity.Spider.SpiderItem;
 import com.tongji.bwm.pojo.SpiderLog.SpiderResult;
 import com.tongji.bwm.pojo.SpiderLog.UserCount;
 import com.tongji.bwm.repository.Log.SpiderLogRepository;
@@ -58,19 +57,25 @@ public class SpiderLogService implements ISpiderLogService<Integer> {
     }
 
     public List<UserCount> GetUserCountBySpider(Integer SpiderId,String action){
-        List<Object[]> list1 = spiderLogRepository.GetUserCountBySpider(SpiderId,action);
+
+        List<Object[]> list1 = new ArrayList<>();
+        if(action.equals("ALL")){
+            list1 = spiderLogRepository.GetUserCountBySpider(SpiderId);
+        }else {
+            list1 = spiderLogRepository.GetUserCountBySpider(SpiderId,action);
+        }
 
         List<UserCount> list2 = new ArrayList<>();
         if(list1==null || list1.size()==0)
             return list2;
 
-        Item spiderItem = spiderItemService.GetById(SpiderId);
+        SpiderItem spiderItem = spiderItemService.GetById(SpiderId);
         String spiderName ="未知";
         if(spiderItem!=null)
             spiderName = spiderItem.getName();
 
         for(Object[] li: list1){
-            list2.add(new UserCount((String)li[0],(String)li[1],spiderName,(Integer)li[2]));
+            list2.add(new UserCount((String)li[0],action,spiderName,(Integer)li[1]));
         }
 
         return list2;
@@ -88,12 +93,12 @@ public class SpiderLogService implements ISpiderLogService<Integer> {
                         Integer[] count = getCount((String)s[1]);
                         list2.add(
                                 new SpiderResult((String)s[0],count[0],count[1],
-                                        (String)s[2]+"月"+(String)s[3]+"日")
+                                        s[2]+"月"+s[3]+"日")
                         );
                     }else{
                         list2.add(
                                 new SpiderResult((String)s[0],0,0,
-                                        (String)s[2]+"月"+(String)s[3]+"日")
+                                        s[2]+"月"+s[3]+"日")
                         );
                     }
                 }

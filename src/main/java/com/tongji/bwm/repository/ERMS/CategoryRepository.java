@@ -14,7 +14,7 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
     Category findByCode(String code);
 
     @Query(
-            value = "SELECT * FROM ERMS_Category WHERE CategoryId = :ChannelId",
+            value = "SELECT * FROM ERMS_Category WHERE ChannelId = :ChannelId",
             nativeQuery = true
     )
     List<Category> findByChannelId(@Param(value = "ChannelId")Integer ChannelId);

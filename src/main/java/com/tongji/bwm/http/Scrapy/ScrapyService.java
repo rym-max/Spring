@@ -2,11 +2,12 @@ package com.tongji.bwm.http.Scrapy;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.tongji.bwm.entity.Spider.Config;
-import com.tongji.bwm.entity.Spider.Item;
+import com.tongji.bwm.entity.Spider.SpiderConfig;
+import com.tongji.bwm.entity.Spider.SpiderItem;
 import com.tongji.bwm.pojo.Enum.Scrapy.ScrapyEnum;
 import com.tongji.bwm.service.Spider.SpiderItemService;
 import com.tongji.bwm.utils.DateFormatterUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -23,6 +24,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.util.Date;
 
+@Slf4j
 @Service
 public class ScrapyService {
 
@@ -54,13 +56,13 @@ public class ScrapyService {
         return responseEntity;
     }
 
-    public boolean Start(Item item,String actionUser,String ip){
+    public boolean Start(SpiderItem spiderItem, String actionUser, String ip){
 
 
         /* 判断状态
-        是否finish？否，报错；
+        是否finish？否，报错；换种判断
          */
-        if(!IsFinish(item.getStatus(),item.getId(),actionUser))
+        if(!IsFinish(spiderItem.getStatus(), spiderItem.getId(),actionUser))
             return false;
 
         /*
@@ -69,21 +71,21 @@ public class ScrapyService {
          */
         MultiValueMap<String,String> map = new LinkedMultiValueMap<>();
 
-        //Config
-        Config config = item.getOwnerConfig();
-        if(config==null){
-            BanSpiderProcess(item.getId(),"'spider not have a config'");
+        //SpiderConfig
+        SpiderConfig spiderConfig = spiderItem.getOwnerSpiderConfig();
+        if(spiderConfig ==null){
+            BanSpiderProcess(spiderItem.getId(),"'spider not have a spiderConfig'");
             return false;
         }
 
         //先设置Item 状态
-        item.setStatus(ScrapyEnum.StatusEnum.OPENING);
-        spiderItemService.Update(item);
+        spiderItem.setStatus(ScrapyEnum.StatusEnum.OPENING);
+        spiderItemService.Update(spiderItem);
 
         //日期和spider name
-        map.add("project",config.getProject());
-        map.add("spider",config.getSpider());
-        map.add("jobid",item.getName() + "_" + DateFormatterUtils.GetDateStr(new Date()));
+        map.add("project", spiderConfig.getProject());
+        map.add("spider", spiderConfig.getSpider());
+        map.add("jobid", spiderItem.getName() + "_" + DateFormatterUtils.GetDateStr(new Date()));
 
         //部分参数需要单独设置
         //user&ip
@@ -95,7 +97,7 @@ public class ScrapyService {
         //1.settings需要写成settings "key=value"形式
         //2.CUSTOM_CONFIG需要整个字符串输入
 
-        String settings = item.getCustomSettings();
+        String settings = spiderItem.getCustomSettings();
 
         //解析字符串
         if(settings!=null && !settings.isEmpty()) {
@@ -119,17 +121,19 @@ public class ScrapyService {
 
         ResponseEntity<String> response = Post(scrapyserver,"/schedule.json",map);
 
+        String result = response.getBody();
+        log.info("响应："+result);
         /*解析response
 
          */
         if(response.getStatusCode()== HttpStatus.OK){
 //            String jobId = GetJobId(response.getBody());
             String jobId = map.getFirst("jobid");
-            item.setLastJob(jobId);
-            item.setStatus(ScrapyEnum.StatusEnum.SUSPENDING);
+            spiderItem.setLastJob(jobId);
+            spiderItem.setStatus(ScrapyEnum.StatusEnum.SUSPENDING);
             return true;
         }else{
-            BanSpiderProcess(item.getId(),"'spider not start successfully'");
+            BanSpiderProcess(spiderItem.getId(),"'spider not start successfully'");
             return false;
         }
     }
@@ -157,19 +161,19 @@ public class ScrapyService {
 
     private void BanSpiderProcess(Integer itemId, String reason){
         //错误处理
-        Item errorItem = spiderItemService.GetById(itemId);
-        errorItem.setStatus(ScrapyEnum.StatusEnum.ERROR);
+        SpiderItem errorSpiderItem = spiderItemService.GetById(itemId);
+        errorSpiderItem.setStatus(ScrapyEnum.StatusEnum.ERROR);
 
-        errorItem.setLastAction(ScrapyEnum.ActionEnum.ERROR);
-        errorItem.setLastJob("null");
-        errorItem.setLastActionTime(new Date());
-        errorItem.setLastActionUser("AUTO");
-        errorItem.setLastResult("{'status':'error'," +
+        errorSpiderItem.setLastAction(ScrapyEnum.ActionEnum.ERROR);
+        errorSpiderItem.setLastJob("null");
+        errorSpiderItem.setLastActionTime(new Date());
+        errorSpiderItem.setLastActionUser("AUTO");
+        errorSpiderItem.setLastResult("{'status':'error'," +
                 "'result':'ban the spider'," +
                 "'reason':" +
                 reason+
                 "}");
 
-        spiderItemService.Update(errorItem);
+        spiderItemService.Update(errorSpiderItem);
     }
 }

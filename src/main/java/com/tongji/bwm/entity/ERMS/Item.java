@@ -23,11 +23,6 @@ public class Item extends PKGUIDEntity {
     @Transient
     private HashMap<String,String[]> _field = new HashMap<String, String[]>();
 
-    @Transient
-    private Integer channelId;
-    @Transient
-    private Integer categoryId;//可能为空？
-
     private String metadataValue;
 
     private Integer click=0;
@@ -37,14 +32,21 @@ public class Item extends PKGUIDEntity {
     @Enumerated(EnumType.ORDINAL)
     private CommonEnum.AuditStatusEnum status;//审核状态
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ChannelId",foreignKey = @ForeignKey(name = "none",value = ConstraintMode.NO_CONSTRAINT))
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ChannelId",foreignKey = @ForeignKey(name = "none",value = ConstraintMode.NO_CONSTRAINT),updatable = false,insertable = false)
     @NotFound(action= NotFoundAction.IGNORE)
     private Channel ownerChannel;//指定外键咋办
 
+    @Column(name="ChannelId",nullable = false)
+    private Integer channelId;
+
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CategoryId",foreignKey = @ForeignKey(name = "none",value = ConstraintMode.NO_CONSTRAINT))
+    @JoinColumn(name = "CategoryId",foreignKey = @ForeignKey(name = "none",value = ConstraintMode.NO_CONSTRAINT),updatable = false,insertable = false)
+    @NotFound(action = NotFoundAction.IGNORE)
     private Category ownerCategory;
+
+    @Column(name = "CategoryId",nullable = false)
+    private Integer categoryId;//可能为空？
 
     public HashMap<String, String[]> get_field() {
         if(this.metadataValue!=null && this.metadataValue.length()!=0 && this._field.isEmpty()){
@@ -142,12 +144,12 @@ public class Item extends PKGUIDEntity {
     }
 
 
-    public Integer getChannelId() {
-        if(ownerChannel!=null) {
-            channelId = ownerChannel.getId();
-        }
-        return channelId;
-    }
+//    public Integer getChannelId() {
+//        if(ownerChannel!=null) {
+//            channelId = ownerChannel.getId();
+//        }
+//        return channelId;
+//    }
 
     public Integer getCategoryId() {
         if(ownerCategory!=null) {

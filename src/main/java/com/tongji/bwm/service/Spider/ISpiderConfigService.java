@@ -1,6 +1,6 @@
 package com.tongji.bwm.service.Spider;
 
-import com.tongji.bwm.entity.Spider.Config;
+import com.tongji.bwm.entity.Spider.SpiderConfig;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,19 +9,19 @@ import java.util.List;
 
 public interface ISpiderConfigService<T> {
 
-    T Insert(Config config);
+    T Insert(SpiderConfig spiderConfig);
 
-    Config GetById(T id);
+    SpiderConfig GetById(T id);
 
-    void Update(Config config);
+    void Update(SpiderConfig spiderConfig);
 
-    void Delete(Config config);
+    void Delete(SpiderConfig spiderConfig);
 
     void Delete(T id);
 
-    List<Config> GetAll();
+    List<SpiderConfig> GetAll();
 
-    Config GetByName(String name);
+    SpiderConfig GetByName(String name);
 
-    Page<Config> GetPageList(Example<Config> example, Pageable pageable);
+    Page<SpiderConfig> GetPageList(Example<SpiderConfig> example, Pageable pageable);
 }

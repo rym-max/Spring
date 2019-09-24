@@ -25,7 +25,10 @@ public class UserController extends BaseController{
 
     @RequestMapping(value = {"/","/index.html"})
     public ModelAndView index(){
-        return new ModelAndView("/User/Index");
+        ModelMap modelMap = new ModelMap();
+        modelMap.addAttribute("location","USER");
+        return new ModelAndView("/User/Index",
+                modelMap);
     }
 
     @RequestMapping("/Search")

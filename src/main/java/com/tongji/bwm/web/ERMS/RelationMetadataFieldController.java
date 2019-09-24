@@ -9,6 +9,7 @@ import com.tongji.bwm.pojo.FilterCondition.FilterCondition;
 import com.tongji.bwm.pojo.MetaFieldRegistryNameAndId;
 import com.tongji.bwm.service.ERMS.*;
 import com.tongji.bwm.web.Basic.BaseController;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Controller
 @RequestMapping("/ERMS/RelationMetadataField")
 @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_ARTICLE')")
@@ -48,9 +50,15 @@ public class RelationMetadataFieldController extends BaseController {
     }
 
     @RequestMapping("/Create")
-    public ModelAndView Create(@RequestParam(required = false) Integer ChannelId,
-                               @RequestParam(required = false) Integer CategoryId,
-                               @RequestParam(required = false,defaultValue = "0") Integer MetadataFieldId){
+    public ModelAndView Create(@RequestParam(value = "ChannelId",required = false) Integer ChannelId,
+                               @RequestParam(value = "CategoryId",required = false) Integer CategoryId,
+                               @RequestParam(value = "MetadataFieldId",required = false,defaultValue = "0") Integer MetadataFieldId){
+        log.info("看一眼传入的参数");
+        log.info("ChannelId==============="+ChannelId);
+        log.info("CategoryId=============="+CategoryId);
+        log.info("MetaFieldId============="+MetadataFieldId);
+
+
         //传回的模型
         ModelMap model = new ModelMap();
 
@@ -79,16 +87,21 @@ public class RelationMetadataFieldController extends BaseController {
 
             relationMetadataField.setValidationRules(byId.getValidationRules());
             relationMetadataField.setDefaultValue(byId.getDefaultValue());
-            if(ChannelId!=null){
-                relationMetadataField.setRelationObjectId(ChannelId);
-                relationMetadataField.setObjectType(CommonEnum.CustomMetadataFieldObject.Channel);
-            }else if(CategoryId !=null){
-                relationMetadataField.setRelationObjectId(CategoryId);
-                relationMetadataField.setObjectType(CommonEnum.CustomMetadataFieldObject.Category);
-            }else{
-                relationMetadataField.setRelationObjectId(-1);
-                relationMetadataField.setObjectType(CommonEnum.CustomMetadataFieldObject.Others);
-            }
+
+        }
+        //需要设置默认值，主要是两个属性
+        //relationObjectId和objectType
+
+        //先确定channel 在确定category
+        if(ChannelId!=null){
+            relationMetadataField.setRelationObjectId(ChannelId);
+            relationMetadataField.setObjectType(CommonEnum.CustomMetadataFieldObject.Channel);
+        }else if(CategoryId !=null){
+            relationMetadataField.setRelationObjectId(CategoryId);
+            relationMetadataField.setObjectType(CommonEnum.CustomMetadataFieldObject.Category);
+        }else{
+            relationMetadataField.setRelationObjectId(-1);
+            relationMetadataField.setObjectType(CommonEnum.CustomMetadataFieldObject.Others);
         }
         //加入model
         model.addAttribute("rmdf",relationMetadataField);

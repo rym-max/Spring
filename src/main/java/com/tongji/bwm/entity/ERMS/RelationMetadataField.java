@@ -3,6 +3,8 @@ package com.tongji.bwm.entity.ERMS;
 import com.tongji.bwm.entity.Basic.PKINTEntity;
 import com.tongji.bwm.pojo.Enum.CommonEnum;
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -10,10 +12,9 @@ import javax.validation.constraints.Size;
 @Data
 @Entity
 @Table(name = "ERMS_RelationMetadataField")
+@DynamicInsert
+@DynamicUpdate
 public class RelationMetadataField extends PKINTEntity {
-
-    @Transient
-    private Integer metadataFieldId;
 
     private Integer relationObjectId;
 
@@ -73,7 +74,17 @@ public class RelationMetadataField extends PKINTEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     private MetadataFieldRegistry ownerMetaFieldRegistry;
 
-//    public void refresh(){
+    @Transient
+    private Integer metadataFieldId;
+
+    public Integer getMetadataFieldId() {
+        if(ownerMetaFieldRegistry!=null){
+            metadataFieldId=ownerMetaFieldRegistry.getId();
+        }
+        return metadataFieldId;
+    }
+
+    //    public void refresh(){
 //
 //        ControlTypeCN = CommonEnum.ControlType.valueofCN(ControlType);
 //        DataTypeCN = CommonEnum.DataType.valueofCN(DataType);

@@ -32,7 +32,9 @@ public class PKGUIDEntity{
     private Date modifyTime;
 
     public String getId() {
-        return id.toLowerCase();
+        if(id!=null)
+            return this.id.toLowerCase();
+        return null;
     }
 
     public void setId(String id) {

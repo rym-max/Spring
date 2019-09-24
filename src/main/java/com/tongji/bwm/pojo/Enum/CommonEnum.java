@@ -27,7 +27,7 @@ public class CommonEnum {
     }
     @JsonFormat(shape = JsonFormat.Shape.OBJECT)
     public enum AvailableEnum{
-        Disable("禁用",0),Enable("启用",1);
+        Disable("禁用",0),Enable("启用",1),Others("未知",2);
         private String NameCN;
         private Integer code;
 
@@ -46,7 +46,7 @@ public class CommonEnum {
     }
     @JsonFormat(shape = JsonFormat.Shape.OBJECT)
     public enum AuditStatusEnum{
-        NotPass("未通过",0),Pass("已通过",1);
+        NotPass("未通过",0),Pass("已通过",1),Others("未知",2);
         private String NameCN;
         private int code;
 
@@ -61,6 +61,11 @@ public class CommonEnum {
 
         public int getCode() {
             return code;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(code);
         }
     }
     @JsonFormat(shape = JsonFormat.Shape.OBJECT)
@@ -131,9 +136,11 @@ public class CommonEnum {
     }
     @JsonFormat(shape = JsonFormat.Shape.OBJECT)
     public enum CustomMetadataFieldObject{
+
         Channel("栏目",0),
         Category("分类",1),
-        Others("其他",2);
+        Others("其他",3);
+
 
         private String NameCN;
         private Integer code;
@@ -146,6 +153,10 @@ public class CommonEnum {
 
         public String getNameCN() {
             return NameCN;
+        }
+
+        public Integer getCode() {
+            return code;
         }
     }
     @JsonFormat(shape = JsonFormat.Shape.OBJECT)

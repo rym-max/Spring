@@ -2,6 +2,7 @@ package com.tongji.bwm.utils;
 
 import com.tongji.bwm.pojo.Pagination;
 import com.tongji.bwm.pojo.FilterCondition.FilterCondition;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +13,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class FilterEntityUtils {
 
     public static FilterCondition getPageRowCondition(int page,int rows){
@@ -30,7 +32,8 @@ public class FilterEntityUtils {
 //        Method[] methods = clazz.getMethods();
         for(com.tongji.bwm.pojo.FilterCondition.Field field:filterCondition.filter){
             try{
-
+                log.debug("每个field");
+                log.debug(field.name+"======"+field.value);
                 //先获取属性类型
                 //默认属性首字母小写
                 String fieldName = CamelCaseUtils.LowerFirstLetter(field.name);

@@ -35,6 +35,7 @@ public class AccessLogController extends BaseController {
         ModelMap model = new ModelMap();
         model.addAttribute("date",map);
         log.info("返回访问日志页面");
+        model.addAttribute("location","ACCESSLOG");
         return new ModelAndView("/Log/AccessLog/Index",model);
     }
 

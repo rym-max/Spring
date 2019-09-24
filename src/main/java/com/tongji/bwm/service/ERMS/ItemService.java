@@ -14,12 +14,13 @@ import com.tongji.bwm.solr.Models.SearchResult;
 import com.tongji.bwm.solr.Client.SolrConnection;
 import com.tongji.bwm.utils.DateFormatterUtils;
 import com.tongji.bwm.utils.FilterEntityUtils;
+import com.tongji.bwm.utils.XmlDocumentUtils;
 import javafx.util.Pair;
-import org.dom4j.Document;
+import lombok.extern.slf4j.Slf4j;
 import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,8 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
+@SuppressWarnings("ALL")
+@Slf4j
 @Service
 public class ItemService implements IItemService<String> {
 
@@ -74,6 +77,18 @@ public class ItemService implements IItemService<String> {
     }
 
     public Pagination<Item> GetPageList(FilterCondition filterCondition){
+//        //生成example   没必要
+//        log.info("生成item example");
+//        Item item = FilterEntityUtils.getOneExample(new Item(),filterCondition);
+//
+//        ExampleMatcher matcher = ExampleMatcher.matching()
+//                .withMatcher("channelId",ExampleMatcher.GenericPropertyMatchers.exact())
+//                .withMatcher("categoryId", ExampleMatcher.GenericPropertyMatchers.exact())
+//                .withMatcher("status", ExampleMatcher.GenericPropertyMatchers.exact())
+//                .withMatcher("", ExampleMatcher.GenericPropertyMatchers.exact())
+//                .withIgnoreCase();
+
+
         //定义pageable
         Pageable pageable = FilterEntityUtils.getPageable(filterCondition);
         Page<Item> page = itemRepository.findAll(pageable);
@@ -89,57 +104,73 @@ public class ItemService implements IItemService<String> {
 
     @Override
     public void InsertToSolr(String serverURL, Item[] items, boolean commit) throws DocumentException {
+        log.info("进来了");
+        InsertSolr(serverURL,items,commit);
+    }
+
+    public Future<String> InsertSolr(String serverURL,Item[] items,boolean commit) throws DocumentException{
+//        log.info("进入future");
         StringBuffer xmlStringB = new StringBuffer();
         for(int i=0;i<items.length;i++){
             Item item = items[i];
-            Document document = DocumentHelper.parseText(item.getMetadataValue());
+//            Document document = DocumentHelper.parseText(item.getMetadataValue());
+//            Element root = document.getRootElement();
+
+            String metavalue = XmlDocumentUtils.getXmlStringWithoutRoot(item.getMetadataValue(),"doc");
+//            log.info("metavalue前后");
             xmlStringB.append("<doc>")
                     .append("<field name=\"id\">" + item.getId() + "</field>")
-                    .append("<field name=\"channel\">" + item.getOwnerChannel().getId() + "</field>")
-                    .append("<field name=\"category\">" + item.getOwnerCategory().getId() + "</field>")
+                    .append("<field name=\"channel\">" + item.getChannelId() + "</field>")
+                    .append("<field name=\"category\">" + item.getCategoryId() + "</field>")
                     .append("<field name=\"click\">" + item.getClick() + "</field>")
                     .append("<field name=\"sort\">" + item.getSort() + "</field>")
                     .append("<field name=\"status\">" + item.getStatus() + "</field>")
                     .append("<field name=\"ctime\">" + item.getCreateTime().getTime() + "</field>")
                     .append("<field name=\"mtime\">" + item.getModifyTime().getTime() + "</field>")
-                    .append(document.getRootElement().asXML())
+                    .append(metavalue)
                     .append("</doc>");
         }
         String xmlString =  "<add commitWithin=\"1000\" overwrite=\"true\">" +
                 xmlStringB.toString() +
                 (commit ? "<commit></commit>" : "") +
                 "</add>";
-        solrConnection.Post(serverURL,"/update",xmlString);
+//        log.info("post前");
+        return solrConnection.Post(serverURL,"/update",xmlString);
     }
 
+
+
     @Override
-    public void DeleteToSolr(String serverURL, String id, boolean commit) {
+    public Future<String> DeleteToSolr(String serverURL, String id, boolean commit) {
         StringBuffer parametersB = new StringBuffer();
         parametersB.append("<add commitWithin=\"1000\" overwrite=\"true\"><delete><query>")
                 .append("id:"+id)
                 .append("</query></delete>" + (commit ? "<commit></commit>" : "") + "</add>");
-        solrConnection.Post(serverURL,"/update", parametersB.toString());
+        return solrConnection.Post(serverURL,"/update", parametersB.toString());
     }
 
     @Override
-    public void DeleteToSolr(String serverURL, List<String> ids, boolean commit) {
+    public Future<String> DeleteToSolr(String serverURL, List<String> ids, boolean commit) {
         StringBuffer parameterB = new StringBuffer();
         parameterB.append("<add commitWithin=\"1000\" overwrite=\"true\"><delete><query>");
         int i = 0;
         for(String id :ids){
             if(i>0)
-                parameterB.append("OR");
+                parameterB.append(" OR ");
             parameterB.append("id:"+id);
             i++;
         }
         parameterB.append("</query></delete>" + (commit ? "<commit></commit>" : "") + "</add>");
-        solrConnection.Post(serverURL,"/update",parameterB.toString());
+        return solrConnection.Post(serverURL,"/update",parameterB.toString());
     }
 
+
+
+
     @Override
-    public void DeleteAllToSolr(String serverURL, List<String> ids, boolean commit) {
-        String parameters = "<add commitWithin=\"1000\" overwrite=\"true\"><delete><query></query></delete>" + (commit ? "<commit></commit>" : "") + "</add>";
-        solrConnection.Post(serverURL,"/update",parameters);
+    public Future<String> DeleteAllToSolr(String serverURL, boolean commit) {
+        String parameters = "<add commitWithin=\"1000\" overwrite=\"true\"><delete><query>*:*</query></delete>" + (commit ? "<commit></commit>" : "") + "</add>";
+        return solrConnection.Post(serverURL,"/update",parameters);
     }
 
     @Override
@@ -148,9 +179,9 @@ public class ItemService implements IItemService<String> {
 ////        JSONObject object = JSONObject.parseObject(future.get());
 //        SearchResult<String> searchResult = JSON.parseObject(future.get(), SearchResult.class);
 //
-//        List<Item> items = new ArrayList<>();
+//        List<SpiderItem> items = new ArrayList<>();
 //        for(Document<String> doc:searchResult.getDocs()){
-//            Item item = GetById(doc.getId());
+//            SpiderItem item = GetById(doc.getId());
 //            if(item!=null){
 //                items.add(item);
 //            }
@@ -163,7 +194,7 @@ public class ItemService implements IItemService<String> {
 //        }
 //
 //        int page = (searchResult.getStart() +searchResult.getRows())/searchResult.getRows();
-//        return new Pagination<Item>(items,searchResult.getNumFound(),page,searchResult.getRows());
+//        return new Pagination<SpiderItem>(items,searchResult.getNumFound(),page,searchResult.getRows());
         return GetPageList(serverURL,parameters,null);
     }
 
@@ -209,12 +240,12 @@ public class ItemService implements IItemService<String> {
             }
         }
 
-
         for(Pair<String,String> param: parameters){
-            if(param.getKey().equals("start"))
+            if(param.getKey().equals("start")) {
                 searchResult.setStart(Integer.parseInt(param.getValue()));
+            }
             if(param.getKey().equals("rows"))
-                searchResult.setStart(Integer.parseInt(param.getValue()));
+                searchResult.setRows(Integer.parseInt(param.getValue()));
             if(cluster!=null && param.getKey().equals("facet.field")) {
                 Map<String,HashMap<String,Integer>> clusterArray = new HashMap<>();
                 String[] array2 = param.getValue().split(",");
@@ -237,8 +268,7 @@ public class ItemService implements IItemService<String> {
 
             }
         }
-
-        int page = (searchResult.getStart() * searchResult.getRows() + searchResult.getRows())/searchResult.getRows();
+        int page = (searchResult.getStart()/searchResult.getRows())+1;
         return new Pagination<Item>(items,searchResult.getNumFound(),page,searchResult.getRows());
     }
 
@@ -268,7 +298,7 @@ public class ItemService implements IItemService<String> {
                     .append(")");
         }
 
-        if(status>0){
+        if(status<=1){
             sbf.append(sbf.length()==0 ? "" : " AND ");
             sbf.append("(status:")
                     .append(status)
@@ -297,7 +327,8 @@ public class ItemService implements IItemService<String> {
         parameters.add(new Pair<>("rows",String.valueOf(rows)));
         parameters.add(new Pair<>("sort","mtime desc,ctime desc"));
         parameters.add(new Pair<>("wt","json"));
-
+//        log.info("容我看一眼参数");
+//        log.info("页数："+page+"---------"+"行数："+rows);
         return parameters;
     }
 
