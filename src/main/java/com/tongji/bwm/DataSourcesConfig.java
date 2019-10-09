@@ -13,13 +13,13 @@ import javax.sql.DataSource;
 @Configuration
 public class DataSourcesConfig {
 
-//    @Bean(name="euDataSource")
-//    @Qualifier("euDataSource")
-//    @Primary
-//    @ConfigurationProperties(prefix = "eusource.datasource")
-//    public DataSource euDataSource(){
-//        return DataSourceBuilder.create().build();
-//    }
+    @Bean(name="euDataSource")
+    @Qualifier("euDataSource")
+    @Primary
+    @ConfigurationProperties(prefix = "eusource.datasource")
+    public DataSource euDataSource(){
+        return DataSourceBuilder.create().build();
+    }
 
 
     @Bean(name="geDataSource")

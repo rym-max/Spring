@@ -3,6 +3,8 @@ package com.tongji.bwm.web.ERMS;
 import com.tongji.bwm.entity.ERMS.*;
 import com.tongji.bwm.filters.CustomException;
 import com.tongji.bwm.filters.validation.CustomValidationException;
+import com.tongji.bwm.germany.entity.Item;
+import com.tongji.bwm.germany.service.ItemService;
 import com.tongji.bwm.pojo.Enum.CommonEnum;
 import com.tongji.bwm.pojo.FrontMetadataField;
 import com.tongji.bwm.pojo.Pagination;
@@ -10,6 +12,7 @@ import com.tongji.bwm.service.ERMS.*;
 import com.tongji.bwm.solr.Client.SolrConfig;
 import com.tongji.bwm.web.Basic.BaseController;
 import javafx.util.Pair;
+import javassist.bytecode.ExceptionsAttribute;
 import lombok.extern.slf4j.Slf4j;
 import org.dom4j.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Future;
 
 @Slf4j
 @Controller
@@ -36,6 +40,9 @@ public class AllController extends BaseController {
 
     @Autowired
     private AllService allService;
+
+    @Autowired
+    private ItemService itemService;
 
     @Autowired
     private ChannelService channelService;
@@ -115,76 +122,107 @@ public class AllController extends BaseController {
     @RequestMapping(value = {"/edit"})
     @ResponseBody
     public Map<String,Object> edit(HttpServletRequest httpServletRequest,
-                                   @Validated @RequestBody All model,
-                                   BindingResult bindingResult){
-        //极大概率出错
+                                    @Validated @RequestBody All model,
+                                    BindingResult bindingResult){
+        //先验证对象的合法性
         if(bindingResult.hasErrors()){
             throw new CustomValidationException("操作失败！",bindingResult.getFieldErrors());
         }
 
-        boolean flag = false;
-        All all = allService.GetById(model.getId());
-        if(all == null){
+        //分两种情况 1.有id 2.无id | 1.isAudit 2.no
+        boolean flag = true;//true表示insert;
+        All all;
+        if(model.getId()!=null && !model.getId().isEmpty()){
+            all = allService.GetById(model.getId());
+            if(all==null){
+                all = new All();
+            }else {
+                flag = false;
+            }
+        }else {
             all = new All();
-            flag = true;
         }
-//        all.setOwnerCategory(categoryService.GetById(model.getCategoryId()));
-//        all.setOwnerChannel(channelService.GetById(model.getChannelId()));
-//        all.setClick(model.getClick());
-//        all.setSort(model.getSort());
-        if(model.getStatus()!=null) {
+
+        if(model.getStatus()!=null){
             all.setStatus(model.getStatus());
         }
+
         List<MetadataSchemaRegistry> list1 = metadataSchemaRegistryService.GetAll();
         List<RelationMetadataField> list = new ArrayList<>();
 
-        if(model.getCategoryId()!=null) {
+        if(model.getCategoryId()!=null){
+            all.setCategoryId(model.getCategoryId());
             Category byId = categoryService.GetById(model.getCategoryId());
-            all.setOwnerCategory(byId);
-            if (byId != null) {
-                list = relationMetadataFieldService.GetList(CommonEnum.CustomMetadataFieldObject.values()[1], byId.getId(), true);
-                if (list.size() == 0 && byId.getParentId()!=null && byId.getParentId() > 0) {
-                    list = relationMetadataFieldService.GetList(CommonEnum.CustomMetadataFieldObject.values()[1], byId.getParentId(), true);
+            if(byId!=null){
+                list = relationMetadataFieldService.GetList(CommonEnum.CustomMetadataFieldObject.Category,byId.getId(),true);
+                if(list.size()==0&&byId.getParentId()!=null && byId.getParentId()>0){
+                    list = relationMetadataFieldService.GetList(CommonEnum.CustomMetadataFieldObject.Category,byId.getParentId(),true);
                 }
             }
         }
-        if(model.getChannelId()!=null) {
-            all.setOwnerChannel(channelService.GetById(model.getChannelId()));
-            if (list.size() == 0) {
-                list = relationMetadataFieldService.GetList(CommonEnum.CustomMetadataFieldObject.values()[0], model.getChannelId(), true);
+
+        if(model.getChannelId()!=null){
+            all.setChannelId(model.getChannelId());
+            if(list.size()==0){
+                list = relationMetadataFieldService.GetList(CommonEnum.CustomMetadataFieldObject.Channel,model.getChannelId(),true);
             }
         }
+
         if(list.size()>0){
             Map<String,String[]> parameters = httpServletRequest.getParameterMap();
             String metadata = allService.GetMetadataString(list,parameters);
             all.setMetadataValue(metadata);
         }
 
-        //插入至Solr
-        try {
-            allService.InsertToSolr(solrConfig.getUrl(), new All[]{all}, true);
-
-        }catch (DocumentException e){
-            //logger
-            throw new CustomException("操作失败！","插入Solr发生错误");
+        Item item = Item.GetInstanceByAll(all);
+        boolean isAudit = false;
+        if (item!=null&& all.getIsAudit().equals(false)){
+            isAudit = InsertToGermany(item);
+            all.setIsAudit(isAudit);
+            //不做异常处理，防止卡住
         }
 
-        if(flag){
+        //插入至solr
+        try{
+            allService.InsertToSolr(solrConfig.getUrl(),new All[]{all},true);
+        }catch (DocumentException e){
+            log.info("处理文档出错");
+            throw new CustomException("操作失败！","插入Solr发生错误！");
+        }
+
+        if(flag) {
             allService.Insert(all);
         }else {
             allService.Update(all);
         }
 
         return Success("操作成功！",null);
+
     }
+
+    private boolean InsertToGermany(Item item) {
+        try {
+            itemService.Insert(item);
+            Future<String> future = itemService.InsertSolr(solrConfig.getGeurl(),new Item[]{item},true);
+            String result = future.get();
+            return true;
+        }catch (DocumentException e){
+            log.warn("插入中德智库过程，文档处理出错");
+            return false;
+        }catch (Exception e){
+            log.warn("访问solr获取结果出错");
+            return false;
+        }
+    }
+
 
     @RequestMapping("/Operation")
     @ResponseBody
     public Map<String,Object> Operation(@RequestParam(value = "ids",defaultValue = "") String ids,
-                                        @RequestParam(value = "action",defaultValue = "-1") Integer action){
+                                        @RequestParam(value = "action",defaultValue = "-1") int action){
 
         String[] array = ids.split(",");
-        if(array == null || array.length==0)
+        if(array.length==0)
             throw new CustomException("操作失败！","请选择操作项");
         if(action==0){//删除命令
             String[] array2 = array;
@@ -199,6 +237,16 @@ public class AllController extends BaseController {
                 String id2 = array3[j];
                 All byId = allService.GetById(id2);
                 if(byId!=null){
+                    //germany
+                    if(action==1&&byId.getIsAudit().equals(false)){
+                        Item item = Item.GetInstanceByAll(byId);
+                        boolean isAudit = false;
+                        if(item!=null){
+                           isAudit = InsertToGermany(item);
+                        }
+                        byId.setIsAudit(isAudit);
+                    }
+
                     byId.setStatus((action==1)? CommonEnum.AuditStatusEnum.Pass:CommonEnum.AuditStatusEnum.NotPass);
 
                     try {
@@ -208,6 +256,8 @@ public class AllController extends BaseController {
                     }
                     //MODIFYTime自动修改
                     allService.Update(byId);
+
+
                 }
             }
         }

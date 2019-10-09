@@ -20,9 +20,11 @@ import java.util.*;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class All extends PKGUIDEntity {
 
-    private Integer isGermany=0;
+    private Boolean isGermany=false;
 
-    private Integer isSolr = 1;
+    private Boolean isSolr =true;
+
+    private Boolean isAudit = false;
 
     @Transient
     private HashMap<String,String[]> _field = new HashMap<String, String[]>();

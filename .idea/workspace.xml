@@ -2,165 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5b2d3bf1-92ce-47ee-8410-b42a0bc1ef63" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/HttpResponseConverterDTOConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/HttpResponseConverterDTOConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/Basic/PKGUIDEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/Basic/PKGUIDEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/Basic/PKINTEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/Basic/PKINTEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/DataSourcesConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/DataSourcesConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/EUConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/EUConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/GEConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/GEConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/ERMS/All.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/ERMS/All.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/ERMS/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/ERMS/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/ERMS/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/ERMS/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/ERMS/MetadataFieldRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/ERMS/MetadataFieldRegistry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/ERMS/Region.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/ERMS/Region.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/ERMS/RelationMetadataField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/ERMS/RelationMetadataField.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/Spider/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/Spider/SpiderConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/Spider/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/Spider/SpiderItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/filters/Converter/EntityConverter/SpiderConfigConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/filters/Converter/EntityConverter/SpiderConfigConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/filters/Converter/EntityConverter/SpiderItemConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/filters/Converter/EntityConverter/SpiderItemConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/filters/Converter/EnumConverter/ScrapyActionConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/filters/Converter/EnumConverter/ScrapyActionConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/filters/Converter/EnumConverter/ScrapySpiderType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/filters/Converter/EnumConverter/ScrapySpiderType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/filters/Converter/EnumConverter/ScrapyStatusConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/filters/Converter/EnumConverter/ScrapyStatusConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/http/Scrapy/ScrapySchedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/http/Scrapy/ScrapySchedule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/http/Scrapy/ScrapyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/http/Scrapy/ScrapyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/pojo/Enum/CommonEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/pojo/Enum/CommonEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/pojo/Enum/Scrapy/ScrapyEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/pojo/Enum/Scrapy/ScrapyEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/pojo/MetaFieldRegistryNameAndId.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/pojo/MetaFieldRegistryNameAndId.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/repository/ERMS/CategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/repository/ERMS/CategoryRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/repository/ERMS/ItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/repository/ERMS/ItemRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/repository/Log/SpiderLogRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/repository/Log/SpiderLogRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/repository/Spider/SpiderConfigRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/repository/Spider/SpiderConfigRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/repository/Spider/SpiderItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/repository/Spider/SpiderItemRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/ERMS/AllService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/ERMS/AllService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/ERMS/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/ERMS/CategoryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/ERMS/IItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/ERMS/IItemService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/ERMS/IMetadataFieldRegistryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/ERMS/IMetadataFieldRegistryService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/ERMS/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/ERMS/ItemService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/ERMS/MetadataFieldRegistryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/ERMS/MetadataFieldRegistryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/Log/SpiderLogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/Log/SpiderLogService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/Spider/ISpiderConfigService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/Spider/ISpiderConfigService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/Spider/ISpiderItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/Spider/ISpiderItemService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/Spider/SpiderConfigService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/Spider/SpiderConfigService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/Spider/SpiderItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/Spider/SpiderItemService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/solr/Client/SolrConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/solr/Client/SolrConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/solr/Client/SolrIndex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/solr/Client/SolrIndex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/utils/DateFormatterUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/utils/DateFormatterUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/utils/FilterEntityUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/utils/FilterEntityUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/Basic/AdministratorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/Basic/AdministratorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/Basic/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/Basic/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/Basic/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/Basic/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/Book/JournalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/Book/JournalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/CategoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/ChannelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/ChannelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/solr/Client/SolrConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/solr/Client/SolrConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/AllController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/AllController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/ItemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/MetadataFieldRegistryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/MetadataFieldRegistryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/MetadataSchemaRegistryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/MetadataSchemaRegistryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/RegionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/RegionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/RelationMetadataFieldController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/RelationMetadataFieldController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/Log/AccessLogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/Log/AccessLogController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/Log/SpiderLogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/Log/SpiderLogController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/Solr/SolrController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/Solr/SolrController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/Spider/SpiderConfigController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/Spider/SpiderConfigController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/Spider/SpiderItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/Spider/SpiderItemController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/All/Edit.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/All/Index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/All/Index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Category/Edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Category/Edit.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Category/Index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Category/Index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Category/Metadata.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Category/Metadata.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Channel/Metadata.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Channel/Metadata.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Item/Edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Item/Edit.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Item/Index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Item/Index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Item/ShowMetadataFieldForm.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Item/ShowMetadataFieldForm.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/MetadataFieldRegistry/Edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/MetadataFieldRegistry/Edit.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/MetadataFieldRegistry/Index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/MetadataFieldRegistry/Index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Region/Edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Region/Edit.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Region/Index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Region/Index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/RelationMetadataField/Create.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/RelationMetadataField/Create.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Solr/Index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Solr/Index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Home/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Home/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Home/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Home/login.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Log/AccessLog/Index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Log/AccessLog/Index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Log/SpiderLog/Index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Log/SpiderLog/Index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Spider/Config/Edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Spider/Config/Edit.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Spider/Config/Index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Spider/Config/Index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Spider/Item/Edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Spider/Item/Edit.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Spider/Item/Index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Spider/Item/Index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/User/Index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/User/Index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/_Layout.tag" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/_Layout.tag" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/repository/TestCount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/repository/TestCount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/service/TestItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/service/TestItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/service/TestItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/service/TestSpiderItemService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/service/TestSolr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/service/TestSolr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/web/echartstest.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/web/echartstest.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/HttpResponseConverterDTOConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/HttpResponseConverterDTOConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/entity/Basic/PKINTEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/entity/Basic/PKINTEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/entity/ERMS/All.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/entity/ERMS/All.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/entity/ERMS/Category.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/entity/ERMS/Category.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/entity/ERMS/Item.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/entity/ERMS/Item.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/entity/ERMS/MetadataFieldRegistry.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/entity/ERMS/MetadataFieldRegistry.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/entity/ERMS/Region.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/entity/ERMS/Region.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/entity/ERMS/RelationMetadataField.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/entity/ERMS/RelationMetadataField.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/entity/Spider/Config.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/entity/Spider/Item.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/filters/Converter/EntityConverter/SpiderConfigConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/filters/Converter/EntityConverter/SpiderConfigConverter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/filters/Converter/EntityConverter/SpiderItemConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/filters/Converter/EntityConverter/SpiderItemConverter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/filters/Converter/EnumConverter/ScrapyActionConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/filters/Converter/EnumConverter/ScrapyActionConverter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/filters/Converter/EnumConverter/ScrapySpiderType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/filters/Converter/EnumConverter/ScrapySpiderType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/filters/Converter/EnumConverter/ScrapyStatusConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/filters/Converter/EnumConverter/ScrapyStatusConverter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/http/Scrapy/ScrapySchedule.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/http/Scrapy/ScrapySchedule.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/http/Scrapy/ScrapyService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/http/Scrapy/ScrapyService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/pojo/Enum/CommonEnum$AuditStatusEnum.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/pojo/Enum/CommonEnum$AuditStatusEnum.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/pojo/Enum/CommonEnum$AvailableEnum.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/pojo/Enum/CommonEnum$AvailableEnum.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/pojo/Enum/CommonEnum$ControlType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/pojo/Enum/CommonEnum$ControlType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/pojo/Enum/CommonEnum$CustomMetadataFieldObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/pojo/Enum/CommonEnum$CustomMetadataFieldObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/pojo/Enum/CommonEnum$DataType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/pojo/Enum/CommonEnum$DataType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/pojo/Enum/CommonEnum$RoleType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/pojo/Enum/CommonEnum$RoleType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/pojo/Enum/Scrapy/ScrapyEnum$ActionEnum.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/pojo/Enum/Scrapy/ScrapyEnum$ActionEnum.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/pojo/Enum/Scrapy/ScrapyEnum$SpiderType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/pojo/Enum/Scrapy/ScrapyEnum$SpiderType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/pojo/MetaFieldRegistryNameAndId.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/pojo/MetaFieldRegistryNameAndId.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/repository/ERMS/CategoryRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/repository/ERMS/CategoryRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/repository/ERMS/ItemRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/repository/ERMS/ItemRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/repository/Log/SpiderLogRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/repository/Log/SpiderLogRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/repository/Spider/SpiderConfigRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/repository/Spider/SpiderConfigRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/repository/Spider/SpiderItemRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/repository/Spider/SpiderItemRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/service/ERMS/AllService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/service/ERMS/AllService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/service/ERMS/CategoryService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/service/ERMS/CategoryService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/service/ERMS/IItemService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/service/ERMS/IItemService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/service/ERMS/IMetadataFieldRegistryService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/service/ERMS/IMetadataFieldRegistryService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/service/ERMS/ItemService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/service/ERMS/ItemService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/service/ERMS/MetadataFieldRegistryService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/service/ERMS/MetadataFieldRegistryService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/service/Log/SpiderLogService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/service/Log/SpiderLogService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/service/Spider/ISpiderConfigService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/service/Spider/ISpiderConfigService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/service/Spider/ISpiderItemService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/service/Spider/ISpiderItemService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/service/Spider/SpiderConfigService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/service/Spider/SpiderConfigService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/service/Spider/SpiderItemService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/service/Spider/SpiderItemService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/solr/Client/SolrConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/solr/Client/SolrConnection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/solr/Client/SolrIndex.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/solr/Client/SolrIndex.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/utils/DateFormatterUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/utils/DateFormatterUtils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/utils/FilterEntityUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/utils/FilterEntityUtils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/Basic/AdministratorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/Basic/AdministratorController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/Basic/HomeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/Basic/HomeController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/Basic/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/Basic/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/Book/JournalController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/Book/JournalController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/ERMS/CategoryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/ERMS/CategoryController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/ERMS/ChannelController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/ERMS/ChannelController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/ERMS/ItemController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/ERMS/ItemController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/ERMS/MetadataFieldRegistryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/ERMS/MetadataFieldRegistryController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/ERMS/MetadataSchemaRegistryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/ERMS/MetadataSchemaRegistryController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/ERMS/RegionController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/ERMS/RegionController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/ERMS/RelationMetadataFieldController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/ERMS/RelationMetadataFieldController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/Log/AccessLogController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/Log/AccessLogController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/Log/SpiderLogController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/Log/SpiderLogController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/Solr/SolrController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/Solr/SolrController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/Spider/SpiderConfigController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/Spider/SpiderConfigController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/Spider/SpiderItemController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tongji/bwm/web/Spider/SpiderItemController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/service/TestItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/service/TestItem.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/service/TestItemService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/service/TestSolr.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/service/TestSolr.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -196,21 +48,36 @@
     <select />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/AllController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="553">
-              <caret line="270" lean-forward="true" selection-start-line="270" selection-end-line="270" />
+            <state relative-caret-position="414">
+              <caret line="18" column="29" lean-forward="true" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/_Layout.tag">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/germany/repository/ItemRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="596">
-              <caret line="96" column="29" lean-forward="true" selection-start-line="96" selection-start-column="29" selection-end-line="96" selection-end-column="29" />
+            <state relative-caret-position="368">
+              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/germany/service/ItemService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1004">
+              <caret line="54" column="19" selection-start-line="54" selection-start-column="19" selection-end-line="54" selection-end-column="19" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -218,8 +85,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/GEConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="35" column="30" lean-forward="true" selection-start-line="35" selection-start-column="30" selection-end-line="35" selection-end-column="30" />
+            <state relative-caret-position="199">
+              <caret line="29" column="12" lean-forward="true" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -227,62 +94,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/EUConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="931">
-              <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/CategoryController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1852">
-              <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/ItemController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1265">
-              <caret line="80" column="47" selection-start-line="80" selection-start-column="47" selection-end-line="80" selection-end-column="47" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/ERMS/AllService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="48" column="60" lean-forward="true" selection-start-line="48" selection-start-column="60" selection-end-line="48" selection-end-column="60" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/All/Edit.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="411">
-              <caret line="114" column="11" selection-start-line="114" selection-start-column="11" selection-end-line="114" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Item/Edit.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="598">
-              <caret line="26" column="30" lean-forward="true" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/All/ShowMetadataFieldForm.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="4" column="13" lean-forward="true" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+            <state relative-caret-position="184">
+              <caret line="26" column="55" lean-forward="true" selection-start-line="26" selection-start-column="55" selection-end-line="26" selection-end-column="55" />
             </state>
           </provider>
         </entry>
@@ -295,8 +108,8 @@
         <option value="FxmlFile" />
         <option value="spring-beans.schema" />
         <option value="HTML File" />
-        <option value="Interface" />
         <option value="Jsp File" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -379,17 +192,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/HttpResponseConverterDTOConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Item/ShowMetadataFieldForm.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/_PopupLayout.tag" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Administrator/Edit.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Administrator/Index.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Book/Journal/Edit.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Book/Journal/Index.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Category/Edit.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Category/Index.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Category/Metadata.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Channel/Edit.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Channel/Index.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Channel/Metadata.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Item/Index.jsp" />
@@ -411,7 +213,6 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Spider/Item/Index.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/User/Edit.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/User/Index.jsp" />
-        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/Spider/SpiderItemController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/Log/SpiderLogService.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Log/SpiderLog/Index.jsp" />
@@ -420,16 +221,28 @@
         <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/http/Scrapy/ScrapySchedule.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/solr/Client/SolrIndex.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/ERMS/AllService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/ERMS/ItemService.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/All/Index.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/ERMS/Item.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/ERMS/All.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/Basic/PKGUIDEntity.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/All/ShowMetadataFieldForm.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Item/Edit.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/All/Edit.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/AllController.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/_Layout.tag" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/DataSourcesConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/germany/repository/IItemRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/germany/service/IItemService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/germany/service/ItemService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/germany/entity/Item.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/solr/Client/SolrConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/ERMS/All.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/AllController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/ERMS/ItemService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/repository/ERMS/ItemRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/ItemController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/germany/repository/ItemRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/GEConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/tongji/bwm/EUConfig.java" />
       </list>
     </option>
   </component>
@@ -465,10 +278,9 @@
     <option name="skipTests" value="true" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="175" />
-    <option name="y" value="63" />
-    <option name="width" value="1570" />
-    <option name="height" value="1079" />
+    <option name="x" value="921" />
+    <option name="width" value="943" />
+    <option name="height" value="1087" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -479,6 +291,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -540,7 +354,7 @@
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="tongji" type="462c0819:PsiDirectoryNode" />
               <item name="bwm" type="462c0819:PsiDirectoryNode" />
-              <item name="entity" type="462c0819:PsiDirectoryNode" />
+              <item name="germany" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="EU_Background" type="b2602c69:ProjectViewProjectNode" />
@@ -551,8 +365,18 @@
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="tongji" type="462c0819:PsiDirectoryNode" />
               <item name="bwm" type="462c0819:PsiDirectoryNode" />
-              <item name="entity" type="462c0819:PsiDirectoryNode" />
-              <item name="ERMS" type="462c0819:PsiDirectoryNode" />
+              <item name="repository" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="EU_Background" type="b2602c69:ProjectViewProjectNode" />
+              <item name="EU_Background" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="tongji" type="462c0819:PsiDirectoryNode" />
+              <item name="bwm" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="EU_Background" type="b2602c69:ProjectViewProjectNode" />
@@ -564,6 +388,18 @@
               <item name="tongji" type="462c0819:PsiDirectoryNode" />
               <item name="bwm" type="462c0819:PsiDirectoryNode" />
               <item name="web" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="EU_Background" type="b2602c69:ProjectViewProjectNode" />
+              <item name="EU_Background" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="tongji" type="462c0819:PsiDirectoryNode" />
+              <item name="bwm" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="ERMS" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="EU_Background" type="b2602c69:ProjectViewProjectNode" />
@@ -639,20 +475,10 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="EU_Background" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EU_Background" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -848,7 +674,9 @@
       <workItem from="1568769909423" duration="14977000" />
       <workItem from="1569040506034" duration="1677000" />
       <workItem from="1569054986522" duration="870000" />
-      <workItem from="1569200168408" duration="34089000" />
+      <workItem from="1569200168408" duration="43152000" />
+      <workItem from="1569375196683" duration="5265000" />
+      <workItem from="1570518237018" duration="6145000" />
     </task>
     <servers />
   </component>
@@ -885,7 +713,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="908360000" />
+    <option name="totallyTimeSpent" value="928833000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -907,16 +735,16 @@
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info id="Image Layers" order="5" />
       <window_info id="Capture Tool" order="6" />
-      <window_info active="true" content_ui="combo" id="Project" order="7" visible="true" weight="0.25261998" />
+      <window_info content_ui="combo" id="Project" order="7" visible="true" weight="0.2322118" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.5176715" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.47609147" />
       <window_info anchor="bottom" id="Terminal" order="3" weight="0.32848233" />
-      <window_info anchor="bottom" id="Debug" order="4" sideWeight="0.4997242" visible="true" weight="0.2910603" />
+      <window_info anchor="bottom" id="Debug" order="4" sideWeight="0.4997242" weight="0.2910603" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32952183" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="8" visible="true" weight="0.46257797" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="TODO" order="10" weight="0.32952183" />
       <window_info anchor="bottom" id="Spring" order="11" weight="0.32848233" />
@@ -975,116 +803,47 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/MetadataSchemaRegistry/Index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-656">
-          <caret line="35" column="34" selection-start-line="35" selection-start-column="34" selection-end-line="35" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Region/Edit.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1530">
-          <caret line="16" column="35" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Region/Index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="34" column="30" selection-start-line="34" selection-start-column="30" selection-end-line="34" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/RelationMetadataField/Create.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="563">
-          <caret line="150" lean-forward="true" selection-start-line="150" selection-end-line="150" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/RelationMetadataField/Edit.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="16" column="35" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/View/ERMS/Solr/Index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-311">
-          <caret line="76" column="34" selection-start-line="76" selection-start-column="34" selection-end-line="76" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Home/index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2">
-          <caret line="20" column="30" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Home/login.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="27" column="56" lean-forward="true" selection-start-line="27" selection-start-column="56" selection-end-line="27" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Spider/Config/Edit.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="45" column="48" lean-forward="true" selection-start-line="45" selection-start-column="48" selection-end-line="45" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Spider/Config/Index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="123" column="22" lean-forward="true" selection-start-line="123" selection-start-column="22" selection-end-line="123" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Spider/Item/Edit.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="17" column="63" lean-forward="true" selection-start-line="17" selection-start-column="63" selection-end-line="17" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/View/Spider/Item/Index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-207">
-          <caret line="78" column="18" lean-forward="true" selection-start-line="78" selection-start-column="18" selection-end-line="78" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/View/User/Edit.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="479">
-          <caret line="101" lean-forward="true" selection-start-line="101" selection-end-line="101" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/View/User/Index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="33" column="39" lean-forward="true" selection-start-line="33" selection-start-column="39" selection-end-line="33" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/security/WebSecurityConfig.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-184">
@@ -1186,13 +945,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="31" column="19" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/service/TestScrapy.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="58">
@@ -1234,13 +986,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/ERMS/Item.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="18" column="21" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.m2/repository/org/springframework/data/spring-data-commons/2.1.9.RELEASE/spring-data-commons-2.1.9.RELEASE.jar!/org/springframework/data/repository/CrudRepository.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="169">
@@ -1255,34 +1000,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/ERMS/All.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-819">
-          <caret line="24" column="31" lean-forward="true" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
-          <folding>
-            <element signature="e#627#645#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/Basic/PKGUIDEntity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="314">
           <caret line="40" column="18" lean-forward="true" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/ERMS/AllService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="48" column="60" lean-forward="true" selection-start-line="48" selection-start-column="60" selection-end-line="48" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/ERMS/ItemService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4830">
-          <caret line="265" column="51" selection-start-line="265" selection-start-column="51" selection-end-line="265" selection-end-column="51" />
         </state>
       </provider>
     </entry>
@@ -1307,24 +1028,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/ItemController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1265">
-          <caret line="80" column="47" selection-start-line="80" selection-start-column="47" selection-end-line="80" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/CategoryController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1852">
           <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/AllController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="553">
-          <caret line="270" lean-forward="true" selection-start-line="270" selection-end-line="270" />
         </state>
       </provider>
     </entry>
@@ -1335,17 +1042,190 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/GEConfig.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/ERMS/IRelationMetadataFieldService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/germany/service/IItemService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/ERMS/AllService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="48" column="60" selection-start-line="48" selection-start-column="60" selection-end-line="48" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/Basic/PKINTEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/germany/entity/Item.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="621">
+          <caret line="42" column="28" lean-forward="true" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/solr/Client/SolrConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="591">
+          <caret line="37" column="39" lean-forward="true" selection-start-line="37" selection-start-column="39" selection-end-line="37" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/DataSourcesConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="21" column="5" lean-forward="true" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
+          <folding>
+            <element signature="e#641#642#0" expanded="true" />
+            <element signature="e#698#699#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/CustomPhysicalNamingStrategy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/Application.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/ERMS/All.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="48" column="39" lean-forward="true" selection-start-line="48" selection-start-column="39" selection-end-line="48" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/ERMS/Item.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1503">
+          <caret line="57" column="64" selection-start-line="57" selection-start-column="64" selection-end-line="57" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/entity/ERMS/Region.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/Basic/BaseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="15" column="30" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/filters/CustomException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/AllController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="187" column="32" selection-start-line="187" selection-start-column="32" selection-end-line="187" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/ERMS/IItemService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="667">
+          <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/service/ERMS/ItemService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="37" column="24" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/repository/ERMS/ItemRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="11" column="13" lean-forward="true" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/web/ERMS/ItemController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="57" column="32" lean-forward="true" selection-start-line="57" selection-start-column="32" selection-end-line="57" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="18" column="29" lean-forward="true" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/germany/repository/ItemRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="368">
-          <caret line="35" column="30" lean-forward="true" selection-start-line="35" selection-start-column="30" selection-end-line="35" selection-end-column="30" />
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/germany/service/ItemService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1004">
+          <caret line="54" column="19" selection-start-line="54" selection-start-column="19" selection-end-line="54" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/GEConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="29" column="12" lean-forward="true" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/tongji/bwm/EUConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="931">
-          <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
+        <state relative-caret-position="184">
+          <caret line="26" column="55" lean-forward="true" selection-start-line="26" selection-start-column="55" selection-end-line="26" selection-end-column="55" />
         </state>
       </provider>
     </entry>

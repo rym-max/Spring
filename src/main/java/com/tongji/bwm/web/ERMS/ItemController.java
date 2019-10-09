@@ -28,9 +28,9 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-@Controller
-@RequestMapping("/ERMS/Item")
-@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_ARTICLE','ROLE_EDITOR')")
+//@Controller
+//@RequestMapping("/ERMS/Item")
+//@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_ARTICLE','ROLE_EDITOR')")
 public class  ItemController extends BaseController {
 
     @Autowired

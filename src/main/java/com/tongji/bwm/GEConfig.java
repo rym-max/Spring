@@ -26,9 +26,9 @@ import java.util.Map;
 @EnableJpaRepositories(
         entityManagerFactoryRef ="entityManagerFactoryGE",
         transactionManagerRef = "transactionManagerGE",
-        basePackages = {"com.tongji.bwm.repository.*"})
+        basePackages = {"com.tongji.bwm.germany.repository"})
 @EntityScan(
-        basePackages = {"com.tongji.bwm.entity.*"}
+        basePackages = {"com.tongji.bwm.germany.entity"}
 )
 public class GEConfig {
 

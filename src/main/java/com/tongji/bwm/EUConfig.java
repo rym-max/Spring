@@ -2,6 +2,7 @@ package com.tongji.bwm;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
@@ -19,51 +20,54 @@ import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 import java.util.Map;
 
-//@Configuration
-//@EnableTransactionManagement
-//@EnableJpaRepositories(
-//        entityManagerFactoryRef ="entityManagerFactoryEU",
-//        transactionManagerRef = "transactionManagerEU",
-//        basePackages = {"com.tongji.bwm.repository"})
+@Configuration
+@EnableTransactionManagement
+@EnableJpaRepositories(
+        entityManagerFactoryRef ="entityManagerFactoryEU",
+        transactionManagerRef = "transactionManagerEU",
+        basePackages = {"com.tongji.bwm.repository.*"})
+@EntityScan(
+        basePackages = {"com.tongji.bwm.entity.*"}
+)
 public class EUConfig {
 
-//    @Autowired
-//    @Qualifier("euDataSource")
-//    private DataSource euDataSource;
-//
-//    @Autowired
-//    private HibernateProperties hibernateProperties;
-//
-//    @Autowired
-//    private JpaProperties jpaProperties;
-//
-//    @Primary
-//    @Bean(name = "entityManagerEU")
-//    public EntityManager entityManager(EntityManagerFactoryBuilder builder){
-//        return entityManagerFactoryEU(builder).getObject().createEntityManager();
-//    }
-//
-//    @Primary
-//    @Bean(name = "entityManagerFactoryEU")
-//    public LocalContainerEntityManagerFactoryBean entityManagerFactoryEU(EntityManagerFactoryBuilder builder){
-//
-//        Map<String, Object> properties = hibernateProperties.determineHibernateProperties(
-//                jpaProperties.getProperties(),new HibernateSettings()
-//        );
-//        return builder
-//                .dataSource(euDataSource)
-//                .properties(properties)
-//                .packages("com.tongji.bwm.entity.eu")
-//                .persistenceUnit("primaryPersistenceUnit")
-//                .build();
-//    }
-//
-//    @Primary
-//    @Bean(name = "transactionManagerEU")
-//    public PlatformTransactionManager transactionManagerEU(EntityManagerFactoryBuilder builder){
-//        return new JpaTransactionManager(entityManagerFactoryEU(builder).getObject());
-//    }
-//
+    @Autowired
+    @Qualifier("euDataSource")
+    private DataSource euDataSource;
+
+    @Autowired
+    private HibernateProperties hibernateProperties;
+
+    @Autowired
+    private JpaProperties jpaProperties;
+
+    @Primary
+    @Bean(name = "entityManagerEU")
+    public EntityManager entityManager(EntityManagerFactoryBuilder builder){
+        return entityManagerFactoryEU(builder).getObject().createEntityManager();
+    }
+
+    @Primary
+    @Bean(name = "entityManagerFactoryEU")
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryEU(EntityManagerFactoryBuilder builder){
+
+        Map<String, Object> properties = hibernateProperties.determineHibernateProperties(
+                jpaProperties.getProperties(),new HibernateSettings()
+        );
+        return builder
+                .dataSource(euDataSource)
+                .properties(properties)
+                .packages("com.tongji.bwm.entity.eu")
+                .persistenceUnit("primaryPersistenceUnit")
+                .build();
+    }
+
+    @Primary
+    @Bean(name = "transactionManagerEU")
+    public PlatformTransactionManager transactionManagerEU(EntityManagerFactoryBuilder builder){
+        return new JpaTransactionManager(entityManagerFactoryEU(builder).getObject());
+    }
+
 
 
 

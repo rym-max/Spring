@@ -31,7 +31,7 @@ import java.util.concurrent.Future;
 
 @SuppressWarnings("ALL")
 @Slf4j
-@Service
+//@Service
 public class ItemService implements IItemService<String> {
 
     @Autowired

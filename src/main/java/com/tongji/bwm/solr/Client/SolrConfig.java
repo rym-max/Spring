@@ -23,6 +23,8 @@ public class SolrConfig {
 
     private String url;
 
+    private String geurl;
+
     //创建异步任务
 
     private int corePoolSize;
