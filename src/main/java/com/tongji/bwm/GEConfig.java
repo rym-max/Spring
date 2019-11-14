@@ -59,7 +59,7 @@ public class GEConfig {
         return builder
                 .dataSource(geDataSource)
                 .properties(properties)
-                .packages("com.tongji.bwm.entity")
+                .packages("com.tongji.bwm.germany.entity")
                 .persistenceUnit("gePersistenceUnit")
                 .build();
     }

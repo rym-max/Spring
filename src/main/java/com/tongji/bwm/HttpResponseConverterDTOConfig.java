@@ -25,8 +25,8 @@ public class HttpResponseConverterDTOConfig implements WebMvcConfigurer {
         converters.add(metadataSchemaRegistryConverter());
         converters.add(relationMetadataFieldConverter());
         converters.add(administartorConverter());
-        converters.add(itemConverter());
         converters.add(regionConverter());
+        converters.add(allConverter());
         converters.add(spiderItemConverter());
         converters.add(spiderConfigConverter());
     }
@@ -87,15 +87,15 @@ public class HttpResponseConverterDTOConfig implements WebMvcConfigurer {
         return converter;
     }
 
-    private ItemConverter itemConverter(){
-        ItemConverter converter = new ItemConverter();
+    private RegionConverter regionConverter(){
+        RegionConverter converter = new RegionConverter();
         MediaType mediaType = new MediaType(MediaType.APPLICATION_FORM_URLENCODED, Charset.forName("UTF-8"));
         converter.setSupportedMediaTypes(Arrays.asList(mediaType));
         return converter;
     }
 
-    private RegionConverter regionConverter(){
-        RegionConverter converter = new RegionConverter();
+    private AllConverter allConverter(){
+        AllConverter converter = new AllConverter();
         MediaType mediaType = new MediaType(MediaType.APPLICATION_FORM_URLENCODED, Charset.forName("UTF-8"));
         converter.setSupportedMediaTypes(Arrays.asList(mediaType));
         return converter;

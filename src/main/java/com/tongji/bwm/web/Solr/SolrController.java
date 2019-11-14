@@ -1,10 +1,9 @@
 package com.tongji.bwm.web.Solr;
 
 import com.tongji.bwm.filters.CustomException;
-import com.tongji.bwm.service.ERMS.ItemService;
+import com.tongji.bwm.service.ERMS.AllService;
 import com.tongji.bwm.solr.Models.TaskInfo;
 import com.tongji.bwm.solr.Client.SolrIndex;
-import com.tongji.bwm.solr.Models.TaskTypeEnum;
 import com.tongji.bwm.web.Basic.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,7 +21,7 @@ import java.util.Map;
 public class SolrController extends BaseController {
 
     @Autowired
-    private ItemService itemService;
+    private AllService allService;
 
     @Autowired
     private SolrIndex solrIndex;

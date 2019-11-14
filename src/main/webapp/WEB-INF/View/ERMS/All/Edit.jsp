@@ -44,7 +44,18 @@
                                 </select>
                             </div>
                         </div>
-
+                        <c:if test="${!all.isAudit}">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="isGermany">德国相关</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" data-val="true" data-val-required="德国相关 字段是非必需的。" id="IsGermany" name="isGermany">
+                                    <option value="">请选择</option>
+                                    <option value="1" <c:if test="${all.isGermany}">selected</c:if>>是</option>
+                                    <option value="0" <c:if test="${!all.isGermany}">selected</c:if>>否</option>
+                                </select>
+                            </div>
+                        </div>
+                        </c:if>
                         <div class="row">
                             <div class="col-lg-12" id="metadata_field">
                             </div>

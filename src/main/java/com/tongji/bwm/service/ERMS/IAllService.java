@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public interface IAllService<T> {
     T Insert(All all);
@@ -34,12 +35,15 @@ public interface IAllService<T> {
 
     long Count(Example<All> example);
 
-    void InsertToSolr(String serverURL, All[] items, boolean commit) throws DocumentException;
+    Future<String> InsertToSolr(String serverURL, All[] items, boolean commit) throws DocumentException;
 
-    void DeleteToSolr(String serverURL, T id, boolean commit);
+//    void InsertToSolr(String serverURL, All[] items, boolean commit) throws DocumentException;
 
-    void DeleteToSolr(String serverURL, List<T> ids, boolean commit);
 
-    void DeleteAllToSolr(String serverURL, List<T> ids, boolean commit);
+    Future<String> DeleteToSolr(String serverURL, T id, boolean commit);
+
+    Future<String> DeleteToSolr(String serverURL, List<T> ids, boolean commit);
+
+    Future<String> DeleteAllToSolr(String serverURL, boolean commit);
     
 }

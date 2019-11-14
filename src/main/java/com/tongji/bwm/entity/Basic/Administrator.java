@@ -12,6 +12,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
+
 @Data
 @Entity
 @Table(name = "Administrator")

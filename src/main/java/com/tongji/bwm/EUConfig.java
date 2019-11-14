@@ -57,8 +57,8 @@ public class EUConfig {
         return builder
                 .dataSource(euDataSource)
                 .properties(properties)
-                .packages("com.tongji.bwm.entity.eu")
-                .persistenceUnit("primaryPersistenceUnit")
+                .packages("com.tongji.bwm.entity.*")
+                .persistenceUnit("euPersistenceUnit")
                 .build();
     }
 

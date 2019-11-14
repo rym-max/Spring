@@ -16,17 +16,13 @@ import java.util.concurrent.Executor;
 
 @Data
 @Component
-@ConfigurationProperties(prefix = "solrserver.tongjieu")
+@ConfigurationProperties(prefix = "solrserver")
 @Configuration
 @EnableAsync
 public class SolrConfig {
 
-    private String url;
-
-    private String geurl;
-
+    private String defaultUrl;
     //创建异步任务
-
     private int corePoolSize;
     private int maxPoolSize;
     private int queueCapacity;

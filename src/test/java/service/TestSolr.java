@@ -2,9 +2,9 @@ package service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.tongji.bwm.Application;
-import com.tongji.bwm.entity.ERMS.Item;
+import com.tongji.bwm.entity.ERMS.All;
 import com.tongji.bwm.pojo.Pagination;
-import com.tongji.bwm.service.ERMS.ItemService;
+import com.tongji.bwm.service.ERMS.AllService;
 import com.tongji.bwm.solr.Models.Document;
 import com.tongji.bwm.solr.Models.SearchResult;
 import com.tongji.bwm.solr.Client.SolrConfig;
@@ -16,6 +16,7 @@ import javafx.util.Pair;
 import lombok.extern.slf4j.Slf4j;
 import org.dom4j.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
@@ -35,10 +36,10 @@ public class TestSolr extends AbstractTestNGSpringContextTests {
     private SolrConnection solrConnection;
 
     @Autowired
-    private ItemService itemService;
+    private AllService allService;
 
-    @Autowired
-    private SolrConfig solrConfig;
+    @Value("${solrserver.core.tongjieu}")
+    private String solrUrl;
 
     @Test
     public void TestSolrIndex(){
@@ -57,16 +58,16 @@ public class TestSolr extends AbstractTestNGSpringContextTests {
 
     @Test
     public void TestSolrPost(){
-        log.info("先看一眼solr地址===="+solrConfig.getUrl());
-        Pagination<Item> pageList = itemService.GetPageList(FilterEntityUtils.getPageRowCondition(0,2));
-        for(Item i: pageList.getList()){
+        log.info("先看一眼solr地址===="+solrUrl);
+        Pagination<All> pageList = allService.GetPageList(FilterEntityUtils.getPageRowCondition(0,2));
+        for(All i: pageList.getList()){
             log.info("SpiderItem------");
             log.info(i.getId());
             log.info(i.get_field().get("dc.title")[0]);
         }
-        Item[] items = pageList.getList().toArray(new Item[pageList.getList().size()]);
+        All[] items = pageList.getList().toArray(new All[pageList.getList().size()]);
         try {
-            Future<String> future = itemService.InsertSolr(solrConfig.getUrl(),items,true);
+            Future<String> future = allService.InsertToSolr(items,true);
             String result = future.get();
             log.info("结果来着\r\n"+result);
         }catch (DocumentException e){
@@ -82,14 +83,14 @@ public class TestSolr extends AbstractTestNGSpringContextTests {
     @Test
     public void TestSelect(){
 
-        List<Pair<String,String>> parameters = itemService.GetParameters("","",0,0,1,1,10);
+        List<Pair<String,String>> parameters = allService.GetParameters("","",0,0,1,1,10);
 
-        Future<String> future = solrConnection.Get(solrConfig.getUrl(),"/select",parameters);
+        Future<String> future = solrConnection.Get(solrUrl,"/select",parameters);
         try {
             String parseStr = future.get();
             JSONObject jsonObject = JSONObject.parseObject(parseStr);
-            SearchResult<String> searchResult = itemService.GetSearchResult(parseStr);
-            List<Item> items = new ArrayList<>();
+            SearchResult<String> searchResult = allService.GetSearchResult(parseStr);
+            List<All> items = new ArrayList<>();
             for(Document<String> doc:searchResult.getDocs()){
                 log.info("SpiderItem------id------"+doc.getId());
             }
@@ -100,7 +101,7 @@ public class TestSolr extends AbstractTestNGSpringContextTests {
 
     @Test
     public void TestPost(){
-        Future<String> result = solrConnection.Post(solrConfig.getUrl(),"/update",
+        Future<String> result = solrConnection.Post(solrUrl,"/update",
                 "<add commitWithin=\"1000\" overwrite=\"true\">" +
                         "<doc>"+
                         "<field name=\"id\">C8CCCA14-EE38-4A28-8993-0001CF4089D0</field>" +
@@ -140,7 +141,7 @@ public class TestSolr extends AbstractTestNGSpringContextTests {
         ids.add("C8CCCA14-EE38-4A28-8993-0001CF4089D0");
         ids.add("bd129496-0a13-4e1a-b0b7-00035f404d8b");
 
-        Future<String> future = itemService.DeleteToSolr(solrConfig.getUrl(),ids,true);
+        Future<String> future = allService.DeleteToSolr(ids,true);
         try{
             String result = future.get();
             log.info(result);
@@ -156,6 +157,7 @@ public class TestSolr extends AbstractTestNGSpringContextTests {
         Future<String> future = solrIndex.startCreateIndex();
         try {
             String result = future.get();
+            log.info(result);
         }catch (Exception e){
             log.warn("出错了");
             log.warn(e.getMessage());
@@ -169,8 +171,8 @@ public class TestSolr extends AbstractTestNGSpringContextTests {
         Integer pageCount = 0;
         Integer totalnumber= 0;
         while (true){
-            Pagination<Item> pagination = itemService.GetPageList(FilterEntityUtils.getPageRowCondition(page,row));
-            List<Item> list = pagination.getList();
+            Pagination<All> pagination = allService.GetPageList(FilterEntityUtils.getPageRowCondition(page,row));
+            List<All> list = pagination.getList();
 
             log.info("现在页数：" + page);
             if(list.size()==0) {
@@ -194,12 +196,14 @@ public class TestSolr extends AbstractTestNGSpringContextTests {
 
     @Test
     public void TestDeleteAll(){
-        Future<String> response = itemService.DeleteAllToSolr(solrConfig.getUrl(),true);
+        Future<String> response = allService.DeleteAllToSolr(true);
         log.info("返回响应");
         String result = "";
         try {
             result = response.get();
         }catch (Exception e){
+            log.error(e.getCause().toString());
+            log.error(e.getMessage());
             log.warn("出错了");
         }
         log.info(result);
@@ -210,12 +214,12 @@ public class TestSolr extends AbstractTestNGSpringContextTests {
     public void TestPaginationList(){
         int a = 0;
         log.info("每隔25次打印一下");
-        Pagination<Item> pageList = itemService.GetPageList(FilterEntityUtils.getPageRowCondition(0,500));
-        for(Item item: pageList.getList()){
+        Pagination<All> pageList = allService.GetPageList(FilterEntityUtils.getPageRowCondition(0,500));
+        for(All all: pageList.getList()){
             if(a%25 ==0){
                 log.info("第"+a+"次哦！");
                 log.info("看一眼id");
-                log.info(item.getId());
+                log.info(all.getId());
             }
             a++;
 

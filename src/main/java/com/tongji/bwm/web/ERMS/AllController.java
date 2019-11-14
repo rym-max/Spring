@@ -58,9 +58,6 @@ public class AllController extends BaseController {
 
     @Autowired
     private MetadataSchemaRegistryService metadataSchemaRegistryService;
-    
-    @Autowired
-    private SolrConfig solrConfig;
 
     @RequestMapping(value = {"/","/index.html"})
     public ModelAndView index(){
@@ -86,7 +83,7 @@ public class AllController extends BaseController {
         Pagination<All> pageList = null;
         for(int i=0;i<5;i++){
             try {
-                pageList = allService.GetPageList(solrConfig.getUrl(),parameters);
+                pageList = allService.GetPageList(parameters);
                 break;
             }catch (Exception e){
 
@@ -118,17 +115,36 @@ public class AllController extends BaseController {
                 "all",all);
     }
 
-
+    /**
+     *注释用中文
+     * version: 1.0
+     * date: 19/11/12 10:20
+     * author: hzxstarcloud
+     * description:
+     * 打开某条数据的编辑窗口，编辑完成后确定，处理传送来的form-data数据
+     * post form-data 使用 converter+WebMvcConfigurer 强制转换了 这里可修改//TODO
+     * 流程：
+     * 1.判断requestbody数据是否合规 用了@Validated
+     * 2.判断是否有id
+     * 3.判断审核状态
+     * 4.获取元数据字段 转换为相应xml字符串
+     * 5.插入至中德  成功，万事大吉；失败，报错；
+     * 6.插入至中欧  成功，万事大吉；失败，报错；
+     * @params
+     [httpServletRequest, model, bindingResult]
+     * @return java.util.Map<java.lang.String,java.lang.Object>
+    **/
     @RequestMapping(value = {"/edit"})
     @ResponseBody
     public Map<String,Object> edit(HttpServletRequest httpServletRequest,
                                     @Validated @RequestBody All model,
                                     BindingResult bindingResult){
+        //1
         //先验证对象的合法性
         if(bindingResult.hasErrors()){
             throw new CustomValidationException("操作失败！",bindingResult.getFieldErrors());
         }
-
+        //2
         //分两种情况 1.有id 2.无id | 1.isAudit 2.no
         boolean flag = true;//true表示insert;
         All all;
@@ -142,11 +158,11 @@ public class AllController extends BaseController {
         }else {
             all = new All();
         }
-
+        //3
         if(model.getStatus()!=null){
             all.setStatus(model.getStatus());
         }
-
+        //4
         List<MetadataSchemaRegistry> list1 = metadataSchemaRegistryService.GetAll();
         List<RelationMetadataField> list = new ArrayList<>();
 
@@ -173,18 +189,18 @@ public class AllController extends BaseController {
             String metadata = allService.GetMetadataString(list,parameters);
             all.setMetadataValue(metadata);
         }
-
+        //5
         Item item = Item.GetInstanceByAll(all);
         boolean isAudit = false;
         if (item!=null&& all.getIsAudit().equals(false)){
-            isAudit = InsertToGermany(item);
-            all.setIsAudit(isAudit);
-            //不做异常处理，防止卡住
+            isAudit = itemService.InsertToGermany(item);//此处已做完判断
+            all.setIsAudit(isAudit);//只需要确定是否入中德库
         }
 
+        //6
         //插入至solr
         try{
-            allService.InsertToSolr(solrConfig.getUrl(),new All[]{all},true);
+            allService.InsertToSolr(new All[]{all},true);
         }catch (DocumentException e){
             log.info("处理文档出错");
             throw new CustomException("操作失败！","插入Solr发生错误！");
@@ -200,22 +216,6 @@ public class AllController extends BaseController {
 
     }
 
-    private boolean InsertToGermany(Item item) {
-        try {
-            itemService.Insert(item);
-            Future<String> future = itemService.InsertSolr(solrConfig.getGeurl(),new Item[]{item},true);
-            String result = future.get();
-            return true;
-        }catch (DocumentException e){
-            log.warn("插入中德智库过程，文档处理出错");
-            return false;
-        }catch (Exception e){
-            log.warn("访问solr获取结果出错");
-            return false;
-        }
-    }
-
-
     @RequestMapping("/Operation")
     @ResponseBody
     public Map<String,Object> Operation(@RequestParam(value = "ids",defaultValue = "") String ids,
@@ -229,7 +229,7 @@ public class AllController extends BaseController {
             for(int i=0;i<array2.length;i++){
                 String id = array2[i];
                 allService.Delete(id);
-                allService.DeleteToSolr(solrConfig.getUrl(),id,true);
+                allService.DeleteToSolr(id,true);
             }
         }else if(action==1 || action==2){
             String[] array3 = array;
@@ -242,7 +242,7 @@ public class AllController extends BaseController {
                         Item item = Item.GetInstanceByAll(byId);
                         boolean isAudit = false;
                         if(item!=null){
-                           isAudit = InsertToGermany(item);
+                           isAudit = itemService.InsertToGermany(item);
                         }
                         byId.setIsAudit(isAudit);
                     }
@@ -250,7 +250,7 @@ public class AllController extends BaseController {
                     byId.setStatus((action==1)? CommonEnum.AuditStatusEnum.Pass:CommonEnum.AuditStatusEnum.NotPass);
 
                     try {
-                        allService.InsertToSolr(solrConfig.getUrl(), new All[]{byId}, true);
+                        allService.InsertToSolr(new All[]{byId}, true);
                     }catch (DocumentException e){
                         throw new CustomException("操作失败！","插入Solr发生错误！");
                     }
@@ -322,7 +322,7 @@ public class AllController extends BaseController {
     @RequestMapping(value = {"/Delete/{id}"})
     @ResponseBody
     public Map<String,Object> Delete(@PathVariable String id){
-        allService.DeleteToSolr(solrConfig.getUrl(),id,true);
+        allService.DeleteToSolr(id,true);
         allService.Delete(id);
         return Success("操作成功！",null);
     }

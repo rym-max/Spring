@@ -1,13 +1,13 @@
 package com.tongji.bwm.web.Book;
 
+import com.tongji.bwm.entity.ERMS.All;
 import com.tongji.bwm.pojo.Pagination;
 import com.tongji.bwm.entity.Book.Journal;
-import com.tongji.bwm.entity.ERMS.Item;
 import com.tongji.bwm.filters.CustomException;
 import com.tongji.bwm.filters.validation.CustomValidationException;
 import com.tongji.bwm.pojo.FilterCondition.FilterCondition;
 import com.tongji.bwm.service.Book.JournalService;
-import com.tongji.bwm.service.ERMS.ItemService;
+import com.tongji.bwm.service.ERMS.AllService;
 import com.tongji.bwm.solr.Models.ClusterResult;
 import com.tongji.bwm.solr.Client.SolrConfig;
 import com.tongji.bwm.web.Basic.BaseController;
@@ -35,7 +35,7 @@ public class JournalController extends BaseController {
     private JournalService journalService;
 
     @Autowired
-    private ItemService itemService;
+    private AllService allService;
 
     @Autowired
     private SolrConfig solrConfig;
@@ -105,7 +105,7 @@ public class JournalController extends BaseController {
         parameters.add(new Pair<String, String>("facet.mincount", "1"));
         Map<String,List<ClusterResult>> dictionary = new HashMap<>();
         try {
-            Pagination<Item> pageList = itemService.GetPageList(solrConfig.getUrl(), parameters,dictionary);
+            Pagination<All> pageList = allService.GetPageList(parameters,dictionary);
         }catch (Exception e){
             throw new CustomException("操作失败！","Solr查询失败");
         }

@@ -4,13 +4,13 @@ import com.tongji.bwm.pojo.Pagination;
 import com.tongji.bwm.entity.ERMS.All;
 import com.tongji.bwm.filters.CustomException;
 import com.tongji.bwm.service.ERMS.AllService;
-import com.tongji.bwm.service.ERMS.ItemService;
 import com.tongji.bwm.solr.Models.TaskInfo;
 import com.tongji.bwm.solr.Models.TaskTypeEnum;
 import com.tongji.bwm.utils.FilterEntityUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.dom4j.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
@@ -31,8 +31,8 @@ public class SolrIndex {
     @Autowired
     private AllService allService;
     
-    @Autowired
-    private SolrConfig solrConfig;
+    @Value("${solrserver.core.tongjieu}")
+    private String solrUrl;//用不上
 
     private TaskInfo taskInfo = null;
 
@@ -112,6 +112,9 @@ public class SolrIndex {
         int num3 = 0;
         int skipCount = 0;
 
+        //为了调试能够阻塞
+        Future<String> future = new AsyncResult<>("未进入结束");
+        //循环开始
         while(taskInfo.getStatus() ==1){
             Pagination<All> pageList = allService.GetPageList(FilterEntityUtils.getPageRowCondition(num-1,rows));
             log.info("该循环查询到Item数量:    "+pageList.getList().size());
@@ -133,13 +136,13 @@ public class SolrIndex {
                         list.add(all);
                         if (list.size() == 25) {
 //                            log.info("插入25条一次之前");
-                            allService.InsertToSolr(solrConfig.getUrl(), list.toArray(new All[list.size()]), true);
+                            future = allService.InsertToSolr(list.toArray(new All[list.size()]), true);
 //                            log.info("插入25条一次");
                             list.clear();
                         }
                     }
                     if(list.size()>0){
-                        allService.InsertToSolr(solrConfig.getUrl(), list.toArray(new All[list.size()]), true);
+                        future = allService.InsertToSolr(list.toArray(new All[list.size()]), true);
                         log.info("该次循环最后一次成功插入！");
                         list.clear();
                     }
@@ -173,7 +176,7 @@ public class SolrIndex {
         //结束后
         //最好是存储此次log
         log.info("Solr索引创建成功结束！");
-        return new AsyncResult<>("成功结束");
+        return future;
     }
 
     //删除索引

@@ -16,10 +16,13 @@ import com.tongji.bwm.utils.DateFormatterUtils;
 import com.tongji.bwm.utils.FilterEntityUtils;
 import com.tongji.bwm.utils.XmlDocumentUtils;
 import javafx.util.Pair;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +33,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 @SuppressWarnings("ALL")
+@Slf4j
 @Service
 public class AllService implements IAllService<String> {
 
@@ -38,6 +42,10 @@ public class AllService implements IAllService<String> {
 
     @Autowired
     private SolrConnection solrConnection;
+
+    @Setter
+    @Value("${solrserver.core.tongjieu}")
+    private String solrUrl;
 
     @Override
     public String Insert(All all) {
@@ -89,8 +97,9 @@ public class AllService implements IAllService<String> {
         return allRepository.count(example);
     }
 
+    //插入一批
     @Override
-    public void InsertToSolr(String serverURL, All[] items, boolean commit) throws DocumentException {
+    public Future<String> InsertToSolr(String serverURL, All[] items, boolean commit) throws DocumentException{
         StringBuffer xmlStringB = new StringBuffer();
         for(int i=0;i<items.length;i++){
             All all = items[i];
@@ -117,20 +126,44 @@ public class AllService implements IAllService<String> {
                 xmlStringB.toString() +
                 (commit ? "<commit></commit>" : "") +
                 "</add>";
-        solrConnection.Post(serverURL,"/update",xmlString);
+        return solrConnection.Post(serverURL,"/update",xmlString);
     }
 
+    public Future<String> InsertToSolr(All[] items, boolean commit) throws DocumentException{
+        return InsertToSolr(solrUrl,items,commit);
+    }
+
+    public void InsertSolr(String serverURL, All[] items, boolean commit) throws DocumentException {
+        InsertToSolr(serverURL,items,commit);
+    }
+
+    public void InsertSolr(All[] alls,boolean commit) throws DocumentException{
+        InsertToSolr(solrUrl,alls,commit);
+    }
+    //删除单个
     @Override
-    public void DeleteToSolr(String serverURL, String id, boolean commit) {
+    public Future<String> DeleteToSolr(String serverURL, String id, boolean commit) {
         StringBuffer parametersB = new StringBuffer();
         parametersB.append("<add commitWithin=\"1000\" overwrite=\"true\"><delete><query>")
                 .append("id:"+id)
                 .append("</query></delete>" + (commit ? "<commit></commit>" : "") + "</add>");
-        solrConnection.Post(serverURL,"/update", parametersB.toString());
+        return solrConnection.Post(serverURL,"/update", parametersB.toString());
     }
 
+    public Future<String> DeleteToSolr(String id,boolean commit){
+        return DeleteToSolr(solrUrl,id,commit);
+    }
+
+    public void DeleteSolr(String serverURL, String id, boolean commit){
+        DeleteToSolr(serverURL,id,commit);
+    }
+
+    public void DeleteSolr(String id, boolean commit){
+        DeleteToSolr(id,commit);
+    }
+    //删除一批
     @Override
-    public void DeleteToSolr(String serverURL, List<String> ids, boolean commit) {
+    public Future<String> DeleteToSolr(String serverURL, List<String> ids, boolean commit) {
         StringBuffer parameterB = new StringBuffer();
         parameterB.append("<add commitWithin=\"1000\" overwrite=\"true\"><delete><query>");
         int i = 0;
@@ -141,14 +174,41 @@ public class AllService implements IAllService<String> {
             i++;
         }
         parameterB.append("</query></delete>" + (commit ? "<commit></commit>" : "") + "</add>");
-        solrConnection.Post(serverURL,"/update",parameterB.toString());
+        return solrConnection.Post(serverURL,"/update",parameterB.toString());
     }
 
-    @Override
-    public void DeleteAllToSolr(String serverURL, List<String> ids, boolean commit) {
-        String parameters = "<add commitWithin=\"1000\" overwrite=\"true\"><delete><query></query></delete>" + (commit ? "<commit></commit>" : "") + "</add>";
-        solrConnection.Post(serverURL,"/update",parameters);
+    public Future<String> DeleteToSolr(List<String> ids,boolean commit){
+        return DeleteToSolr(solrUrl,ids,commit);
     }
+
+    public void DeleteSolr(String serverURL, List<String> ids, boolean commit){
+        DeleteToSolr(serverURL,ids,commit);
+    }
+
+    public void DeleteSolr(List<String> ids, boolean commit){
+        DeleteToSolr(ids,commit);
+    }
+
+    //删除全部
+    @Override
+    public Future<String> DeleteAllToSolr(String serverURL,boolean commit) {
+        String parameters = "<add commitWithin=\"1000\" overwrite=\"true\"><delete><query>*:*</query></delete>" + (commit ? "<commit></commit>" : "") + "</add>";
+        return solrConnection.Post(serverURL,"/update",parameters);
+    }
+
+    public Future<String> DeleteAllToSolr(boolean commit){
+        return DeleteAllToSolr(solrUrl,commit);
+    }
+
+    public void DeleteAllSolr(String serverURL,boolean commit){
+        DeleteAllToSolr(serverURL,commit);
+    }
+
+    public void DeleteAllSolr(boolean commit){
+        DeleteAllToSolr(solrUrl,commit);
+    }
+
+
 
     @Override
     public Pagination<All> GetPageList(String serverURL, List<Pair<String, String>> parameters) throws InterruptedException, ExecutionException {
@@ -173,6 +233,10 @@ public class AllService implements IAllService<String> {
 //        int page = (searchResult.getStart() +searchResult.getRows())/searchResult.getRows();
 //        return new Pagination<All>(items,searchResult.getNumFound(),page,searchResult.getRows());
         return GetPageList(serverURL,parameters,null);
+    }
+
+    public Pagination<All> GetPageList(List<Pair<String, String>> parameters)throws InterruptedException,ExecutionException{
+        return GetPageList(solrUrl,parameters);
     }
 
     public SearchResult<String> GetSearchResult(String str){
@@ -216,7 +280,7 @@ public class AllService implements IAllService<String> {
                 items.add(all);
             }
         }
-
+        log.info("一点点来！！！");
 
         for(Pair<String,String> param: parameters){
             if(param.getKey().equals("start"))
@@ -224,14 +288,22 @@ public class AllService implements IAllService<String> {
             if(param.getKey().equals("rows"))
                 searchResult.setRows(Integer.parseInt(param.getValue()));
             if(cluster!=null && param.getKey().equals("facet.field")) {
+//                log.info("开始显示cluster内容整合");
                 Map<String, HashMap<String,Integer>> clusterArray = new HashMap<>();
                 String[] array2 = param.getValue().split(",");
+//                log.info("先打印一下array2------"+array2);
+//                log.info("再打印一下json--------"+jsonObject);
+//                log.info("循环准备开始！");
                 for(int j=0;j<array2.length;j++){
+                    log.info("循环第"+j+1+"次");
                     String value = array2[j];
-
+                    log.info("-------------------"+value);
                     List<ClusterResult> clusterResultList = new ArrayList<>();
-                    JSONArray jsonArray = jsonObject.getJSONObject("facet_counts").getJSONObject("facet_field").getJSONArray(value);
-
+                    JSONArray jsonArray = jsonObject.getJSONObject("facet_counts").getJSONObject("facet_fields").getJSONArray(value);
+                    //分几步
+//                    JSONObject json1 = jsonObject.getJSONObject("facet_counts");
+//                    JSONObject json2 = json1.getJSONObject("facet_fields");
+//                    JSONArray jsonArray = json2.getJSONArray(value);
                     for(int i =0;i<jsonArray.size();i++){
                         clusterResultList.add(
                                 new ClusterResult(
@@ -248,6 +320,10 @@ public class AllService implements IAllService<String> {
 
         int page = searchResult.getStart()/searchResult.getRows()+1;
         return new Pagination<All>(items,searchResult.getNumFound(),page,searchResult.getRows());
+    }
+
+    public Pagination<All> GetPageList(List<Pair<String, String>> parameters, Map<String, List<ClusterResult>> cluster) throws InterruptedException,ExecutionException{
+        return GetPageList(solrUrl,parameters,cluster);
     }
 
     public List<Pair<String,String>> GetParameters(String title,

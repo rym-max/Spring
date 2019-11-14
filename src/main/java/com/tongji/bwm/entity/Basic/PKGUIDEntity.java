@@ -15,9 +15,9 @@ import java.util.Date;
 public class PKGUIDEntity{
 
     @Id
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "guid")
     @GeneratedValue(generator = "system-uuid")
-    @Column(name = "Id")
+    @Column(name = "Id",columnDefinition = "uniqueidentifier")
     private String id;
 
 

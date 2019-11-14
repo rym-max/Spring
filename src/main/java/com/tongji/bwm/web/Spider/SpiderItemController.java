@@ -162,7 +162,7 @@ public class SpiderItemController extends BaseController {
             spiderItem.setLastActionTime(new Date());
             spiderItemService.Update(spiderItem);
         }else{
-            throw new CustomException("操作失败！","爬虫手动启动失败，爬虫进入禁用状态，请排查问题后再启动！");
+            throw new CustomException("操作失败！","爬虫手动启动失败，请确认爬虫当前运行状态！");
 
         }
 
