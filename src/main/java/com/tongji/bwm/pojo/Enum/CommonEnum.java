@@ -189,4 +189,48 @@ public class CommonEnum {
         }
     }
 
+
+    public enum DetailPageType{
+        Error("错误",0),Article("文章",1),Journal("期刊",2);
+
+        private String nameCN;
+        private Integer code;
+
+        DetailPageType(String nameCN, Integer code) {
+            this.nameCN = nameCN;
+            this.code = code;
+        }
+
+        public String getNameCN() {
+            return nameCN;
+        }
+
+        public Integer getCode() {
+            return code;
+        }
+    }
+
+    public enum RegionType{
+        All("全部",0),
+        EuUnion("欧盟",1),
+        EuSubArea("欧洲次区域",2),
+        EuUnionMember("成员国",3),
+        EuCountries("其他国家",4);
+
+        private String nameCN;
+        private Integer parentid;
+
+        RegionType(String nameCN, Integer parentid) {
+            this.nameCN = nameCN;
+            this.parentid = parentid;
+        }
+
+        public String getNameCN() {
+            return nameCN;
+        }
+
+        public Integer getParentid() {
+            return parentid;
+        }
+    }
 }

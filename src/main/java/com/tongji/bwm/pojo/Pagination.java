@@ -31,4 +31,5 @@ public class Pagination<T> {
         this.pageCount = pageCount;
         this.list = list;
     }
+
 }
