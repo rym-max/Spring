@@ -7,6 +7,7 @@ import com.tongji.bwm.repository.Book.JournalRepository;
 import com.tongji.bwm.utils.FilterEntityUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
@@ -96,5 +97,10 @@ public class JournalService implements IJournalService<Integer> {
 
         Example<Journal> example = Example.of(journal,matcher);
         return example;
+    }
+
+    @Cacheable(value = "visual",key = "#root.methodName")
+    public Integer journalCountAll(){
+        return Math.toIntExact(journalRepository.count());
     }
 }

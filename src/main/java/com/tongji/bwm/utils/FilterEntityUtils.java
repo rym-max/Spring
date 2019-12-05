@@ -3,10 +3,7 @@ package com.tongji.bwm.utils;
 import com.tongji.bwm.pojo.Pagination;
 import com.tongji.bwm.pojo.FilterCondition.FilterCondition;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -97,6 +94,16 @@ public class FilterEntityUtils {
                 new Long(tPage.getTotalElements()).intValue(),
                 tPage.getNumber(),
                 tPage.getSize()
+        );
+        return pagination;
+    }
+
+    public static <T> Pagination<T> getPagination(Slice<T> slice, Long totalCount){
+        Pagination pagination = new Pagination(
+                slice.getContent(),
+                Math.toIntExact(totalCount),
+                slice.getNumber(),
+                slice.getSize()
         );
         return pagination;
     }

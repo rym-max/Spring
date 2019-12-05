@@ -26,6 +26,7 @@ public class SolrConfig {
     private int corePoolSize;
     private int maxPoolSize;
     private int queueCapacity;
+//    private int keepAliveSeconds;
 
     @Bean
     public Executor solrTaskExecutor(){
@@ -33,6 +34,7 @@ public class SolrConfig {
         executor.setCorePoolSize(corePoolSize);
         executor.setMaxPoolSize(maxPoolSize);
         executor.setQueueCapacity(queueCapacity);
+//        executor.setKeepAliveSeconds(keepAliveSeconds);
         executor.setThreadNamePrefix("Solr请求线程");
         executor.initialize();
         return executor;

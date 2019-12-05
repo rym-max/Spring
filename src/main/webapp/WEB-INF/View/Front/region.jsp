@@ -9,7 +9,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <t:_FrontLayout>
     <jsp:attribute name="scripts">
-        <script src="./Content/js/jquery.pagination.js"></script>
+        <script src="/static/front/js/jquery.pagination.js"></script>
         <script type="text/javascript">
             var vm = avalon.define({
                 $id: "app",
@@ -44,11 +44,12 @@
                 categoryValues: function(name){
                     var checked = false;
                     for(var i=0; i<vm.categorys_ids.length;i++){
-                        if(name == vm.categorys[i]){
+                        if(name == vm.categorys_ids[i]){
                             checked =true;
                             break;
                         }
                     }
+                    return checked ? { value: name, checked: true } : { value: name };
                 },
 
                 on_click:function(href, name,title) {
@@ -94,6 +95,13 @@
                 return value;
             };
 
+            avalon.filters.categorysfilter = function(value){
+                var category_ids = ["新闻媒体","原始文献","智库文章","学术论文"];
+
+                value = category_ids[parseInt(value,10)-1];
+                return value;
+            };
+
             function search(page, init) {
                 var query = "(status:1)";
 
@@ -104,6 +112,8 @@
                     source_ids.push($(this).val());
                 });
                 vm.source_ids = source_ids;
+
+
                 var year_q = "";
                 var years_ids = new Array();
                 $(".cb_year:checked").each(function () {
@@ -111,6 +121,16 @@
                     years_ids.push($(this).val());
                 });
                 vm.years_ids = years_ids;
+
+                var category_q = "";
+                var category_ids = new Array();
+                $(".cb_category:checked").each(function () {
+                    category_q += ((category_q == "" ? "" : " OR ") + "category:\"" + $(this).val() + "\"");
+                    category_ids.push($(this).val());
+                });
+                vm.categorys_ids = category_ids;
+
+
 
                 if (source_q != "") {
                     query += (" AND (" + source_q + ")");
@@ -120,26 +140,42 @@
                     query += (" AND (" + year_q + ")");
                 }
 
+                if (category_q != "") {
+                    query += (" AND (" + category_q + ")");
+                }
+
                 if ($("#search_text").val() != "") {
                     var value = $("#search_text").val();
                     query += " AND (description:\"" + value+"\")";
                 }
+
+
+                var current_path = window.location.pathname
+                console.log(current_path)
+                var path_params = current_path.split("Region")[1];
+                console.log(path_params)
+                var dyna_url = "/Home/Region/dataList"+path_params;
+
+
+
                 $.ajax({
-                    url: "Search",
+                    url: dyna_url,
                     type: "POST",
                     dataType: "JSON",
                     data: "q=" + query + "&page=" + page,
                     success: function (data) {
-
-                        vm.items = data.items;
-                        vm.source = data.cluster["source_filter"];
-                        vm.years = data.cluster["dateissued_filter"];
+                        // console.log(JSON.stringify(data));
+                        vm.items = data.data.items;
+                        // console.log(JSON.stringify(data.cluster));
+                        vm.categorys = data.data.cluster.category;
+                        vm.source = data.data.cluster.source_filter;
+                        vm.years = data.data.cluster.dateissued_filter;
                         if (init) {
                             $.jqPaginator('.pagination',{
-                                totalPages: data.items.pageCount,
-                                totalCounts: data.items.total,
+                                totalPages: data.data.items.pageCount,
+                                totalCounts: data.data.items.total,
                                 visiblePages: 10,
-                                currentPage: data.items.page,
+                                currentPage: data.data.items.page,
                                 onPageChange: function (page, type) {
                                     if (type == "change") {
                                         search(page, false);
@@ -168,7 +204,7 @@
                 <div class="content_boxM clr">
                     <div class="zt_top gry_bg clr">
                         <div class="top_left fl">
-                            <div class="zt_pic"><img src="/static/front/images/category/0101.jpg" alt="" width="225" height="142" /></div>
+                            <div class="zt_pic"><img src="${region.iconPath}" alt="" width="225" height="142" /></div>
                         </div>
                         <div class="top_right fr">
                             <div class="zt_tile" style="position:relative; width:730px;">
@@ -189,10 +225,10 @@
                             <div class="cluster-group">
                                 <div class="list">
                                     <ul>
-                                        <li ms-for="($index,item) in category">
-                                            <tt>{{item.Count}}篇</tt>
-                                            <input type="checkbox" class="cb_source" onclick="search(1, true)" ms-attr="categoryValues(item.name)">
-                                            <span ms-attr="{title:item.name}">{{item.name}}</span>
+                                        <li ms-for="($index,item) in categorys">
+                                            <tt>{{item.count}}篇</tt>
+                                            <input type="checkbox" class="cb_category" onclick="search(1, true)" ms-attr="categoryValues(item.name)">
+                                            <span ms-attr="{title:item.name}">{{item.name | categorysfilter}}</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -206,9 +242,9 @@
                                 <div class="list">
                                     <ul>
                                         <li ms-for="($index,item) in @source">
-                                            <tt>{{item.Count}}篇</tt>
-                                            <input type="checkbox" class="cb_source" onclick="search(1, true)" ms-attr="sourceValues(item.Name)">
-                                            <span ms-attr="{title:item.Name}">{{item.Name=="bmwi.de"?"Bundesministerium für Wirtschaft und Energie":item.Name}}</span>
+                                            <tt>{{item.count}}篇</tt>
+                                            <input type="checkbox" class="cb_source" onclick="search(1, true)" ms-attr="sourceValues(item.name)">
+                                            <span ms-attr="{title:item.name}">{{item.name=="bmwi.de"?"Bundesministerium für Wirtschaft und Energie":item.name}}</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -222,9 +258,9 @@
                                 <div class="list">
                                     <ul>
                                         <li  ms-for="($index,item) in years">
-                                            <tt>{{item.Count}}篇</tt>
+                                            <tt>{{item.count}}篇</tt>
                                             <input type="checkbox" class="cb_year" onclick="search(1, true)" ms-attr="yearValues(item.name)">
-                                            <span>{{item.Name}}年</span>
+                                            <span>{{item.name}}年</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -249,9 +285,9 @@
                         <div class="search-main">
                             <div class="search-result-list search_list search_list_01">
                                 <dl ms-for="($index,item) in items.list">
-                                    <dt><a class="f20" target="_blank" ms-attr="{href: '/Detail/page?id=' + item.id}" ms-html="item.title | description"></a></dt>
+                                    <dt><a class="f20" target="_blank" ms-attr="{href: '/Home/Detail/page?id=' + item.id}" ms-html="item.title | description"></a></dt>
                                     <dd class="text_info">
-                                        <a target="_blank" ms-attr="{href: '/Detail/page?id=' + item.id}" ms-html="item.dcdescription | description"></a>
+                                        <a target="_blank" ms-attr="{href: '/Home/Detail/page?id=' + item.id}" ms-html="item.description | description"></a>
                                     </dd>
                                     <dd class="pabottm">
                                         <span class="from"><b class="type-ico-id"></b><strong>来源：{{item.source}}</strong></span>

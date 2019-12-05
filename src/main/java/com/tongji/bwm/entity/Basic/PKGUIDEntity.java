@@ -16,7 +16,7 @@ public class PKGUIDEntity{
 
     @Id
     @GenericGenerator(name = "system-uuid", strategy = "guid")
-    @GeneratedValue(generator = "system-uuid")
+    @GeneratedValue(generator = "system-uuid" , strategy = GenerationType.AUTO)
     @Column(name = "Id",columnDefinition = "uniqueidentifier")
     private String id;
 

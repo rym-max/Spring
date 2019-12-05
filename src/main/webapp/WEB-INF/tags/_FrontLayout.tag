@@ -19,19 +19,21 @@
     <script src="/static/front/js/layui/layui.js"></script>
     <script src="/static/front/js/avalon/avalon.js"></script>
     <script type="text/javascript" charset="utf-8" src="/static/front/js/common.js"></script><!--下拉框、复选框等-->
-    <style>
-        ul{}
-        ul li{ display:block;position: relative;}
-        ul li:hover{}
-        ul li ul li{height: 55px;background:#fff; width: 100%}
-        /*关键一：将二级菜单设置为display：none;*/
-        ul li ul{position: absolute; display: none; padding: auto}
-        ul li ul li:hover{}
-        /*关键二：在划过二级菜单从属的一级菜单时，设置为display:block;*/
-        ul li:hover ul{display: block;}
-        ul li ul li a{font-size:15px;font-weight: bold;height: 50px;}
-    </style>
+
 </head>
+<style>
+    #navigation {width:5000px}
+    #navigation li{ display:inline-block;white-space: nowrap;float: left;}
+    #navigation div {clear:both}
+    #navigation li:hover{}
+    #navigation li ul li{height: 55px;background:#fff; width: 100%}
+    /*关键一：将二级菜单设置为display：none;*/
+    #navigation li ul{position: absolute; display: none; padding: auto}
+    #navigation li ul li:hover{}
+    /*关键二：在划过二级菜单从属的一级菜单时，设置为display:block;*/
+    #navigation li:hover ul{display: inline-block;z-index: 9999;}
+    #navigation li ul li a{font-size:15px;font-weight: bold;height: 50px;z-index: inherit;}
+</style>
 <body>
 <div class="bg" id="pop_bg" style="display:none;"></div>
 <!--单独覆盖在全局上方的内容1-->
@@ -224,12 +226,12 @@
         </div>
         <!-- logo部分-->
         <div class="content TopMid clr">
-            <div class="logo fl"><img src="/static/front/images/logo.png" alt="" /></div>
+            <div class="logo fl"><img src="/static/front/images/logo_022.png" alt="" /></div>
             <!--登录注册-->
             <div class="fr loginPlate">
                 <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_ARTICLE','ROLE_EDITOR')" var="isAuthorize">
-                <a href="" class="login_pic">后台管理</a>
-                <a href="" class="pl10">退出登录</a>
+                <a href="/Back/index.html" class="login_pic">后台管理</a>
+                <a href="/logout" class="pl10">退出登录</a>
                 </sec:authorize>
                 <c:if test="${!isAuthorize}">
                     <a href="javascript:;" class="login_pic" onclick="login()">登录</a>
@@ -240,42 +242,44 @@
         <div class="content clr">
             <div class="nav fl">
                 <div class="pr">
-                    <ul class="clr">
-                        <li id="navigation_home" class="nav_hover">
+                    <ul class="clr" id="navigation">
+                        <li id="navigation_home">
                             <a href="/">网站首页</a>
                         </li>
                         <li id="navigation_category_1">
-                            <a href="">中国与欧盟</a>
+                            <a href="/Home/Region/1">中国与欧盟</a>
                         </li>
                         <li id="navigation_category_2">
                             <a href="">中国与欧盟次区域</a>
                             <ul>
-                                <li><a href="">中国与中东欧</a></li>
-                                <li><a href="">中国与北欧</a></li>
-                                <li><a href="">中国与南欧</a></li>
-                                <li><a href="">“17+1”</a></li>
+                                <li><a href="/Home/Region/2/1">中国与中东欧</a></li>
+                                <li><a href="/Home/Region/2/2">中国与北欧</a></li>
+                                <li><a href="/Home/Region/2/3">中国与南欧</a></li>
+                                <li><a href="/Home/Region/2/4">“17+1”</a></li>
                             </ul>
                         </li>
                         <li id="navigation_category_3">
                             <a href="">中国与欧盟成员国</a>
                             <ul>
-                                <li><a href="">中国与德国</a></li>
-                                <li><a href="">中国与英国</a></li>
-                                <li><a href="">中国与法国</a></li>
-                                <li><a href="">中国与意大利</a></li>
-                                <li><a href="">中国与西班牙</a></li>
+                                <li><a href="/Home/Region/3/1">中国与德国</a></li>
+                                <li><a href="/Home/Region/3/2">中国与英国</a></li>
+                                <li><a href="/Home/Region/3/3">中国与法国</a></li>
+                                <li><a href="/Home/Region/3/4">中国与意大利</a></li>
+                                <li><a href="/Home/Region/3/5">中国与西班牙</a></li>
                             </ul>
                         </li>
                         <li id="navigation_category_4">
                             <a href="">欧洲其他国家</a>
                             <ul>
-                                <li><a href="">中国与俄罗斯</a></li>
-                                <li><a href="">中国与土耳其</a></li>
-                                <li><a href="">其他</a></li>
+                                <li><a href="/Home/Region/4/1">中国与俄罗斯</a></li>
+                                <li><a href="/Home/Region/4/2">中国与土耳其</a></li>
+                                <li><a href="/Home/Region/4/3">其他</a></li>
                             </ul>
                         </li>
-                        <li id="navigation_website"><a href="/SiteList/index.html">网站列表</a></li>
-                        <li id="navigation_journal"><a href="/JournalList/index.html">期刊列表</a></li>
+                        <li id="navigation_website"><a href="/Home/SiteList">网站列表</a></li>
+                        <li id="navigation_journal"><a href="/Home/JournalList/">期刊列表</a></li>
+                        <li id="navigation_visual"><a href="/Home/Visual/">可视图表</a></li>
+                        <div class="clear"></div>
                     </ul>
                 </div>
             </div>
@@ -284,7 +288,9 @@
     </div>
     <!--顶部内容结束-->
     <!--主体内容开始-->
+    <div>
     <jsp:doBody />
+    </div>
     <!--底部内容部分开始-->
     <div class="footer clr">
         <div class="content pt30 clr">

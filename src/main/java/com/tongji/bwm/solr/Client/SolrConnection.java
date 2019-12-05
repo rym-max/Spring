@@ -82,6 +82,7 @@ public class SolrConnection {
         Future<String> getMessage;
         //构建uri
         String querystring = GetQuery(parameters);
+        log.info(querystring);
         UriComponents uriComponents = UriComponentsBuilder.fromUriString(solrServerURL + relativeUrl + "?" + querystring).build();
         URI uri = uriComponents.toUri();
 

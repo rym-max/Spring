@@ -1,6 +1,12 @@
 {
   "groups": [
     {
+      "name": "eusource.datasource",
+      "type": "javax.sql.DataSource",
+      "sourceType": "com.tongji.bwm.DataSourcesConfig",
+      "sourceMethod": "euDataSource()"
+    },
+    {
       "name": "gesource.datasource",
       "type": "javax.sql.DataSource",
       "sourceType": "com.tongji.bwm.DataSourcesConfig",
@@ -12,7 +18,7 @@
       "sourceType": "com.tongji.bwm.http.HttpPoolProperties"
     },
     {
-      "name": "solrserver.tongjieu",
+      "name": "solrserver",
       "type": "com.tongji.bwm.solr.Client.SolrConfig",
       "sourceType": "com.tongji.bwm.solr.Client.SolrConfig"
     }
@@ -49,27 +55,27 @@
       "sourceType": "com.tongji.bwm.http.HttpPoolProperties"
     },
     {
-      "name": "solrserver.tongjieu.core-pool-size",
+      "name": "solrserver.core-pool-size",
       "type": "java.lang.Integer",
       "sourceType": "com.tongji.bwm.solr.Client.SolrConfig",
       "defaultValue": 0
     },
     {
-      "name": "solrserver.tongjieu.max-pool-size",
-      "type": "java.lang.Integer",
-      "sourceType": "com.tongji.bwm.solr.Client.SolrConfig",
-      "defaultValue": 0
-    },
-    {
-      "name": "solrserver.tongjieu.queue-capacity",
-      "type": "java.lang.Integer",
-      "sourceType": "com.tongji.bwm.solr.Client.SolrConfig",
-      "defaultValue": 0
-    },
-    {
-      "name": "solrserver.tongjieu.url",
+      "name": "solrserver.default-url",
       "type": "java.lang.String",
       "sourceType": "com.tongji.bwm.solr.Client.SolrConfig"
+    },
+    {
+      "name": "solrserver.max-pool-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.tongji.bwm.solr.Client.SolrConfig",
+      "defaultValue": 0
+    },
+    {
+      "name": "solrserver.queue-capacity",
+      "type": "java.lang.Integer",
+      "sourceType": "com.tongji.bwm.solr.Client.SolrConfig",
+      "defaultValue": 0
     }
   ],
   "hints": []

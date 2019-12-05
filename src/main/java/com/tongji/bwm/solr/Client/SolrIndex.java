@@ -1,5 +1,7 @@
 package com.tongji.bwm.solr.Client;
 
+import com.tongji.bwm.pojo.Enum.CommonEnum;
+import com.tongji.bwm.pojo.FilterCondition.FilterCondition;
 import com.tongji.bwm.pojo.Pagination;
 import com.tongji.bwm.entity.ERMS.All;
 import com.tongji.bwm.filters.CustomException;
@@ -11,6 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.dom4j.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
@@ -21,8 +26,24 @@ import java.util.List;
 import java.util.concurrent.Future;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ *注释有中文
+ * version 1.0
+ * date
+ * author hzxcloud
+ * description:
+ * 创建索引服务
+ * 功能 -->实现 -->原理
+ * 1.索引过程可查询 --> 私有成员taskInfo --> Spring Bean 单例模式
+ * 2.索引可创建 --> 根据page 轮询数据库 --> jpa
+ * 3.索引创建异步 --> 使用@Async --> @Async 开启线程
+ * 4.索引创建条件 --> 使用example --> findAll 限制条件 jpa
+ * 理论上一直是这样 为啥做不到
+ *
+**/
 @Slf4j
 @Component
+@Scope(value = "singleton")
 public class SolrIndex {
 
 //    @Autowired
@@ -47,9 +68,9 @@ public class SolrIndex {
     }
 
     public void initTaskInfo(TaskTypeEnum taskTypeEnum){
-        if(taskInfo == null) {
-            taskInfo = new TaskInfo();
-        }
+
+        taskInfo = new TaskInfo();
+
         taskInfo.setTaskType(taskTypeEnum);
         taskInfo.setStartTime(new Date());
         taskInfo.setPercent(0.0);
@@ -87,6 +108,33 @@ public class SolrIndex {
     }
 
 
+    @Async("solrTaskExecutor")
+    public Future<String> startFreshIndex() throws CustomException{
+        //此处全是冗余的判断,没意义，前台与这些返回无关
+        if(taskInfo==null){
+            log.warn("Solr索引创建失败，索引创建信息为空！");
+            throw new CustomException("操作失败！","Solr创建索引失败");
+
+//            return new AsyncResult<>("Solr索引创建失败，索引创建信息为空！");
+        }
+        if(taskInfo.getStatus()==0){
+            log.warn("Solr创建索引任务不存在！");
+            throw new CustomException("操作失败！","初始化创建索引任务失败，请重试！");
+        }
+
+//        All oneInstance = new All();
+//        oneInstance.setStatus(CommonEnum.AuditStatusEnum.NotPass);
+
+//        ExampleMatcher matcher = ExampleMatcher.matching()
+//                .withMatcher("status",ExampleMatcher.GenericPropertyMatchers.exact())
+//                .withIgnorePaths("isAudit","isSolr","isGermany","click","sort")
+//                .withIgnoreCase();
+//
+//        Example<All> example = Example.of(oneInstance,matcher);
+
+        return startIndex(CommonEnum.AuditStatusEnum.NotPass);
+    }
+
 
     @Async("solrTaskExecutor")
     public Future<String> startCreateIndex() throws CustomException {
@@ -101,10 +149,18 @@ public class SolrIndex {
             log.warn("Solr创建索引任务不存在！");
             throw new CustomException("操作失败！","初始化创建索引任务失败，请重试！");
         }
+        log.info("至少让我看到进来了！");
+        return startIndex(null);
+
+    }
 
 
+    public Future<String> startIndex(CommonEnum.AuditStatusEnum status){
+        log.info("进入正式创建索引！");
         //设置初始值
-        taskInfo.setTotalCount(allService.Count(null));
+        taskInfo.setTotalCount(allService.Count(status));
+
+        //count太慢了
         log.info("总文献数量："+taskInfo.getTotalCount());
         int num = 1;
         int rows = 500;
@@ -116,12 +172,13 @@ public class SolrIndex {
         Future<String> future = new AsyncResult<>("未进入结束");
         //循环开始
         while(taskInfo.getStatus() ==1){
-            Pagination<All> pageList = allService.GetPageList(FilterEntityUtils.getPageRowCondition(num-1,rows));
+            log.info("开始本次数据库查询，仔细查看查询时间！");
+            Pagination<All> pageList = allService.GetPageList(status,num-1,rows,taskInfo.getTotalCount());
             log.info("该循环查询到Item数量:    "+pageList.getList().size());
             if(pageList.getList().size()==0){//循环两次测试
-                taskInfo.setCompleteCount(num2);
-                taskInfo.setErrorCount(num3);
-                taskInfo.setSkipCount(skipCount);
+                log.info("Solr索引创建成功结束！");
+                taskInfo.setTotalCount(0L);
+                taskInfo.setPercent(0.0);
                 taskInfo.setStatus(0);
                 taskInfo.setEndTime(new Date());
             }else {
@@ -175,9 +232,11 @@ public class SolrIndex {
         }
         //结束后
         //最好是存储此次log
-        log.info("Solr索引创建成功结束！");
+
         return future;
     }
+
+
 
     //删除索引
     public void DeleteAll(){

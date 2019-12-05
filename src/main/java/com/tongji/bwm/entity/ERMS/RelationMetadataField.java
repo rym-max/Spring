@@ -5,6 +5,8 @@ import com.tongji.bwm.pojo.Enum.CommonEnum;
 import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -70,19 +72,15 @@ public class RelationMetadataField extends PKINTEntity {
     @Size(max = 1024 ,message = "下拉框选项不能超过1024个字符")
     private String options;
 
-    @JoinColumn(name="MetadataFieldId")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="MetadataFieldId",foreignKey = @ForeignKey(name = "none",value = ConstraintMode.NO_CONSTRAINT),updatable = false,insertable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @NotFound(action= NotFoundAction.IGNORE)
     private MetadataFieldRegistry ownerMetaFieldRegistry;
 
-    @Transient
+    @Column(name="MetadataFieldId",nullable = false)
     private Integer metadataFieldId;
 
-    public Integer getMetadataFieldId() {
-        if(ownerMetaFieldRegistry!=null){
-            metadataFieldId=ownerMetaFieldRegistry.getId();
-        }
-        return metadataFieldId;
-    }
+
 
     //    public void refresh(){
 //

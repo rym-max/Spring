@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -22,7 +23,7 @@ import java.util.Map;
  * @date 2019/11/16
  **/
 @Slf4j
-@RequestMapping("/Detail")
+@RequestMapping("/Home/Detail")
 @Controller
 public class DetailController extends BaseController {
 
@@ -34,11 +35,17 @@ public class DetailController extends BaseController {
         //这里用前台做把，方便重定向
 
         All all = allService.GetById(id);
+        log.info("看一眼id:-----"+id);
         String fromRegion = "";
         CommonEnum.DetailPageType page = CommonEnum.DetailPageType.Error;
         if(all!=null) {
+            log.info("该查询detail:channelId-----"+all.getChannelId());
             fromRegion = all.GetValue("dc.region", " ", "");
-            page = CommonEnum.DetailPageType.values()[all.getChannelId()];
+            if(all.getChannelId()>=CommonEnum.DetailPageType.values().length){
+                page = CommonEnum.DetailPageType.Article;
+            }else {
+                page = CommonEnum.DetailPageType.values()[all.getChannelId()];
+            }
         }
 
         ModelMap modelMap = new ModelMap();
@@ -48,11 +55,11 @@ public class DetailController extends BaseController {
         return new ModelAndView("/Front/detail",modelMap);
     }
 
-
+    @ResponseBody
     @RequestMapping("/Item")
     public Map<String,Object> detailItem(@RequestParam(value="id")String id){
 
-        All all = allService.GetById(id);
+        All all = allService.GetById(id.trim().toUpperCase());
         if(all==null){
             log.info("访问详情页id不存在！");
             throw new CustomException("访问错误！","id不存在");

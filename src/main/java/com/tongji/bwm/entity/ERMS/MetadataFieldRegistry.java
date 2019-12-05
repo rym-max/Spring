@@ -3,6 +3,8 @@ package com.tongji.bwm.entity.ERMS;
 import com.tongji.bwm.entity.Basic.PKINTEntity;
 import com.tongji.bwm.pojo.Enum.CommonEnum;
 import lombok.Data;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -67,28 +69,18 @@ public class MetadataFieldRegistry extends PKINTEntity {
     @Size(max = 1024, message = "下拉框选项不能超过1024个字符")
     private String options;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "MetadataSchemaId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MetadataSchemaId",foreignKey = @ForeignKey(name = "none",value = ConstraintMode.NO_CONSTRAINT),updatable = false,insertable = false)
+    @NotFound(action= NotFoundAction.IGNORE)
     private MetadataSchemaRegistry ownerMetadataSchemaRegistry;
 
-    @Transient
+    @Column(name = "MetadataSchemaId",nullable = false)
     private Integer metadataSchemaId;
 
-    public Integer getMetadataSchemaId() {
-        if(ownerMetadataSchemaRegistry!=null){
-            metadataSchemaId=ownerMetadataSchemaRegistry.getId();
-        }
-        return metadataSchemaId;
-    }
 
     public String GetMetadataFieldString(){
         return ((this.ownerMetadataSchemaRegistry == null) ? "dc" : this.ownerMetadataSchemaRegistry.getCode()) + "." + this.element + ((this.qualifier == null || this.qualifier.length()==0) ? "" : ("." + this.qualifier));
     }
 
-//    public void refresh(){
-//
-//        ControlTypeCN = CommonEnum.ControlType.valueofCN(ControlType);
-//        DataTypeCN = CommonEnum.DataType.valueofCN(DataType);
-//
-//    }
+
 }

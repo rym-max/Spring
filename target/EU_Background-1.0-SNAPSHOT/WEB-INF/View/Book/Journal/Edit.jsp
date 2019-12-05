@@ -49,11 +49,11 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="ISSN">国际标准刊号</label>
                             <div class="col-sm-4">
-                                <input class="form-control" data-val="true" data-val-length="字段 国际标准刊号 必须是最大长度为 50 的字符串。" data-val-length-max="50" id="ISSN" name="iSSN" type="text" value="${journal.iSSN}">
+                                <input class="form-control" data-val="true" data-val-length="字段 国际标准刊号 必须是最大长度为 50 的字符串。" data-val-length-max="50" id="ISSN" name="iSSN" type="text" value="${journal.ISSN}">
                             </div>
                             <label class="col-sm-2 control-label" for="GCH">馆藏号</label>
                             <div class="col-sm-4">
-                                <input class="form-control" data-val="true" data-val-length="字段 馆藏号 必须是最大长度为 10 的字符串。" data-val-length-max="10" id="GCH" name="gCH" type="text" value="${journal.gCH}">
+                                <input class="form-control" data-val="true" data-val-length="字段 馆藏号 必须是最大长度为 10 的字符串。" data-val-length-max="10" id="GCH" name="gCH" type="text" value="${journal.GCH}">
                             </div>
                         </div>
 
@@ -115,7 +115,7 @@
                             </div>
                             <label class="col-sm-2 control-label" for="HIndex">H指数</label>
                             <div class="col-sm-2">
-                                <input class="form-control" data-val="true" data-val-number="字段 H指数 必须是一个数字。" data-val-required="H指数 字段是必需的。" id="HIndex" name="hIndex" type="text" value="${journal.hIndex}">
+                                <input class="form-control" data-val="true" data-val-number="字段 H指数 必须是一个数字。" data-val-required="H指数 字段是必需的。" id="HIndex" name="hIndex" type="text" value="${journal.HIndex}">
                             </div>
                         </div>
 

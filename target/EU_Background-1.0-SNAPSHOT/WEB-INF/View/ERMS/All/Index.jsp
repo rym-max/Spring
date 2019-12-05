@@ -270,7 +270,9 @@
                                             <td>{{get_value(row._field,"dc.title")}}</td>
                                             <td>{{row.ownerChannel==null?"":row.ownerChannel.name}}</td>
                                             <td>{{row.ownerCategory==null?"":row.ownerCategory.name}}</td>
-                                            <td>{{row.isGermany==1?"是":"否"}}</td>
+                                            <td>
+                                                <input type="checkbox" name="isGermany" :checked="row.isGermany==1?'checked':false" :disabled="row.isAudit?'disabled':false" />
+                                            </td>
                                             <td>{{row.isSolr==1?"是":"否"}}</td>
                                             <td>{{get_value_split(row._field,"dc.subject",",")}}</td>
                                             <td>{{row.modifyTime}}</td>

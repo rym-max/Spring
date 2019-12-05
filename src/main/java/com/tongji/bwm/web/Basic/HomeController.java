@@ -2,15 +2,18 @@ package com.tongji.bwm.web.Basic;
 
 import com.tongji.bwm.pojo.Enum.CommonEnum;
 import com.tongji.bwm.service.Basic.SimpleCacheService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @Controller
 public class HomeController extends BaseController {
 
@@ -39,20 +42,21 @@ public class HomeController extends BaseController {
         return new ModelAndView("/Home/frontIndex",modelMap);
     }
 
-    @RequestMapping({"/SiteList"})
+    @RequestMapping({"/Home/SiteList"})
     public ModelAndView siteList(){
         return new ModelAndView("/Front/siteList");
     }
 
-    @RequestMapping({"/About"})
+    @RequestMapping({"/Home/About"})
     public ModelAndView about(){
         return new ModelAndView("/Front/about");
     }
 
-
-    @RequestMapping({"/homeList"})
+    @ResponseBody
+    @RequestMapping({"/Home/homeList"})
     public Map<String,Object> homeList(){
         Map<String,Object> map = new HashMap<>();
+        log.info("至少进来了！");
         map.put("pagelist1",simpleCacheService.getHomeItem(CommonEnum.RegionType.All));
         map.put("pagelist2",simpleCacheService.getHomeItem(CommonEnum.RegionType.EuUnion));
         map.put("pagelist3",simpleCacheService.getHomeItem(CommonEnum.RegionType.EuSubArea));

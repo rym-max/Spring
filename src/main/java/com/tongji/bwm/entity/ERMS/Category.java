@@ -46,7 +46,7 @@ public class Category extends PKINTEntity {
     @Column(columnDefinition = "ntext null")
     private String description;//
 
-    @ManyToOne(fetch = FetchType.EAGER,optional = true)
+    @ManyToOne(fetch = FetchType.LAZY,optional = true)
     @JoinColumn(name = "ParentId",foreignKey = @ForeignKey(name = "none",value = ConstraintMode.NO_CONSTRAINT),updatable = false,insertable = false)
     @NotFound(action= NotFoundAction.IGNORE)
     private Category ownerCategory;
@@ -54,20 +54,13 @@ public class Category extends PKINTEntity {
     @Column(name = "ParentId",nullable = false)
     private Integer parentId;
 
-    @JoinColumn(name = "ChannelId",referencedColumnName = "Id",updatable = false,insertable = false)
-    @ManyToOne(fetch = FetchType.EAGER,optional = true)
+    @JoinColumn(name = "ChannelId",foreignKey = @ForeignKey(name = "none",value = ConstraintMode.NO_CONSTRAINT),referencedColumnName = "Id",updatable = false,insertable = false)
+    @ManyToOne(fetch = FetchType.LAZY,optional = true)
+    @NotFound(action= NotFoundAction.IGNORE)
     private Channel ownerChannel;
 
     @Column(name="ChannelId",nullable = false)
     private Integer channelId;
 
-//    public Integer getChannelId() {
-//        if(ownerChannel!=null) {
-//            channelId =  ownerChannel.getId();
-//        }
-//        return channelId;
-//    }
 
-    public Category() {
-    }
 }

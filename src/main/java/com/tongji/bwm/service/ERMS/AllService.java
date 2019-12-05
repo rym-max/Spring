@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.tongji.bwm.entity.ERMS.All;
 import com.tongji.bwm.entity.ERMS.RelationMetadataField;
 import com.tongji.bwm.filters.CustomException;
+import com.tongji.bwm.pojo.Enum.CommonEnum;
 import com.tongji.bwm.pojo.FilterCondition.FilterCondition;
 import com.tongji.bwm.pojo.Pagination;
 import com.tongji.bwm.repository.ERMS.AllRepository;
@@ -23,10 +24,10 @@ import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.concurrent.ExecutionException;
@@ -78,17 +79,51 @@ public class AllService implements IAllService<String> {
         return allRepository.findAll(example);
     }
 
+
+    @Transactional(
+            transactionManager = "transactionManagerEU",
+            readOnly = true
+    )
     @Override
     public Page<All> GetPageList(Example<All> example, Pageable pageable) {
         return allRepository.findAll(example, pageable);
     }
-
+    @Transactional(
+            transactionManager = "transactionManagerEU",
+            readOnly = true
+    )
     public Pagination<All> GetPageList(FilterCondition filterCondition){
         //定义pageable
         Pageable pageable = FilterEntityUtils.getPageable(filterCondition);
         Page<All> page = allRepository.findAll(pageable);
         return FilterEntityUtils.getPagination(page);
     }
+    @Transactional(
+            transactionManager = "transactionManagerEU",
+            readOnly = true
+    )
+    public Pagination<All> GetPageList(FilterCondition filterCondition,Long totalCount){
+        Pageable pageable = FilterEntityUtils.getPageable(filterCondition);
+        Slice<All> slice = allRepository.findAll(pageable);
+        return FilterEntityUtils.getPagination(slice,totalCount);
+    }
+
+    @Transactional(
+            transactionManager = "transactionManagerEU",
+            readOnly = true,
+            isolation = Isolation.READ_UNCOMMITTED
+    )
+    public Pagination<All> GetPageList(CommonEnum.AuditStatusEnum status, int page, int rows, long totalCount){
+        Pageable pageable = PageRequest.of(page,rows);
+        Slice<All> slice;
+        if(status ==null){
+            slice = allRepository.findByIdIsNotNull(pageable);
+        }else {
+            slice = allRepository.findByStatus(status, pageable);
+        }
+        return FilterEntityUtils.getPagination(slice,totalCount);
+    }
+
 
     @Override
     public long Count(Example<All> example) {
@@ -97,30 +132,38 @@ public class AllService implements IAllService<String> {
         return allRepository.count(example);
     }
 
+    public long Count(CommonEnum.AuditStatusEnum status){
+        if(status==null)
+            return allRepository.count();
+        return allRepository.countAllByStatus(status);
+    }
+
     //插入一批
     @Override
     public Future<String> InsertToSolr(String serverURL, All[] items, boolean commit) throws DocumentException{
         StringBuffer xmlStringB = new StringBuffer();
         for(int i=0;i<items.length;i++){
+            log.info("第"+(i+1)+"个item,id："+items[i].getId());
             All all = items[i];
 //            Document document = DocumentHelper.parseText(item.getMetadataValue());
 //            Element root = document.getRootElement();
 
             String metavalue = XmlDocumentUtils.getXmlStringWithoutRoot(all.getMetadataValue(),"doc");
-//            log.info("metavalue前后");
+            log.info("metavalue前后");
             xmlStringB.append("<doc>")
                     .append("<field name=\"id\">" + all.getId() + "</field>")
-                    .append("<field name=\"channel\">" + all.getOwnerChannel().getId() + "</field>")
-                    .append("<field name=\"category\">" + all.getOwnerCategory().getId() + "</field>")
+                    .append("<field name=\"channel\">" + all.getChannelId() + "</field>")
+                    .append("<field name=\"category\">" + all.getCategoryId()+ "</field>")
                     .append("<field name=\"click\">" + all.getClick() + "</field>")
                     .append("<field name=\"sort\">" + all.getSort() + "</field>")
                     .append("<field name=\"status\">" + all.getStatus() + "</field>")
                     .append("<field name=\"isGermany\">" + all.getIsGermany() + "</field>")
-                    .append("<field name=\"isSolr\">" + all.getIsSolr() + "</field>")
+                    .append("<field name=\"issolr\">" + all.getIsSolr() + "</field>")
                     .append("<field name=\"ctime\">" + all.getCreateTime().getTime() + "</field>")
                     .append("<field name=\"mtime\">" + all.getModifyTime().getTime() + "</field>")
                     .append(metavalue)
                     .append("</doc>");
+            log.info("第"+(i+1)+"个item结束");
         }
         String xmlString =  "<add commitWithin=\"1000\" overwrite=\"true\">" +
                 xmlStringB.toString() +
@@ -270,6 +313,7 @@ public class AllService implements IAllService<String> {
     public Pagination<All> GetPageList(String serverURL, List<Pair<String, String>> parameters, Map<String, List<ClusterResult>> cluster) throws InterruptedException,ExecutionException{
         Future<String> future = solrConnection.Get(serverURL,"/select",parameters);
         String parseStr = future.get();
+        log.info(parseStr);
         JSONObject jsonObject = JSONObject.parseObject(parseStr);
         SearchResult<String> searchResult = GetSearchResult(parseStr);
 
@@ -295,9 +339,9 @@ public class AllService implements IAllService<String> {
 //                log.info("再打印一下json--------"+jsonObject);
 //                log.info("循环准备开始！");
                 for(int j=0;j<array2.length;j++){
-                    log.info("循环第"+j+1+"次");
+//                    log.info("循环第"+j+1+"次");
                     String value = array2[j];
-                    log.info("-------------------"+value);
+//                    log.info("-------------------"+value);
                     List<ClusterResult> clusterResultList = new ArrayList<>();
                     JSONArray jsonArray = jsonObject.getJSONObject("facet_counts").getJSONObject("facet_fields").getJSONArray(value);
                     //分几步
@@ -438,6 +482,13 @@ public class AllService implements IAllService<String> {
                                     .append("]]></field>\r\n");
                             //判断是否是日期
                             if(field.getOwnerMetaFieldRegistry().getElement().equals("date")){
+                                //插入完整日期
+                                sbf.append("<field name=\"")
+                                        .append(searchText)
+                                        .append("_date\"><![CDATA[")
+                                        .append(oneText)
+                                        .append("]]></field>\r\n");
+
                                 String year = DateFormatterUtils.GetYear(oneText);
                                 if(!year.isEmpty()){
                                     sbf.append("<field name=\"")

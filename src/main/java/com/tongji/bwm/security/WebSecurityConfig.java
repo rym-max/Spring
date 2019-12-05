@@ -48,6 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/Login.html","/login").permitAll()
+                .antMatchers("/Home/**","/").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/Login.html")
@@ -67,6 +68,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/static/css/**","/static/js/**","/static/font-awesome/**","/static/images/**");
+        web.ignoring().antMatchers("/static/**");
     }
 }

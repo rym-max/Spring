@@ -18,11 +18,18 @@ import java.util.*;
 @Entity
 @Table(name = "ERMS_All")
 @JsonIgnoreProperties(ignoreUnknown = true)
+@NamedEntityGraph(
+        name="All.Graph",
+        attributeNodes = {
+                @NamedAttributeNode("ownerChannel"),
+                @NamedAttributeNode("ownerCategory")
+        }
+        )
 public class All extends PKGUIDEntity {
 
-    private Boolean isGermany=false;
+    private Integer isGermany=0;
 
-    private Boolean isSolr =true;
+    private Integer isSolr =1;
 
     private Boolean isAudit = false;
 
@@ -38,7 +45,7 @@ public class All extends PKGUIDEntity {
     @Enumerated(EnumType.ORDINAL)
     private CommonEnum.AuditStatusEnum status;//审核状态
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ChannelId",foreignKey = @ForeignKey(name = "none",value = ConstraintMode.NO_CONSTRAINT),updatable = false,insertable = false)
     @NotFound(action= NotFoundAction.IGNORE)
     private Channel ownerChannel;//指定外键咋办
@@ -47,7 +54,14 @@ public class All extends PKGUIDEntity {
     private Integer channelId;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CategoryId",foreignKey = @ForeignKey(name = "none",value = ConstraintMode.NO_CONSTRAINT),updatable = false,insertable = false)
+    @JoinColumn(
+            name = "CategoryId",
+            foreignKey = @ForeignKey(
+                    name = "none",
+                    value = ConstraintMode.NO_CONSTRAINT
+            ),
+            updatable = false,insertable = false
+    )
     @NotFound(action = NotFoundAction.IGNORE)
     private Category ownerCategory;
 

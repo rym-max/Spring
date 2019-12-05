@@ -1,5 +1,6 @@
 package com.tongji.bwm.pojo.Enum;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -189,11 +190,13 @@ public class CommonEnum {
         }
     }
 
-
+    @JsonFormat(shape = JsonFormat.Shape.OBJECT)
     public enum DetailPageType{
         Error("错误",0),Article("文章",1),Journal("期刊",2);
 
+
         private String nameCN;
+
         private Integer code;
 
         DetailPageType(String nameCN, Integer code) {

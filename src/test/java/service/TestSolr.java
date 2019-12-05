@@ -155,8 +155,25 @@ public class TestSolr extends AbstractTestNGSpringContextTests {
     public void TestCreateIndex(){
         solrIndex.initTaskInfo(TaskTypeEnum.ADD);
         Future<String> future = solrIndex.startCreateIndex();
+        log.info("get前");
         try {
             String result = future.get();
+            log.info("get后");
+            log.info(result);
+        }catch (Exception e){
+            log.warn("出错了");
+            log.warn(e.getMessage());
+        }
+    }
+
+    @Test
+    public void TestFreshIndex(){
+        solrIndex.initTaskInfo(TaskTypeEnum.ADD);
+        Future<String> future = solrIndex.startFreshIndex();
+        log.info("get前");
+        try {
+            String result = future.get();
+            log.info("get后");
             log.info(result);
         }catch (Exception e){
             log.warn("出错了");
@@ -224,5 +241,36 @@ public class TestSolr extends AbstractTestNGSpringContextTests {
             a++;
 
         }
+    }
+
+    @Test
+    public void TestInsert(){
+        List<All> list = new ArrayList<>();
+        All all1 = allService.GetById("AC081E77-39B7-40E1-8458-0A9689A5B4B2");
+        All all2 = allService.GetById("EBD9CE03-D0BA-466B-B9BD-0A99C4573F2B");
+        All all3 = allService.GetById("5626D952-99D8-442D-9CC4-0ADDC1A7A2C8");
+        All all4 = allService.GetById("18B4F257-2C9E-4BD2-B9DF-0B279A3465FD");
+        All all5 = allService.GetById("6D2B2CFF-17C3-4E27-B1DB-0B340B3D171B");
+        All all6 = allService.GetById("337A5779-694F-477D-8386-0B644DFA948D");
+        All all7 = allService.GetById("3AEB18CF-026C-4130-889F-0BF3F0EF84FE");
+
+        list.add(all1);
+        list.add(all2);
+        list.add(all3);
+        list.add(all4);
+        list.add(all5);
+        list.add(all6);
+        list.add(all7);
+
+        String result ="";
+        try {
+            Future<String> future = allService.InsertToSolr(list.toArray(new All[list.size()]), true);
+            result = future.get();
+        }catch (Exception e){
+            log.error(e.getMessage());
+            log.error("出错了");
+        }
+
+        log.info(result);
     }
 }

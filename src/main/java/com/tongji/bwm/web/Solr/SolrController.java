@@ -4,6 +4,7 @@ import com.tongji.bwm.filters.CustomException;
 import com.tongji.bwm.service.ERMS.AllService;
 import com.tongji.bwm.solr.Models.TaskInfo;
 import com.tongji.bwm.solr.Client.SolrIndex;
+import com.tongji.bwm.solr.Models.TaskTypeEnum;
 import com.tongji.bwm.web.Basic.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -51,7 +52,7 @@ public class SolrController extends BaseController {
     public Map<String,Object> CreateIndex(){
         TaskInfo taskInfo = solrIndex.getTaskInfo();
         if(taskInfo == null || taskInfo.getStatus()==0){
-//            solrIndex.initTaskInfo(TaskTypeEnum.ADD);//此处应只有读操作
+            solrIndex.initTaskInfo(TaskTypeEnum.ADD);
             solrIndex.startCreateIndex();
             return Success("操作成功！",taskInfo);
         }

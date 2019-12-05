@@ -40,10 +40,33 @@ public class Region extends PKINTEntity {
 
     private String solrQueryExpression;
 
+    public String getSolrQueryString(){
+        if(solrQueryExpression!=null && !solrQueryExpression.isEmpty()){
+            String[] result_li = solrQueryExpression.split(";");
+            StringBuffer stringBuffer = new StringBuffer();
+            for(int i=0;i<result_li.length;i++){
+                if(!result_li[i].isEmpty()) {
+                    if (i != 0) stringBuffer.append(" OR ");
+                    stringBuffer.append("(description: \"" + result_li[i] + "\" ");
+                    stringBuffer.append(" OR subject:\"" + result_li[i] + "\" ");
+                    stringBuffer.append(" OR title:\"" + result_li[i] + "\" )");
+                }
+            }
+            return stringBuffer.toString();
+        }else {
+            return "";
+        }
+    }
+    
+    
+    private Boolean isSolrIndex;
+
     @Enumerated(EnumType.ORDINAL)
     private CommonEnum.AvailableEnum status;
 
     private String description;
+
+    private String iconPath;
 
     @Enumerated(EnumType.ORDINAL)
     private CommonEnum.AvailableEnum map;//是否前台显示
