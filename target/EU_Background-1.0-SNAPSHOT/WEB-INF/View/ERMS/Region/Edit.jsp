@@ -40,7 +40,7 @@
                                 <label for="ParentId" class="col-sm-2 control-label">所属区域</label>
                                 <div class="col-sm-10">
                                     <select data-val="true" data-val-number="字段 所属区域 必须是一个数字。" data-val-required="所属区域 字段是必需的。" id="ParentId" name="parentId" class="form-control">
-                                        <option value="">--请选择--</option>
+                                        <option value="0">--请选择--</option>
                                         <option v-for="(row,index) in data" :value="row.id" :selected="row.id==
                                         <c:choose>
                                             <c:when test="${!empty region.ownerRegion}">${region.ownerRegion.id}</c:when>
@@ -63,7 +63,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="SolrQueryExpression">查询表达式</label>
+                            <label class="col-sm-2 control-label" for="SolrQueryExpression">查询表达式<br>(使用英文分号;分隔查询词)</label>
                             <div class="col-sm-10">
                                 <textarea class="form-control" cols="20" id="SolrQueryExpression" name="solrQueryExpression" rows="2">
                                         ${region.solrQueryExpression}

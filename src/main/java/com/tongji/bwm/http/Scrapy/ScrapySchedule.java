@@ -28,11 +28,11 @@ public class ScrapySchedule {
     只做启动处理
      */
 
-    @Scheduled(cron = "0 0 2 * * ?")
+    @Scheduled(cron = "0 53 23 * * ?")
     public void task(){
         //先获取所有 isopen=1
-//        List<SpiderItem> list1 = spiderItemService.findAllIsOpen(CommonEnum.AvailableEnum.Enable);
-        List<SpiderItem> list1 = spiderItemService.findOneTest();
+        List<SpiderItem> list1 = spiderItemService.findAllIsOpen(CommonEnum.AvailableEnum.Enable);
+//        List<SpiderItem> list1 = spiderItemService.findOneTest();
 
         int total = list1.size();
         int skipCount = 0;
@@ -64,7 +64,7 @@ public class ScrapySchedule {
                 errorCount++;
             }
         }
-        log.info("本轮自动爬虫结束，[成功数]:"+successCount+" [失败数]:"+errorCount+" [跳过数]:"+skipCount);
+        log.info("本轮自动爬虫结束，[总数]:"+total+" [成功数]:"+successCount+" [失败数]:"+errorCount+" [跳过数]:"+skipCount);
     }
 
     private String SucessResult(SpiderItem spiderItem){

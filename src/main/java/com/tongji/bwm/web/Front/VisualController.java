@@ -101,7 +101,8 @@ public class VisualController extends BaseController {
         if(facet.equals("source_filter")) {
             sort="count";
             q = facetForSource(q,facet,journal);
-            limit = journalService.journalCountAll();
+            if(journal)
+                limit = journalService.journalCountAll();
 
         }
 

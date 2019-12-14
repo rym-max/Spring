@@ -214,7 +214,7 @@
                     <%--</div>--%>
                     <em class="fl line_s">|</em>
                     <div class="fl ml5">
-                        <form id="searchForm" action="/Index/Search" method="get">
+                        <form id="searchForm" action="/Home/Search/Index" method="get">
                         <input type="hidden" id="search_keywords_q" name="q" />
                         <input type="hidden" id="search_keywords_s" name="s" />
                         </form>
@@ -311,10 +311,6 @@
                 <%--<p><b>邮  箱：</b>tongjidaxue@163.com</p>--%>
                 <p><b>地  址：</b>上海市四平路1239号</p>
                 <p><b>邮  编：</b>200092</p>
-            </div>
-            <div class="footer_right fr">
-                <p class="f24"><img src="//qr.api.cli.im/qr?data=http%253A%252F%252F202.120.162.24%253A8080&level=H&transparent=false&bgcolor=%23ffffff&forecolor=%23000000&blockpixel=12&marginblock=1&logourl=&size=280&kid=cliim&key=0ada3f8c1aa9b2fc0110e2e5ff75b9df" alt="" width="150" height="150" /></p>
-                <p>扫一扫 手机浏览</p>
             </div>
         </div>
         <div class="footbootm mt30">同济大学特色专题智库   同济大学图书馆 版权所有  copyright©2017 all rights reserved</div>

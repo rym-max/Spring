@@ -396,7 +396,7 @@ public class AllService implements IAllService<String> {
                     .append(")");
         }
 
-        if(status>0){
+        if(status>=0){
             sbf.append(sbf.length()==0 ? "" : " AND ");
             sbf.append("(status:")
                     .append(status)

@@ -19,7 +19,7 @@ public interface SpiderLogRepository extends JpaRepository<Spider_Log,Integer> {
                     "GROUP BY ActionUser",
             nativeQuery = true
     )
-    List<Object[]> GetUserCountBySpider(@Param(value = "spider") Integer spiderId,@Param(value = "action") String action);
+    List<Object[]> GetUserCountBySpider(@Param(value = "spider") String spider,@Param(value = "action") String action);
 
     @Query(
             value = "SELECT ActionUser,Count(*) \r\n" +
@@ -28,7 +28,7 @@ public interface SpiderLogRepository extends JpaRepository<Spider_Log,Integer> {
                     "GROUP BY ActionUser",
             nativeQuery = true
     )
-    List<Object[]> GetUserCountBySpider(@Param(value = "spider") Integer spiderId);
+    List<Object[]> GetUserCountBySpider(@Param(value = "spider") String spider);
 
     @Query(
             value = "SELECT TOP (:times) \r\n" +
@@ -38,6 +38,6 @@ public interface SpiderLogRepository extends JpaRepository<Spider_Log,Integer> {
                     "ORDER BY CreateTime DESC",
             nativeQuery = true
     )
-    List<Object[]>  GetBySpider(@Param(value = "spider") Integer Spider ,@Param(value="times")Integer Times);
+    List<Object[]>  GetBySpider(@Param(value = "spider") String spider ,@Param(value="times")Integer Times);
 
 }

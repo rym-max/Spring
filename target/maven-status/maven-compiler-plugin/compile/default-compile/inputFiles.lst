@@ -19,6 +19,7 @@ F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\web\ERMS\RelationMet
 F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\entity\Basic\PKGUIDEntity.java
 F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\security\WebSecurityConfig.java
 F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\entity\Spider\SpiderConfig.java
+F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\http\SimpleTestSchedule.java
 F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\repository\Log\AccessLogRepository.java
 F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\service\ERMS\IMetadataFieldRegistryService.java
 F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\filters\Converter\EnumConverter\AuditStatusEnumConverter.java
@@ -100,6 +101,7 @@ F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\security\CustomAuthe
 F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\web\Front\AreaController.java
 F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\entity\ERMS\Category.java
 F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\web\Book\JournalController.java
+F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\web\Front\SearchController.java
 F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\pojo\FilterCondition\FilterCondition.java
 F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\service\Spider\ISpiderConfigService.java
 F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\filters\Converter\EnumConverter\ObjectTypeConverter.java
@@ -123,8 +125,10 @@ F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\pojo\FrontMetadataFi
 F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\RedisConfig.java
 F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\repository\ERMS\CategoryRepository.java
 F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\service\Basic\IUserService.java
+F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\solr\Client\SolrStatistic.java
 F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\web\ERMS\MetadataFieldRegistryController.java
 F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\repository\ERMS\RegionRepository.java
+F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\solr\Client\SolrSchedule.java
 F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\entity\Basic\PKINTEntity.java
 F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\filters\CustomException.java
 F:\ideaworkplace\EU_Background\src\main\java\com\tongji\bwm\service\ERMS\ICategoryService.java

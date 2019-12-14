@@ -4,10 +4,12 @@ service\FilterConditionTest.class
 service\TestRelationMeta.class
 service\TestCategory.class
 service\TestScrapy.class
+service\TestStatistic.class
 service\TestSpiderItemService.class
 service\TestMetadatFieldRegistry.class
 service\TestJournal.class
 repository\TestCount.class
+service\TestAll.class
 service\TestGermanItem.class
 service\OnlyForTest.class
 service\TestItem.class

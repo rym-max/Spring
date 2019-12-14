@@ -164,31 +164,9 @@ public class AllController extends BaseController {
         }
         //4
         List<MetadataSchemaRegistry> list1 = metadataSchemaRegistryService.GetAll();
-        List<RelationMetadataField> list = new ArrayList<>();
 
-        if(model.getCategoryId()!=null){
-            all.setCategoryId(model.getCategoryId());
-            Category byId = categoryService.GetById(model.getCategoryId());
-            if(byId!=null){
-                list = relationMetadataFieldService.GetList(CommonEnum.CustomMetadataFieldObject.Category,byId.getId(),true);
-                if(list.size()==0&&byId.getParentId()!=null && byId.getParentId()>0){
-                    list = relationMetadataFieldService.GetList(CommonEnum.CustomMetadataFieldObject.Category,byId.getParentId(),true);
-                }
-            }
-        }
-
-        if(model.getChannelId()!=null){
-            all.setChannelId(model.getChannelId());
-            if(list.size()==0){
-                list = relationMetadataFieldService.GetList(CommonEnum.CustomMetadataFieldObject.Channel,model.getChannelId(),true);
-            }
-        }
-
-        if(list.size()>0){
-            Map<String,String[]> parameters = httpServletRequest.getParameterMap();
-            String metadata = allService.GetMetadataString(list,parameters);
-            all.setMetadataValue(metadata);
-        }
+        Map<String,String[]> parameters = httpServletRequest.getParameterMap();
+        refreshMetaValue(model, all, parameters);
         //5
         Item item = Item.GetInstanceByAll(all);
         boolean isAudit = false;
@@ -216,6 +194,33 @@ public class AllController extends BaseController {
 
     }
 
+    private void refreshMetaValue(@RequestBody @Validated All model, All all, Map<String, String[]> parameters) {
+        List<RelationMetadataField> list = new ArrayList<>();
+
+        if(model.getCategoryId()!=null){
+            all.setCategoryId(model.getCategoryId());
+            Category byId = categoryService.GetById(model.getCategoryId());
+            if(byId!=null){
+                list = relationMetadataFieldService.GetList(CommonEnum.CustomMetadataFieldObject.Category,byId.getId(),true);
+                if(list.size()==0&&byId.getParentId()!=null && byId.getParentId()>0){
+                    list = relationMetadataFieldService.GetList(CommonEnum.CustomMetadataFieldObject.Category,byId.getParentId(),true);
+                }
+            }
+        }
+
+        if(model.getChannelId()!=null){
+            all.setChannelId(model.getChannelId());
+            if(list.size()==0){
+                list = relationMetadataFieldService.GetList(CommonEnum.CustomMetadataFieldObject.Channel,model.getChannelId(),true);
+            }
+        }
+
+        if(list.size()>0){
+            String metadata = allService.GetMetadataString(list,parameters);
+            all.setMetadataValue(metadata);
+        }
+    }
+
     @RequestMapping("/Operation")
     @ResponseBody
     public Map<String,Object> Operation(@RequestParam(value = "ids",defaultValue = "") String ids,
@@ -237,6 +242,12 @@ public class AllController extends BaseController {
                 String id2 = array3[j];
                 All byId = allService.GetById(id2);
                 if(byId!=null){
+                    //refresh meta
+                    if(action==1) {
+                        Map<String, String[]> parameters = byId.get_field();
+                        refreshMetaValue(byId, byId, parameters);
+                    }
+
                     //germany
                     if(action==1&&byId.getIsAudit().equals(false)){
                         Item item = Item.GetInstanceByAll(byId);

@@ -80,7 +80,7 @@
                     console.log(result)
                     if (result.success) {
                         console.log("登陆成功");
-                        window.location.href = "Home/index.html";
+                        window.location.href = "Back/index.html";
                     } else {
                         console.log("登陆失败");
                         swal({

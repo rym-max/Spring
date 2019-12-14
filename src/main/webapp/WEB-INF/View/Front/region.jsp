@@ -83,6 +83,7 @@
                     }
                 }
             });
+
             avalon.filters.description = function (value) {
                 var reTag = /<(?:.|\s)*?>/g;
                 value = value.replace(reTag, "");
@@ -204,7 +205,7 @@
                 <div class="content_boxM clr">
                     <div class="zt_top gry_bg clr">
                         <div class="top_left fl">
-                            <div class="zt_pic"><img src="${region.iconPath}" alt="" width="225" height="142" /></div>
+                            <div class="zt_pic"><img src="/static/front/images${region.iconPath}" alt="" width="225" height="142" /></div>
                         </div>
                         <div class="top_right fr">
                             <div class="zt_tile" style="position:relative; width:730px;">

@@ -58,21 +58,21 @@ public class SpiderLogService implements ISpiderLogService<Integer> {
 
     public List<UserCount> GetUserCountBySpider(Integer SpiderId,String action){
 
+        SpiderItem spiderItem = spiderItemService.GetById(SpiderId);
+        String spiderName ="未知";
+        if(spiderItem!=null)
+            spiderName = spiderItem.getName();
+
         List<Object[]> list1 = new ArrayList<>();
         if(action.equals("ALL")){
-            list1 = spiderLogRepository.GetUserCountBySpider(SpiderId);
+            list1 = spiderLogRepository.GetUserCountBySpider(spiderName);
         }else {
-            list1 = spiderLogRepository.GetUserCountBySpider(SpiderId,action);
+            list1 = spiderLogRepository.GetUserCountBySpider(spiderName,action);
         }
 
         List<UserCount> list2 = new ArrayList<>();
         if(list1==null || list1.size()==0)
             return list2;
-
-        SpiderItem spiderItem = spiderItemService.GetById(SpiderId);
-        String spiderName ="未知";
-        if(spiderItem!=null)
-            spiderName = spiderItem.getName();
 
         for(Object[] li: list1){
             list2.add(new UserCount((String)li[0],action,spiderName,(Integer)li[1]));
@@ -82,7 +82,12 @@ public class SpiderLogService implements ISpiderLogService<Integer> {
     }
 
     public List<SpiderResult> GetSpiderResults(Integer SpiderId,Integer Times){
-        List<Object[]> list1 = spiderLogRepository.GetBySpider(SpiderId,Times);
+        SpiderItem spiderItem = spiderItemService.GetById(SpiderId);
+        String spiderName ="未知";
+        if(spiderItem!=null)
+            spiderName = spiderItem.getName();
+
+        List<Object[]> list1 = spiderLogRepository.GetBySpider(spiderName,Times);
 
         List<SpiderResult> list2 = new ArrayList<>();
         list1.forEach(

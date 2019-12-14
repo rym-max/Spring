@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Table(name = "Log_SpiderLog")
 public class Spider_Log extends PKINTEntity {
 
-    private Integer spider;
+    private String spider;
 
     private String actionUser;
 

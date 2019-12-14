@@ -119,6 +119,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         Set<String> cacheNames = new HashSet<>();
         cacheNames.add("home");
         cacheNames.add("visual");
+        cacheNames.add("meta");
         cacheNames.add("timeGroup");
 
 
@@ -126,6 +127,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         Map<String, RedisCacheConfiguration> configMap = new HashMap<>();
         configMap.put("home", config);
         configMap.put("visual", config);
+        configMap.put("meta",config);
         configMap.put("timeGroup", config.entryTtl(Duration.ofHours(1)));
 
         // 使用自定义的缓存配置初始化一个cacheManager

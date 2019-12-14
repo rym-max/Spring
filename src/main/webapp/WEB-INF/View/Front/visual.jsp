@@ -198,10 +198,10 @@
             },
             data:result.index
         };
-        option2["series"]={
+        option2["series"]=[{
             data: result.count,
             type: 'bar'
-        };
+        }];
         myChart2.setOption(option2);
 
         myChart2.hideLoading();
@@ -314,30 +314,30 @@
 
 
     function select1() {
-        if($("input[name='last-days-1']:checked").val() === ""){
-            $("#start-date-tag-1").show();
-            $("#end-date-tag-1").show();
-        }else {
-            $("#start-date-tag-1").hide();
-            $("#end-date-tag-1").hide();
-        }
+    if($("input[name='last-days-1']:checked").val() === ""){
+    $("#start-date-tag-1").show();
+    $("#end-date-tag-1").show();
+    }else {
+    $("#start-date-tag-1").hide();
+    $("#end-date-tag-1").hide();
+    }
     }
 
     function select2() {
-        if($("input[name='last-days-2']:checked").val() === ""){
-            $("#start-date-tag-2").show();
-            $("#end-date-tag-2").show();
-        }else {
-            $("#start-date-tag-2").hide();
-            $("#end-date-tag-2").hide();
-        }
+    if($("input[name='last-days-2']:checked").val() === ""){
+    $("#start-date-tag-2").show();
+    $("#end-date-tag-2").show();
+    }else {
+    $("#start-date-tag-2").hide();
+    $("#end-date-tag-2").hide();
+    }
     }
 
     function initVisual() {
         var current_date = new Date();
-        var end_date = current_date.getFullYear()+"-"+current_date.getMonth()+"-"+current_date.getDay();
+        var end_date = current_date.getFullYear()+"-"+current_date.getMonth()+"-"+ current_date.getDay()<10?"0":"" +current_date.getDay();
         current_date.setTime(current_date.getTime()-30*24*60*60*1000);
-        var start_date = current_date.getFullYear()+"-"+current_date.getMonth()+"-"+current_date.getDay();
+        var start_date = current_date.getFullYear()+"-"+current_date.getMonth()+"-"+ current_date.getDay()<10?"0":"" +current_date.getDay();
 
         $(".start-date").val(start_date);
         $(".end-date").val(end_date);
@@ -348,124 +348,124 @@
     }
     initVisual();
 
-</script>
-    </jsp:attribute>
-    <jsp:body>
-        <!--主体内容开始-->
-        <div>
-            <div class="content clr">
-                <!--当前位置-->
-                <div class="locat">
-                    您现在所在的位置：<a  href="/Home/index.html">网站首页</a> > <a class="current"  href="javascript:;">可视图表</a>
-                </div>
-                <!--折线图 根据关键词-->
-                <div class="content pt20 clr" >
-                    <h1 class="til_h1">
-                        <b>时间趋势图</b>
-                        <sup class="">Time Series Plot</sup>
-                    </h1>
-                    <!--3张-->
-                    <div class="search_list">
-                        <dl style="height: 45px">
-                            <div style="float: left;">
-                                关键词：<input id="chart-query1" value="${hotword}" placeholder="请输入关键词" type="text" >
-                                <button onclick="query1()">搜索</button>
-                                <br>
-                                <div id="empty-query1" style="color: red;" hidden>请输入查询关键词！</div>
-                                <div id="error-query1" style="color: red;" hidden>查询结果失败！</div>
-                            </div>
-                            <div style="float: right">
-                                <input class="chart-radio-1" type="radio" value="7" name="last-days-1" onclick="select1(this)" checked>7天内
-                                <input class="chart-radio-1" type="radio" value="30" name="last-days-1" onclick="select1(this)">30天内
-                                <input class="chart-radio-1" type="radio" value="" name="last-days-1" onclick="select1(this)">自定义
-                                <div id="start-date-tag-1" hidden>
-                                    起始日期：<input id="start-date-1" class="start-date" type="date" value="">
-                                </div>
-                                <div id="end-date-tag-1" hidden>
-                                    结束日期：<input id="end-date-1" class="end-date" type="date" value="">
-                                </div>
-                            </div>
-                        </dl>
-                    </div>
-                    <br>
-                    <br>
-                    <dl>
-                        <div id="chart1" class="chart1" style="height: 400px;width: 100%;"></div>
-                    </dl>
-                </div>
-                <!--柱状图 根据关键词-->
-                <div class="content pt20 clr" >
-                    <h1 class="til_h1">
-                        <b>来源分布图</b>
-                        <sup class="">Source Distribution Plot</sup>
-                    </h1>
-                    <!--3张-->
-                    <div class="search_list">
-                        <dl style="height: 45px">
-                            <div style="float: left;">
-                                关键词：<input id="chart-query2" value="${hotword}" placeholder="请输入关键词" type="text">
-                                <button onclick="query2()">搜索</button>
-                                <br>
-                                <div id="empty-query2" style="color: red;" hidden>请输入查询关键词！</div>
-                                <div id="error-query2" style="color: red;" hidden>查询结果失败！</div>
-                            </div>
-                            <div style="float: right">
-                                <input class="chart-radio-2" type="radio" value="7" name="last-days-2" onclick="select2(this)" checked>7天内
-                                <input class="chart-radio-2" type="radio" value="30" name="last-days-2" onclick="select2(this)">30天内
-                                <input class="chart-radio-2" type="radio" value="" name="last-days-2" onclick="select2(this)">自定义
-                                <div id="start-date-tag-2" hidden>
-                                    起始日期：<input id="start-date-2" class="start-date" type="date" value="">
-                                </div>
-                                <div id="end-date-tag-2" hidden>
-                                    结束日期：<input id="end-date-2" class="end-date" type="date" value="">
-                                </div>
-                            </div>
-                        </dl>
-                    </div>
-                    <br>
-                    <br>
-                    <dl>
-                        <div id="chart2" class="chart2" style="height: 400px;width: 100%;"></div>
-                    </dl>
-                </div>
+    </script>
+</jsp:attribute>
+<jsp:body>
+    <!--主体内容开始-->
+    <div>
+    <div class="content clr">
+    <!--当前位置-->
+    <div class="locat">
+    您现在所在的位置：<a  href="/Home/index.html">网站首页</a> > <a class="current"  href="javascript:;">可视图表</a>
+    </div>
+    <!--折线图 根据关键词-->
+    <div class="content pt20 clr" >
+    <h1 class="til_h1">
+    <b>时间趋势图</b>
+    <sup class="">Time Series Plot</sup>
+    </h1>
+    <!--3张-->
+    <div class="search_list">
+    <dl style="height: 45px">
+    <div style="float: left;">
+    关键词：<input id="chart-query1" value="${hotword}" placeholder="请输入关键词" type="text" >
+    <button onclick="query1()">搜索</button>
+    <br>
+    <div id="empty-query1" style="color: red;" hidden>请输入查询关键词！</div>
+    <div id="error-query1" style="color: red;" hidden>查询结果失败！</div>
+    </div>
+    <div style="float: right">
+    <input class="chart-radio-1" type="radio" value="7" name="last-days-1" onclick="select1(this)" checked>7天内
+    <input class="chart-radio-1" type="radio" value="30" name="last-days-1" onclick="select1(this)">30天内
+    <input class="chart-radio-1" type="radio" value="" name="last-days-1" onclick="select1(this)">自定义
+    <div id="start-date-tag-1" hidden>
+    起始日期：<input id="start-date-1" class="start-date" type="date" value="">
+    </div>
+    <div id="end-date-tag-1" hidden>
+    结束日期：<input id="end-date-1" class="end-date" type="date" value="">
+    </div>
+    </div>
+    </dl>
+    </div>
+    <br>
+    <br>
+    <dl>
+    <div id="chart1" class="chart1" style="height: 400px;width: 100%;"></div>
+    </dl>
+    </div>
+    <!--柱状图 根据关键词-->
+    <div class="content pt20 clr" >
+    <h1 class="til_h1">
+    <b>来源分布图</b>
+    <sup class="">Source Distribution Plot</sup>
+    </h1>
+    <!--3张-->
+    <div class="search_list">
+    <dl style="height: 45px">
+    <div style="float: left;">
+    关键词：<input id="chart-query2" value="${hotword}" placeholder="请输入关键词" type="text">
+    <button onclick="query2()">搜索</button>
+    <br>
+    <div id="empty-query2" style="color: red;" hidden>请输入查询关键词！</div>
+    <div id="error-query2" style="color: red;" hidden>查询结果失败！</div>
+    </div>
+    <div style="float: right">
+    <input class="chart-radio-2" type="radio" value="7" name="last-days-2" onclick="select2(this)" checked>7天内
+    <input class="chart-radio-2" type="radio" value="30" name="last-days-2" onclick="select2(this)">30天内
+    <input class="chart-radio-2" type="radio" value="" name="last-days-2" onclick="select2(this)">自定义
+    <div id="start-date-tag-2" hidden>
+    起始日期：<input id="start-date-2" class="start-date" type="date" value="">
+    </div>
+    <div id="end-date-tag-2" hidden>
+    结束日期：<input id="end-date-2" class="end-date" type="date" value="">
+    </div>
+    </div>
+    </dl>
+    </div>
+    <br>
+    <br>
+    <dl>
+    <div id="chart2" class="chart2" style="height: 400px;width: 100%;"></div>
+    </dl>
+    </div>
 
-                <!--饼图 针对文献 关键词-->
-                <div class="content pt20 clr" >
-                    <h1 class="til_h1">
-                        <b>期刊分布图</b>
-                        <sup class="">Journal Distribution Plot</sup>
-                    </h1>
-                    <div class="search_list">
-                        <dl style="height: 45px">
-                            <div style="float: left;">
-                                关键词：<input id="chart-query3" value="${hotword}" placeholder="请输入关键词" type="text">
-                                <button onclick="query3()">搜索</button>
-                                <br>
-                                <div id="empty-query3" style="color: red;" hidden>请输入查询关键词！</div>
-                                <div id="error-query3" style="color: red;" hidden>查询结果失败！</div>
-                            </div>
-                            <div style="float: right">
-                                <div id="start-date-tag-3">
-                                    起始年份：<input id="start-date-3" class="start-date" type="date" value="">
-                                </div>
-                                <div id="end-date-tag-3">
-                                    结束年份：<input id="end-date-3" class="start-date" type="date" value="">
-                                </div>
-                            </div>
-                        </dl>
-                    </div>
-                    <br>
-                    <br>
-                    <dl>
-                        <div id="chart3" class="chart3" style="height: 400px;width: 100%;"></div>
-                    </dl>
-                </div>
-            </div>
-
-
+    <!--饼图 针对文献 关键词-->
+    <div class="content pt20 clr" >
+    <h1 class="til_h1">
+    <b>期刊分布图</b>
+    <sup class="">Journal Distribution Plot</sup>
+    </h1>
+    <div class="search_list">
+    <dl style="height: 45px">
+    <div style="float: left;">
+    关键词：<input id="chart-query3" value="${hotword}" placeholder="请输入关键词" type="text">
+    <button onclick="query3()">搜索</button>
+    <br>
+    <div id="empty-query3" style="color: red;" hidden>请输入查询关键词！</div>
+    <div id="error-query3" style="color: red;" hidden>查询结果失败！</div>
+    </div>
+    <div style="float: right">
+    <div id="start-date-tag-3">
+    起始年份：<input id="start-date-3" class="start-date" type="date" value="">
+    </div>
+    <div id="end-date-tag-3">
+    结束年份：<input id="end-date-3" class="start-date" type="date" value="">
+    </div>
+    </div>
+    </dl>
+    </div>
+    <br>
+    <br>
+    <dl>
+    <div id="chart3" class="chart3" style="height: 400px;width: 100%;"></div>
+    </dl>
+    </div>
+    </div>
 
 
-        </div>
-    </jsp:body>
+
+
+    </div>
+</jsp:body>
 
 </t:_FrontLayout>

@@ -81,6 +81,7 @@ com\tongji\bwm\service\Spider\SpiderConfigService.class
 com\tongji\bwm\service\Spider\SpiderItemService.class
 com\tongji\bwm\web\Front\DetailController.class
 com\tongji\bwm\entity\Basic\User.class
+com\tongji\bwm\solr\Client\SolrStatistic.class
 com\tongji\bwm\service\ERMS\MetadataSchemaRegistryService.class
 com\tongji\bwm\web\Spider\SpiderItemController.class
 com\tongji\bwm\http\HttpPoolProperties.class
@@ -91,6 +92,7 @@ com\tongji\bwm\entity\Basic\PKGUIDEntity.class
 com\tongji\bwm\entity\ERMS\MetadataFieldRegistry.class
 com\tongji\bwm\http\Scrapy\ScrapySchedule.class
 com\tongji\bwm\service\ERMS\IAchievementService.class
+com\tongji\bwm\web\Front\SearchController$1.class
 com\tongji\bwm\pojo\SimpleItem.class
 com\tongji\bwm\service\Basic\IAdministratorService.class
 com\tongji\bwm\germany\service\ItemService.class
@@ -98,6 +100,7 @@ com\tongji\bwm\service\ERMS\IChannelService.class
 com\tongji\bwm\web\ERMS\CategoryController.class
 com\tongji\bwm\pojo\Enum\Scrapy\ScrapyEnum$ActionEnum.class
 com\tongji\bwm\CustomPhysicalNamingStrategy.class
+com\tongji\bwm\solr\Client\SolrSchedule.class
 com\tongji\bwm\web\Basic\BaseController.class
 com\tongji\bwm\entity\ERMS\Region.class
 com\tongji\bwm\web\Log\SpiderLogController.class
@@ -113,6 +116,7 @@ com\tongji\bwm\pojo\Enum\Scrapy\ScrapyEnum$SpiderType.class
 com\tongji\bwm\service\Basic\UserService.class
 com\tongji\bwm\solr\Models\SearchResult.class
 com\tongji\bwm\service\ERMS\IAllService.class
+com\tongji\bwm\http\SimpleTestSchedule.class
 com\tongji\bwm\filters\validation\CustomValidationException.class
 com\tongji\bwm\service\ERMS\AllService.class
 com\tongji\bwm\repository\ERMS\MetadataFieldRegistryRepository.class
@@ -142,11 +146,13 @@ com\tongji\bwm\filters\Converter\EnumConverter\RoleTypeConverter.class
 com\tongji\bwm\utils\DateFormatterUtils.class
 com\tongji\bwm\service\ERMS\IMetadataFieldRegistryService.class
 com\tongji\bwm\RedisConfig.class
+com\tongji\bwm\web\Front\SearchController.class
 com\tongji\bwm\Application.class
 com\tongji\bwm\filters\Converter\EnumConverter\ScrapyStatusConverter.class
 com\tongji\bwm\filters\Converter\EntityConverter\CategoryConverter.class
 com\tongji\bwm\web\ERMS\AllController.class
 com\tongji\bwm\utils\HtmlUtils.class
+com\tongji\bwm\web\Front\SearchController$2.class
 com\tongji\bwm\entity\Basic\PKINTEntity.class
 com\tongji\bwm\entity\Spider\SpiderItem.class
 com\tongji\bwm\entity\Basic\Administrator.class

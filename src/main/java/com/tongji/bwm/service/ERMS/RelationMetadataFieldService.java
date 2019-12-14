@@ -8,6 +8,7 @@ import com.tongji.bwm.repository.ERMS.RelationMetadataFieldRepository;
 import com.tongji.bwm.utils.FilterEntityUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Sort;
@@ -100,6 +101,7 @@ public class RelationMetadataFieldService implements IRelationMetadataFieldServi
 
     }
 
+    @Cacheable(value = "meta",key="#ObjectType.code+'-'+#RelationObjectId+'-'+#AscSort")
     public List<RelationMetadataField> GetList(CommonEnum.CustomMetadataFieldObject ObjectType, Integer RelationObjectId, boolean AscSort){
         if(AscSort)
             return relationMetadataFieldRepository.findAllByObjectTypeAndRelationObjectIdOrderBySortAsc(ObjectType,RelationObjectId);
